@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="kit.css">
+<style>
+  .stage { width: 1754px; height: 2480px; }
+  .stage::after { inset: 34px; }
+  .pad { inset: 34px; padding: 90px 84px 70px; display: flex; flex-direction: column; }
+  .poster-title { font-size: 150px; font-weight: 700; letter-spacing: 0.28em; text-indent: 0.28em; }
+  .poster-slogan { font-size: 56px; margin-top: 40px; letter-spacing: 0.12em; }
+  .poster-slogan em { font-style: normal; color: var(--cinnabar); }
+  .slider-band { margin: 70px 0 0; display: flex; align-items: center; gap: 30px; }
+  .slider-track { flex: 1; height: 12px; background: linear-gradient(90deg, #8a8174, #b8432c 50%, #3d4b5c); border-radius: 8px; position: relative; }
+  .slider-track .knob { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 44px; height: 44px; border-radius: 50%; background: #fffdf8; border: 6px solid #b8432c; }
+  .slider-ends { font-family: var(--kai); font-size: 34px; white-space: nowrap; }
+  .visual-band { display: flex; align-items: center; justify-content: center; gap: 60px; margin: 56px 0 40px; }
+  .side-label { text-align: center; }
+  .side-label .big { font-size: 130px; font-family: var(--kai); }
+  .side-label .cap { font-size: 26px; color: var(--ink-2); letter-spacing: 0.15em; margin-top: 8px; }
+  .poster-l1 { font-size: 44px; text-align: center; margin-top: 60px; letter-spacing: 0.1em; }
+  .poster-l2 { font-size: 30px; text-align: center; margin-top: 22px; color: var(--ink-2); line-height: 1.8; }
+  .tags { display: flex; justify-content: center; gap: 34px; margin-top: 64px; }
+  .tag3 {
+    border: 2px solid var(--cinnabar); color: var(--cinnabar);
+    font-size: 30px; letter-spacing: 0.2em; padding: 16px 34px; font-family: var(--kai);
+  }
+  .tag3:nth-child(2) { border-color: var(--steel); color: var(--steel); }
+  .poster-foot { margin-top: auto; border-top: 1.5px solid rgba(38,34,28,.3); padding-top: 26px;
+    display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="pad">
+    <div style="text-align: center;">
+      <div class="kicker" style="letter-spacing: 0.6em; text-indent: 0.6em;">从《天工开物》到现代新余钢铁</div>
+      <div class="poster-title kai" style="margin-top: 48px;">开物脉络</div>
+      <div class="poster-slogan kai">一块铁，<em>近四百年</em>。</div>
+    </div>
+
+    <div class="visual-band">
+      <div class="side-label">
+        <div class="big" style="color: var(--ink-2);">古</div>
+        <div class="cap">凤凰山 · 古代铁冶<br>炉型 · 木炭 · 鼓风 · 火候</div>
+      </div>
+      <div style="flex: 1;">
+        <div class="slider-band" style="margin: 0;">
+          <div class="slider-track"><div class="knob"></div></div>
+        </div>
+        <div style="text-align: center; font-family: var(--hei); font-size: 20px; color: var(--ink-3); margin-top: 16px; letter-spacing: 0.3em;">拖 动 时 间 轴</div>
+      </div>
+      <div class="side-label">
+        <div class="big" style="color: var(--steel);">今</div>
+        <div class="cap">新钢 · 现代钢铁<br>高炉 · 转炉 · 连铸 · 轧制</div>
+      </div>
+    </div>
+
+    <div class="poster-l1 kai">炉变了，<span class="cinnabar">造物的问题仍在延续。</span></div>
+    <div class="poster-l2">
+      让工业研学从“看设备”，走向“懂工艺、知文化、见未来”——<br>
+      面向工业研学的古今工艺认知导航系统 · 江西新余
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 46px; margin-top: 78px;">
+      <div class="phone" style="width: 300px;">
+        <div class="notch"></div>
+        <div class="screen"><img src="../shots/03_walk_observe.png" alt="现场观察"></div>
+      </div>
+      <div class="phone" style="width: 300px; margin-top: 46px;">
+        <div class="notch"></div>
+        <div class="screen"><img src="../shots/04_walk_gap.png" alt="断点补充"></div>
+      </div>
+      <div class="phone" style="width: 300px;">
+        <div class="notch"></div>
+        <div class="screen"><img src="../shots/05_spectrum.png" alt="开物谱"></div>
+      </div>
+    </div>
+    <div style="text-align: center; font-family: var(--hei); font-size: 19px; color: var(--ink-3); margin-top: 30px; letter-spacing: 0.25em;">系统实景 · 现场观察 → 补一环 → 我的开物谱</div>
+
+    <div class="tags" style="margin-top: 78px;">
+      <div class="tag3">古今工艺可交互</div>
+      <div class="tag3">工艺断点可感知</div>
+      <div class="tag3">工业研学可衔接</div>
+    </div>
+
+    <div class="poster-foot">
+      <span class="tiny hei">参赛方向：数字智能 · 现场/观察/补一环/开物谱 均为真实运行系统界面</span>
+      <span class="tiny hei">凤凰山古铁冶 · 《天工开物》 · 新余现代钢铁产业链</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

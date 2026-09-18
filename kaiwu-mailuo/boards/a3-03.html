@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="kit.css">
+<style>
+  .journey { display: flex; gap: 0; margin-top: 26px; }
+  .jstep { flex: 1; text-align: center; position: relative; padding: 0 6px; }
+  .jstep + .jstep::before {
+    content: ''; position: absolute; left: -14px; top: 26px; width: 28px; height: 1.5px; background: var(--cinnabar);
+  }
+  .jdot {
+    width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 10px;
+    border: 2px solid var(--steel); color: var(--steel);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--hei); font-size: 20px; background: var(--card);
+  }
+  .jstep.key .jdot { border-color: var(--cinnabar); color: var(--cinnabar); box-shadow: 0 0 0 4px rgba(184,67,44,.12); }
+  .jname { font-size: 20px; font-weight: 700; }
+  .jsub { font-size: 15px; color: var(--ink-3); margin-top: 3px; line-height: 1.45; }
+  .shots { display: grid; grid-template-columns: 300px 1fr; gap: 40px; margin-top: 20px; }
+  .vgroup { display: flex; flex-direction: column; gap: 14px; }
+  .example { display: grid; grid-template-columns: 340px 1fr; gap: 32px; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="pad">
+    <div class="board-head">
+      <div>
+        <div class="kicker">《开物脉络》· 用户旅程与服务设计 · A3-03</div>
+        <div class="h1" style="margin-top: 18px;">从“看见钢厂”，到“看懂钢铁”</div>
+      </div>
+      <div style="text-align:right">
+        <div class="chip steel">现场优先 · 屏幕退后</div>
+        <div class="small hei" style="margin-top: 10px;">固定安全物理路线<br>认知内容动态适配</div>
+      </div>
+    </div>
+
+    <div class="journey">
+      <div class="jstep"><div class="jdot">入</div><div class="jname">进入研学</div><div class="jsub">一块铁，近四百年</div></div>
+      <div class="jstep"><div class="jdot">标</div><div class="jname">选择目标</div><div class="jsub">轻松看 / 想看懂 / 学校研学</div></div>
+      <div class="jstep"><div class="jdot">问</div><div class="jname">造物问题</div><div class="jsub">古今可交互对照</div></div>
+      <div class="jstep key"><div class="jdot">观</div><div class="jname">观察提示</div><div class="jsub">先抬头看真实设备</div></div>
+      <div class="jstep key"><div class="jdot">检</div><div class="jname">轻互动</div><div class="jsub">给系统信号，不是考试</div></div>
+      <div class="jstep key"><div class="jdot">断</div><div class="jname">发现断点</div><div class="jsub">哪条工艺关系没连上</div></div>
+      <div class="jstep key"><div class="jdot">补</div><div class="jname">精准补充</div><div class="jsub">为现在补一环</div></div>
+      <div class="jstep"><div class="jdot">续</div><div class="jname">继续参观</div><div class="jsub">回到真实现场</div></div>
+      <div class="jstep"><div class="jdot">谱</div><div class="jname">开物谱</div><div class="jsub">真实信号，不造假数字</div></div>
+    </div>
+
+    <div class="shots">
+      <div class="vgroup" style="justify-content: space-between;">
+        <div class="phone" style="width: 300px;">
+          <div class="notch"></div>
+          <div class="screen"><img src="../shots/03_walk_observe.png" alt="现场观察"></div>
+        </div>
+        <div class="small hei" style="text-align:center;">① 观察点：屏幕只给一句提示</div>
+      </div>
+      <div class="vgroup" style="justify-content: space-between;">
+        <div class="card accent" style="padding: 18px 26px;">
+          <div class="h3 cinnabar" style="margin-bottom: 8px;">一个真实例子：炼铁 ≠ 炼钢</div>
+          <div class="body-t" style="font-size: 22px;">
+            用户答“高炉出来的就是钢材”→ 系统发现的不是“他喜欢大机器”，
+            而是<b>“炼铁 → 炼钢”这条因果还没连上</b>。于是优先补
+            《为什么高炉出来的还不是钢？》，而不是推送热门设备。
+          </div>
+        </div>
+        <div class="example">
+          <div class="phone" style="width: 340px;">
+            <div class="notch"></div>
+            <div class="screen"><img src="../shots/04_walk_gap.png" alt="断点补充"></div>
+          </div>
+          <div class="vgroup" style="justify-content: space-between;">
+            <div class="card steel" style="padding: 16px 24px;">
+              <div class="h3 steelc" style="margin-bottom: 8px;">Group Mode：同一条路线，不同的认知层级</div>
+              <div class="body-t" style="font-size: 20px;">
+                全班走同一条安全路线；系统只改变<b>看什么重点、怎么解释、做什么任务</b>。
+                初中：先知道 · 高中：核心原理 · 深度组：工艺史与产业分析。
+              </div>
+            </div>
+            <div class="card" style="padding: 16px 24px;">
+              <div class="h3" style="margin-bottom: 8px;">结束不是数字纪念章，是“我的开物谱”</div>
+              <div class="body-t" style="font-size: 20px;">
+                只用四个真实状态：未接触 / 已接触 / 已验证 / 出现过断点。
+                今日理解的关键变化：“炼出来”≠“已经成为可以直接使用的钢材”。
+              </div>
+            </div>
+            <div class="card accent" style="padding: 16px 24px;">
+              <div class="h3 cinnabar" style="margin-bottom: 8px;">为什么不做成“考试”？</div>
+              <div class="body-t" style="font-size: 20px;">
+                现场研学的前提是观察真实设备。轻互动只有一个目的：
+                给系统一个“当前解释是否需要继续”的信号——答错不是扣分，是补一环的开始。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 320px; gap: 36px; margin-top: 6px; align-items: center;">
+      <div>
+        <div class="kicker steel">服务闭环：教师与场馆拿到的是事实，不是形容词</div>
+        <div class="body-t" style="font-size: 21px; margin-top: 12px;">
+          看板回答一个问题：<b>“这次研学，哪条工艺关系断了？”</b>——
+          常见理解断点排行、各观察点首答正确/错误人数、自动生成的返校讨论建议。
+          数据全部来自真实交互信号，可逐条追溯。
+        </div>
+        <div class="small" style="margin-top: 10px;">场馆端用途：依据断点排行优化展陈说明与讲解词 · 教师端用途：返校讨论聚焦共性断点</div>
+      </div>
+      <div class="card" style="padding: 14px;">
+        <img src="../shots/07_teacher.png" style="width: 100%; display: block;" alt="教师端看板">
+        <div class="tiny hei" style="text-align: center; margin-top: 8px;">教师端看板（示例数据）</div>
+      </div>
+    </div>
+
+    <div class="src" style="margin-top: 6px;">
+      <b>依据：</b>2026 年七部门工业旅游政策要求真实生产区域与参观区域隔离——因此物理路线固定，系统只做认知适配；
+      博物馆学习研究表明注意分裂与任务负担显著影响现场学习效果——因此“先观察、后轻互动”。
+      界面为真实运行系统截图（教师端数据为示例数据）。
+    </div>
+
+    <div class="foot">
+      <span class="tiny hei">《开物脉络》——面向工业研学的古今工艺认知导航系统 · 参赛方向：数字智能</span>
+      <span class="tiny hei">A3-03 / 5</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

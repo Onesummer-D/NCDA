@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="kit.css">
+<style>
+  .arch { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 24px; margin-top: 16px; }
+  .arch .col-card { border: 1.5px solid var(--line); background: var(--card); padding: 22px 26px; position: relative; }
+  .arch .col-card + .col-card::before {
+    content: '→'; position: absolute; left: -26px; top: 50%; transform: translate(-50%, -50%);
+    font-size: 30px; color: var(--cinnabar); font-family: var(--hei);
+  }
+  .arch h4 { font-size: 26px; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.05em; }
+  .arch ul { list-style: none; }
+  .arch li { font-size: 19px; line-height: 1.6; color: var(--ink-2); padding-left: 16px; position: relative; margin-bottom: 6px; }
+  .arch li::before { content: '·'; position: absolute; left: 2px; color: var(--cinnabar); }
+  .arch li.sub { padding-left: 30px; font-size: 17px; color: var(--ink-3); }
+  .graph { display: flex; gap: 34px; margin-top: 18px; }
+  .graphbox { flex: 1.25; border: 1.5px solid var(--line); background: var(--card); padding: 24px 28px; }
+  .gnode { display: inline-block; border: 1.5px solid var(--steel); color: var(--steel); font-family: var(--hei); font-size: 17px; padding: 4px 12px; margin: 4px 6px 4px 0; background: var(--paper); }
+  .gnode.anc { border-style: dashed; border-color: var(--ink-3); color: var(--ink-3); }
+  .gnode.hot { border-color: var(--cinnabar); color: var(--cinnabar); }
+  .gedge { color: var(--ink-3); font-family: var(--hei); font-size: 15px; }
+</style>
+<style>
+  .graphbox { padding: 18px 24px; }
+  .arch .col-card { padding: 16px 22px; }
+  .arch li { margin-bottom: 3px; font-size: 18px; }
+  .h1 { font-size: 72px; }
+  .card.accent { padding: 16px 26px; }
+  .card.steel { padding: 14px 26px; }
+  .h3 { font-size: 26px; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="pad">
+    <div class="board-head">
+      <div>
+        <div class="kicker">《开物脉络》· 技术架构与设计立场 · A3-04</div>
+        <div class="h1" style="margin-top: 18px;">为什么它不是又一个 AI 智慧导览</div>
+      </div>
+      <div class="card accent" style="width: 760px; padding: 20px 30px;">
+        <div class="h3 kai cinnabar">我们不以 AI 为创新点。</div>
+        <div class="body-t" style="font-size: 21px; margin-top: 6px;">
+          AI 负责解释；<b>工艺关系决定“解释什么”</b>。
+          智能内核是工艺因果与知识缺口，而非兴趣推荐。
+        </div>
+      </div>
+    </div>
+
+    <div class="graph">
+      <div class="graphbox">
+        <div class="h3" style="margin-bottom: 14px;">核心数据模型：不是“文物”，是关系</div>
+        <div>
+          <span class="gnode hot">CraftQuestion 共同造物问题 ×7</span>
+          <span class="gnode">ProcessNode 工艺节点 ×11</span>
+          <span class="gnode">RelationEdge 古今/工序关系 ×15</span>
+          <span class="gnode">CurriculumLink 课程映射 ×8</span>
+          <span class="gnode">ObservationTask 观察任务 ×5</span>
+          <span class="gnode">KnowledgeSignal 认知信号</span>
+        </div>
+        <div style="margin-top: 18px;" class="small">
+          关系边三型：<b>史料关联 documented_relation / 功能类比 functional_comparison / 设计解释 conceptual_parallel</b>，
+          每条边必须携带 evidence_ids 与置信度——历史关系不为了视觉好看乱连。
+        </div>
+        <div style="margin-top: 14px;">
+          <span class="gnode anc">A3 筑炉冶炼</span><span class="gedge">—功能类比→</span>
+          <span class="gnode">M2 高炉炼铁</span>
+          <span class="gedge" style="margin-left: 16px;">同答“如何获得金属”，非直接技术传承</span>
+        </div>
+      </div>
+      <div class="graphbox" style="flex: 0.85;">
+        <div class="h3" style="margin-bottom: 14px;">Gap Engine：可解释规则，不用黑盒</div>
+        <div class="hei" style="font-size: 19px; line-height: 2; color: var(--ink-2);">
+          推荐得分 = <span class="cinnabar">工艺前置缺口 ×3</span><br>
+          &nbsp;+ 叙事连续 ×1 + 课程相关 ×0.5<br>
+          &nbsp;− 内容重复 ×5 − 认知负担调节<br><br>
+          输出附推荐理由，学生与教师都能看见“为什么推这条”。
+        </div>
+        <div class="tiny" style="margin-top: 12px;">示例：答错“高炉出钢了吗”→ 命中断点 fe_vs_steel → 优先推送《为什么高炉出来的还不是钢？》</div>
+      </div>
+    </div>
+
+    <div class="arch">
+      <div class="col-card">
+        <h4 class="steelc">学生 / 游客 PWA</h4>
+        <ul>
+          <li>React + TypeScript + Vite</li>
+          <li>古今互动 · 现场观察 · 轻任务</li>
+          <li>AI 追问 · 开物谱 · 来源卡</li>
+          <li class="sub">移动浏览器扫码即用</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h4 class="steelc">FastAPI 服务层</h4>
+        <ul>
+          <li>Session / Visit 会话</li>
+          <li>Craft Graph 工艺图谱</li>
+          <li>Gap-aware Engine 缺口感知</li>
+          <li>Evidence RAG 证据问答</li>
+          <li>Analytics 事件聚合</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h4 class="steelc">数据层</h4>
+        <ul>
+          <li>SQLite 关系表 + JSON 内容</li>
+          <li>FTS5 全文检索</li>
+          <li>事件日志 + SQL 聚合</li>
+          <li class="sub">首版不引入 Neo4j——图只有几十个节点，关系设计比图数据库更重要</li>
+        </ul>
+      </div>
+      <div class="col-card">
+        <h4 class="steelc">证据库 / 反馈端</h4>
+        <ul>
+          <li>新余市博物馆 · 市工信局 · 市统计局</li>
+          <li>国家档案局 · 七部门政策</li>
+          <li>《天工开物》（篇目层面引用）</li>
+          <li>教师/场馆看板：断点排行 + 返校建议</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card steel" style="margin-top: 10px; padding: 18px 30px; display: flex; align-items: center; gap: 40px;">
+      <div style="flex: none;">
+        <div class="h3 steelc">工业现场的第一约束</div>
+        <div class="small" style="margin-top: 6px;">安全路线、开放状态、保密区域是硬约束，不是推荐算法的变量</div>
+      </div>
+      <div style="flex: 1; display: flex; align-items: center; gap: 14px; font-family: var(--hei); font-size: 19px;">
+        <span style="border: 1.5px solid var(--steel); padding: 8px 18px; background: var(--paper);">企业批准安全点位</span>
+        <span class="cinnabar">→</span>
+        <span style="border: 1.5px solid var(--steel); padding: 8px 18px; background: var(--paper);">A → B → C → D 固定物理路线</span>
+        <span class="cinnabar">→</span>
+        <span style="border: 1.5px solid var(--cinnabar); padding: 8px 18px; color: var(--cinnabar);">每个点的解释内容自适应</span>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 18px; margin-top: 12px; align-items: center;">
+      <span class="chip gray">演示版明确不做</span>
+      <span class="small hei">数字人 · 复杂 CV · 自研大模型 · Neo4j/GNN · 深度知识追踪 · 强化学习路线规划 · 完整数字孪生 · 商城社区 —— 均列为“未来扩展”，不在比赛中伪装完成</span>
+    </div>
+
+    <div class="foot">
+      <span class="tiny hei">《开物脉络》——面向工业研学的古今工艺认知导航系统 · 参赛方向：数字智能 · 技术原则：证据约束，算法克制</span>
+      <span class="tiny hei">A3-04 / 5</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

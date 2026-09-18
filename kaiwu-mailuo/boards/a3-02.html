@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="kit.css">
+<style>
+  .grid { display: grid; grid-template-columns: 1210px 1fr; gap: 56px; height: 100%; }
+  .qrow { margin-bottom: 22px; }
+  .slider-band {
+    margin: 6px 0 26px;
+    display: flex; align-items: center; gap: 26px;
+  }
+  .slider-track { flex: 1; height: 10px; background: linear-gradient(90deg, #8a8174, #b8432c 50%, #3d4b5c); border-radius: 6px; position: relative; }
+  .slider-track .knob { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 50%; background: #fffdf8; border: 5px solid #b8432c; }
+  .slider-ends { font-family: var(--kai); font-size: 26px; white-space: nowrap; }
+  .note-band { margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="pad">
+    <div class="board-head">
+      <div>
+        <div class="kicker">《开物脉络》· 核心交互 · A3-02</div>
+        <div class="h1 kai" style="margin-top: 18px;">一块铁，近四百年。</div>
+        <div class="h2" style="margin-top: 10px; color: var(--ink-2);">同一道造物题，古今不同解。</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="chip fill">主界面：时间滑块</div>
+        <div class="small hei" style="margin-top: 12px;">明代 · 凤凰山 ←拖动→ 今天 · 新钢</div>
+      </div>
+    </div>
+
+    <div class="slider-band" style="margin-top: 34px;">
+      <span class="slider-ends">明代 · 凤凰山</span>
+      <div class="slider-track"><div class="knob"></div></div>
+      <span class="slider-ends">今天 · 新钢</span>
+    </div>
+
+    <div class="grid" style="height: auto;">
+      <!-- 左：四个共同造物问题 -->
+      <div>
+        <!-- Q1 -->
+        <div class="qrow duel">
+          <div class="side-ancient">
+            <div class="side-tag">古人怎样做</div>
+            <div class="duel-a">入山取矿，识石选料——含铁量不足的矿石，炼不出好铁。</div>
+          </div>
+          <div class="duel-mid"><span class="arrow">⇄</span>拖动</div>
+          <div class="side-modern">
+            <div class="side-tag">今天怎样做</div>
+            <div class="duel-a">地质勘探—规模采选—精准配料，原料端就开始精确控制。</div>
+          </div>
+        </div>
+        <div style="margin: -6px 0 20px;"><span class="duel-q"><span class="qno">造物 · 取材</span>材从哪里来？</span></div>
+
+        <!-- Q2 -->
+        <div class="qrow duel">
+          <div class="side-ancient">
+            <div class="side-tag">古人怎样做</div>
+            <div class="duel-a">炉型、木炭、鼓风与火候经验——炉色火苗都是“数据”。</div>
+          </div>
+          <div class="duel-mid"><span class="arrow">⇄</span>拖动</div>
+          <div class="side-modern">
+            <div class="side-tag">今天怎样做</div>
+            <div class="duel-a">高炉热风、炉料体系与自动检测控制——经验变成集控数据。</div>
+          </div>
+        </div>
+        <div style="margin: -6px 0 20px;"><span class="duel-q"><span class="qno">造物 · 控火</span>如何获得并控制冶炼的热与反应？</span></div>
+
+        <!-- Q3 -->
+        <div class="qrow duel">
+          <div class="side-ancient">
+            <div class="side-tag">古人怎样做</div>
+            <div class="duel-a">铸模浇铸、锻打成器——千锤百炼，一个动作兼管成形与提纯。</div>
+          </div>
+          <div class="duel-mid"><span class="arrow">⇄</span>拖动</div>
+          <div class="side-modern">
+            <div class="side-tag">今天怎样做</div>
+            <div class="duel-a">转炉降碳去杂、连铸成坯、轧制成材——“炼出来”只是中间态。</div>
+          </div>
+        </div>
+        <div style="margin: -6px 0 20px;"><span class="duel-q"><span class="qno">造物 · 成形</span>如何让材成为器？</span></div>
+
+        <!-- Q4 -->
+        <div class="qrow duel">
+          <div class="side-ancient">
+            <div class="side-tag">古人怎样做</div>
+            <div class="duel-a">工匠经验与用途适配——农具、锅具、兵器，打法各不相同。</div>
+          </div>
+          <div class="duel-mid"><span class="arrow">⇄</span>拖动</div>
+          <div class="side-modern">
+            <div class="side-tag">今天怎样做</div>
+            <div class="duel-a">成分—组织—性能设计，精深加工与新材料研发。</div>
+          </div>
+        </div>
+        <div style="margin: -6px 0 0;"><span class="duel-q"><span class="qno">造物 · 控性</span>如何让器更好用？</span></div>
+      </div>
+
+      <!-- 右：手机界面 + 交互说明 -->
+      <div style="display: flex; flex-direction: column; gap: 20px; align-items: center; justify-content: center;">
+        <div class="phone" style="width: 330px;">
+          <div class="notch"></div>
+          <div class="screen"><img src="../shots/02b_craft_modern.png" alt="现代侧界面"></div>
+        </div>
+        <div class="card" style="width: 100%; padding: 18px 22px;">
+          <div class="h3" style="font-size: 22px; margin-bottom: 8px;">交互机制</div>
+          <div class="small" style="font-size: 17px; line-height: 1.7;">
+            ① 拖动时间轴，场景在两个时代间过渡<br>
+            ② 页面下方始终保留“当前解决的问题”<br>
+            ③ 三个入口：古人怎样做 / 今天怎样做 / 为什么变了
+          </div>
+        </div>
+        <div class="small hei" style="text-align: center;">图：控火问 · 今天侧（真实运行界面）</div>
+      </div>
+    </div>
+
+    <div class="card accent" style="margin-top: 30px; padding: 22px 32px;">
+      <span class="h3 kai cinnabar">为什么这不是“左边古代、右边现代”的对比展？</span>
+      <span class="body-t" style="margin-left: 20px;">
+        新钢历史陈列馆已把《天工开物》冶铁场景与现代钢厂放在一起。我们不重复“展示古今”，
+        而是让用户围绕共同造物问题，比较<b>不同历史条件下的解法为什么变化</b>——
+        滑动换的不是图片，是同一道题的答案。</span>
+      <div class="src" style="margin-top: 12px;">依据边界：古今对照均标注 <b>史料关联 / 功能类比 / 设计解释</b> 三类，不将“共同解决类似问题”表述为“直接技术传承”。宋应星与凤凰山遗址之关系沿用新余市博物馆谨慎表述（“应是……资料来源地之一”）。</div>
+    </div>
+
+    <div class="foot">
+      <span class="tiny hei">《开物脉络》——面向工业研学的古今工艺认知导航系统 · 参赛方向：数字智能</span>
+      <span class="tiny hei">A3-02 / 5 · 地域基底：凤凰山古铁冶 · 《天工开物》 · 新余现代钢铁产业链</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

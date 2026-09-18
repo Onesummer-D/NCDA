@@ -1,0 +1,1186 @@
+[
+  {
+    "name": "airbnb",
+    "path": "design-md/airbnb",
+    "sha": "97ff0d89ad44907248df32f145d2b483782c5db1",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/airbnb?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/airbnb",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/97ff0d89ad44907248df32f145d2b483782c5db1",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/airbnb?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/97ff0d89ad44907248df32f145d2b483782c5db1",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/airbnb"
+    }
+  },
+  {
+    "name": "airtable",
+    "path": "design-md/airtable",
+    "sha": "5629f2a43cccf7007b15ed76ee68e866789e93df",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/airtable?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/airtable",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/5629f2a43cccf7007b15ed76ee68e866789e93df",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/airtable?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/5629f2a43cccf7007b15ed76ee68e866789e93df",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/airtable"
+    }
+  },
+  {
+    "name": "apple",
+    "path": "design-md/apple",
+    "sha": "96ed920ec7ee71d56d6b545dc02d4d92b182aac2",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/apple?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/apple",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/96ed920ec7ee71d56d6b545dc02d4d92b182aac2",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/apple?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/96ed920ec7ee71d56d6b545dc02d4d92b182aac2",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/apple"
+    }
+  },
+  {
+    "name": "binance",
+    "path": "design-md/binance",
+    "sha": "b8a08fe34ce01b06d61b75fc54a2fbb8d95d124b",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/binance?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/binance",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b8a08fe34ce01b06d61b75fc54a2fbb8d95d124b",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/binance?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b8a08fe34ce01b06d61b75fc54a2fbb8d95d124b",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/binance"
+    }
+  },
+  {
+    "name": "bmw-m",
+    "path": "design-md/bmw-m",
+    "sha": "bfc327970320e7275dc0e636bf53edf72b95590c",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/bmw-m?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bmw-m",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/bfc327970320e7275dc0e636bf53edf72b95590c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/bmw-m?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/bfc327970320e7275dc0e636bf53edf72b95590c",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bmw-m"
+    }
+  },
+  {
+    "name": "bmw",
+    "path": "design-md/bmw",
+    "sha": "f1ebaf336da22dc746281201aeee185ee22d7d6d",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/bmw?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bmw",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f1ebaf336da22dc746281201aeee185ee22d7d6d",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/bmw?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f1ebaf336da22dc746281201aeee185ee22d7d6d",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bmw"
+    }
+  },
+  {
+    "name": "bugatti",
+    "path": "design-md/bugatti",
+    "sha": "0f9901624a5656b318fc1388f8f951f06b680526",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/bugatti?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bugatti",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/0f9901624a5656b318fc1388f8f951f06b680526",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/bugatti?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/0f9901624a5656b318fc1388f8f951f06b680526",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/bugatti"
+    }
+  },
+  {
+    "name": "cal",
+    "path": "design-md/cal",
+    "sha": "6970fcbdef00e2d105c46008b6c5952e0ddeed42",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/cal?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cal",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/6970fcbdef00e2d105c46008b6c5952e0ddeed42",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/cal?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/6970fcbdef00e2d105c46008b6c5952e0ddeed42",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cal"
+    }
+  },
+  {
+    "name": "claude",
+    "path": "design-md/claude",
+    "sha": "a2b3a42273342d7e5a0c7f424181af719a5cf628",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/claude?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/claude",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/a2b3a42273342d7e5a0c7f424181af719a5cf628",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/claude?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/a2b3a42273342d7e5a0c7f424181af719a5cf628",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/claude"
+    }
+  },
+  {
+    "name": "clay",
+    "path": "design-md/clay",
+    "sha": "33bb0b35fdbe5ec85de3d81ac656bdfca9e86f06",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/clay?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/clay",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/33bb0b35fdbe5ec85de3d81ac656bdfca9e86f06",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/clay?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/33bb0b35fdbe5ec85de3d81ac656bdfca9e86f06",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/clay"
+    }
+  },
+  {
+    "name": "clickhouse",
+    "path": "design-md/clickhouse",
+    "sha": "59616725039fd90d39d59c295f061e56a28961c4",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/clickhouse?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/clickhouse",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/59616725039fd90d39d59c295f061e56a28961c4",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/clickhouse?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/59616725039fd90d39d59c295f061e56a28961c4",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/clickhouse"
+    }
+  },
+  {
+    "name": "cohere",
+    "path": "design-md/cohere",
+    "sha": "7d932eedef1186870c71028c17ac9618143d8156",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/cohere?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cohere",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/7d932eedef1186870c71028c17ac9618143d8156",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/cohere?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/7d932eedef1186870c71028c17ac9618143d8156",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cohere"
+    }
+  },
+  {
+    "name": "coinbase",
+    "path": "design-md/coinbase",
+    "sha": "908591a2e3614e70b0b7c90634f9749562f16604",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/coinbase?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/coinbase",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/908591a2e3614e70b0b7c90634f9749562f16604",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/coinbase?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/908591a2e3614e70b0b7c90634f9749562f16604",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/coinbase"
+    }
+  },
+  {
+    "name": "composio",
+    "path": "design-md/composio",
+    "sha": "079376189dd2a8d80135778bc056298e69de76f8",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/composio?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/composio",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/079376189dd2a8d80135778bc056298e69de76f8",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/composio?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/079376189dd2a8d80135778bc056298e69de76f8",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/composio"
+    }
+  },
+  {
+    "name": "cursor",
+    "path": "design-md/cursor",
+    "sha": "2706e218e64add73ece468753e273066e3d8af5c",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/cursor?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cursor",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/2706e218e64add73ece468753e273066e3d8af5c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/cursor?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/2706e218e64add73ece468753e273066e3d8af5c",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/cursor"
+    }
+  },
+  {
+    "name": "dell-1996",
+    "path": "design-md/dell-1996",
+    "sha": "f18fa27bc12026b6196bcc87bb4c38f64c006a04",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/dell-1996?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/dell-1996",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f18fa27bc12026b6196bcc87bb4c38f64c006a04",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/dell-1996?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f18fa27bc12026b6196bcc87bb4c38f64c006a04",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/dell-1996"
+    }
+  },
+  {
+    "name": "elevenlabs",
+    "path": "design-md/elevenlabs",
+    "sha": "0bb37a6c6e5f50403c3b36e49ffd8a485d5b8d63",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/elevenlabs?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/elevenlabs",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/0bb37a6c6e5f50403c3b36e49ffd8a485d5b8d63",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/elevenlabs?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/0bb37a6c6e5f50403c3b36e49ffd8a485d5b8d63",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/elevenlabs"
+    }
+  },
+  {
+    "name": "expo",
+    "path": "design-md/expo",
+    "sha": "7d007e74fdd36f784f3c7690a0f7f00844aa1b27",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/expo?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/expo",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/7d007e74fdd36f784f3c7690a0f7f00844aa1b27",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/expo?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/7d007e74fdd36f784f3c7690a0f7f00844aa1b27",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/expo"
+    }
+  },
+  {
+    "name": "ferrari",
+    "path": "design-md/ferrari",
+    "sha": "e8735ea7ea736adfb4852f7bdea29b5a57e08fe2",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/ferrari?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ferrari",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/e8735ea7ea736adfb4852f7bdea29b5a57e08fe2",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/ferrari?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/e8735ea7ea736adfb4852f7bdea29b5a57e08fe2",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ferrari"
+    }
+  },
+  {
+    "name": "figma",
+    "path": "design-md/figma",
+    "sha": "759022fd1ae26b8e789108940a32c0e2c5cb96eb",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/figma?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/figma",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/759022fd1ae26b8e789108940a32c0e2c5cb96eb",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/figma?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/759022fd1ae26b8e789108940a32c0e2c5cb96eb",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/figma"
+    }
+  },
+  {
+    "name": "framer",
+    "path": "design-md/framer",
+    "sha": "f48a678419f3148670635e9b06a5db305a4aa218",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/framer?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/framer",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f48a678419f3148670635e9b06a5db305a4aa218",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/framer?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f48a678419f3148670635e9b06a5db305a4aa218",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/framer"
+    }
+  },
+  {
+    "name": "hashicorp",
+    "path": "design-md/hashicorp",
+    "sha": "5e734f1dea4a9b76a265fccdac1e4d7e5db55a2f",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/hashicorp?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/hashicorp",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/5e734f1dea4a9b76a265fccdac1e4d7e5db55a2f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/hashicorp?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/5e734f1dea4a9b76a265fccdac1e4d7e5db55a2f",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/hashicorp"
+    }
+  },
+  {
+    "name": "hp",
+    "path": "design-md/hp",
+    "sha": "85ef999b7bc586d3f14c266907f548137bf9d805",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/hp?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/hp",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/85ef999b7bc586d3f14c266907f548137bf9d805",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/hp?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/85ef999b7bc586d3f14c266907f548137bf9d805",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/hp"
+    }
+  },
+  {
+    "name": "ibm",
+    "path": "design-md/ibm",
+    "sha": "367936601839bcfe9471ca53dae0e1bf5832b1af",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/ibm?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ibm",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/367936601839bcfe9471ca53dae0e1bf5832b1af",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/ibm?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/367936601839bcfe9471ca53dae0e1bf5832b1af",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ibm"
+    }
+  },
+  {
+    "name": "intercom",
+    "path": "design-md/intercom",
+    "sha": "126d4973fdeaefaebc44250f269b52d24447ee4a",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/intercom?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/intercom",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/126d4973fdeaefaebc44250f269b52d24447ee4a",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/intercom?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/126d4973fdeaefaebc44250f269b52d24447ee4a",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/intercom"
+    }
+  },
+  {
+    "name": "kraken",
+    "path": "design-md/kraken",
+    "sha": "16b54e5e1eacba943b6e02cf8f47ccdf5780798f",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/kraken?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/kraken",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/16b54e5e1eacba943b6e02cf8f47ccdf5780798f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/kraken?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/16b54e5e1eacba943b6e02cf8f47ccdf5780798f",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/kraken"
+    }
+  },
+  {
+    "name": "lamborghini",
+    "path": "design-md/lamborghini",
+    "sha": "de591bb2528dca58fed7c0c624b20f125a2b488c",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/lamborghini?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/lamborghini",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/de591bb2528dca58fed7c0c624b20f125a2b488c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/lamborghini?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/de591bb2528dca58fed7c0c624b20f125a2b488c",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/lamborghini"
+    }
+  },
+  {
+    "name": "linear.app",
+    "path": "design-md/linear.app",
+    "sha": "02705b6fa4ff991c8a5c309b21c2fa6ff96e5f21",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/linear.app?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/linear.app",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/02705b6fa4ff991c8a5c309b21c2fa6ff96e5f21",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/linear.app?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/02705b6fa4ff991c8a5c309b21c2fa6ff96e5f21",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/linear.app"
+    }
+  },
+  {
+    "name": "lovable",
+    "path": "design-md/lovable",
+    "sha": "6aea9c5cebcdc5282be84ce3f515a8c3bf45bc0b",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/lovable?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/lovable",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/6aea9c5cebcdc5282be84ce3f515a8c3bf45bc0b",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/lovable?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/6aea9c5cebcdc5282be84ce3f515a8c3bf45bc0b",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/lovable"
+    }
+  },
+  {
+    "name": "mastercard",
+    "path": "design-md/mastercard",
+    "sha": "49bd7192e506dc9924084056e27035f303830899",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mastercard?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mastercard",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/49bd7192e506dc9924084056e27035f303830899",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mastercard?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/49bd7192e506dc9924084056e27035f303830899",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mastercard"
+    }
+  },
+  {
+    "name": "meta",
+    "path": "design-md/meta",
+    "sha": "c00419c0d646d3708de355c3b410a1aa2cd32811",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/meta?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/meta",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/c00419c0d646d3708de355c3b410a1aa2cd32811",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/meta?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/c00419c0d646d3708de355c3b410a1aa2cd32811",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/meta"
+    }
+  },
+  {
+    "name": "minimax",
+    "path": "design-md/minimax",
+    "sha": "ee06bb6a14eab0946d8b96251064f1ab72e3ec20",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/minimax?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/minimax",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ee06bb6a14eab0946d8b96251064f1ab72e3ec20",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/minimax?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ee06bb6a14eab0946d8b96251064f1ab72e3ec20",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/minimax"
+    }
+  },
+  {
+    "name": "mintlify",
+    "path": "design-md/mintlify",
+    "sha": "7c47e83c1b178223f08afb4917a49b0d61e76c2d",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mintlify?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mintlify",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/7c47e83c1b178223f08afb4917a49b0d61e76c2d",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mintlify?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/7c47e83c1b178223f08afb4917a49b0d61e76c2d",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mintlify"
+    }
+  },
+  {
+    "name": "miro",
+    "path": "design-md/miro",
+    "sha": "072437ca26647c9bae9fbae64b52a0a51a8d58a5",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/miro?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/miro",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/072437ca26647c9bae9fbae64b52a0a51a8d58a5",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/miro?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/072437ca26647c9bae9fbae64b52a0a51a8d58a5",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/miro"
+    }
+  },
+  {
+    "name": "mistral.ai",
+    "path": "design-md/mistral.ai",
+    "sha": "08a6e20824870b535ee45ee5b50fcb080d6bf00b",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mistral.ai?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mistral.ai",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/08a6e20824870b535ee45ee5b50fcb080d6bf00b",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mistral.ai?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/08a6e20824870b535ee45ee5b50fcb080d6bf00b",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mistral.ai"
+    }
+  },
+  {
+    "name": "mongodb",
+    "path": "design-md/mongodb",
+    "sha": "b86c41a71a4a442dd9f9f9054a3ea0b9c1ab7881",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mongodb?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mongodb",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b86c41a71a4a442dd9f9f9054a3ea0b9c1ab7881",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/mongodb?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b86c41a71a4a442dd9f9f9054a3ea0b9c1ab7881",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/mongodb"
+    }
+  },
+  {
+    "name": "nike",
+    "path": "design-md/nike",
+    "sha": "13b66ea1e796d45ed8cd7314ca51ede7bcfff120",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/nike?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nike",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/13b66ea1e796d45ed8cd7314ca51ede7bcfff120",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/nike?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/13b66ea1e796d45ed8cd7314ca51ede7bcfff120",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nike"
+    }
+  },
+  {
+    "name": "nintendo-2001",
+    "path": "design-md/nintendo-2001",
+    "sha": "91e397222ed4f4f7777bb12b0725ea8f5bb08cac",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/nintendo-2001?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nintendo-2001",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/91e397222ed4f4f7777bb12b0725ea8f5bb08cac",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/nintendo-2001?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/91e397222ed4f4f7777bb12b0725ea8f5bb08cac",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nintendo-2001"
+    }
+  },
+  {
+    "name": "notion",
+    "path": "design-md/notion",
+    "sha": "2dca0cf03febd9cfe1268a9de49d1243a94bd645",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/notion?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/notion",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/2dca0cf03febd9cfe1268a9de49d1243a94bd645",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/notion?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/2dca0cf03febd9cfe1268a9de49d1243a94bd645",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/notion"
+    }
+  },
+  {
+    "name": "nvidia",
+    "path": "design-md/nvidia",
+    "sha": "ee2a3fdc2f306a7c21ea3accd6eb8af86eebe611",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/nvidia?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nvidia",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ee2a3fdc2f306a7c21ea3accd6eb8af86eebe611",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/nvidia?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ee2a3fdc2f306a7c21ea3accd6eb8af86eebe611",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/nvidia"
+    }
+  },
+  {
+    "name": "ollama",
+    "path": "design-md/ollama",
+    "sha": "ed3c95d6caf8eb02e8b2741523936d1d032b47d2",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/ollama?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ollama",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ed3c95d6caf8eb02e8b2741523936d1d032b47d2",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/ollama?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ed3c95d6caf8eb02e8b2741523936d1d032b47d2",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/ollama"
+    }
+  },
+  {
+    "name": "opencode.ai",
+    "path": "design-md/opencode.ai",
+    "sha": "607947ab85b5873068f03404c387bb9905653665",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/opencode.ai?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/opencode.ai",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/607947ab85b5873068f03404c387bb9905653665",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/opencode.ai?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/607947ab85b5873068f03404c387bb9905653665",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/opencode.ai"
+    }
+  },
+  {
+    "name": "pinterest",
+    "path": "design-md/pinterest",
+    "sha": "1ba68210c97636085678553b236b42d142c97f82",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/pinterest?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/pinterest",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/1ba68210c97636085678553b236b42d142c97f82",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/pinterest?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/1ba68210c97636085678553b236b42d142c97f82",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/pinterest"
+    }
+  },
+  {
+    "name": "playstation",
+    "path": "design-md/playstation",
+    "sha": "9ef72a52664a9e7a957f467a1ea8a01243edf4a6",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/playstation?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/playstation",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/9ef72a52664a9e7a957f467a1ea8a01243edf4a6",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/playstation?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/9ef72a52664a9e7a957f467a1ea8a01243edf4a6",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/playstation"
+    }
+  },
+  {
+    "name": "posthog",
+    "path": "design-md/posthog",
+    "sha": "f1308104fd548253c4b4e0c9163482f5d1908b75",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/posthog?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/posthog",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f1308104fd548253c4b4e0c9163482f5d1908b75",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/posthog?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/f1308104fd548253c4b4e0c9163482f5d1908b75",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/posthog"
+    }
+  },
+  {
+    "name": "raycast",
+    "path": "design-md/raycast",
+    "sha": "3a9fe3a1d2664e060f2004a1a71765db6fe67488",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/raycast?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/raycast",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/3a9fe3a1d2664e060f2004a1a71765db6fe67488",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/raycast?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/3a9fe3a1d2664e060f2004a1a71765db6fe67488",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/raycast"
+    }
+  },
+  {
+    "name": "renault",
+    "path": "design-md/renault",
+    "sha": "4abb43017f540a8e8694df5aff42706c643525a8",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/renault?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/renault",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/4abb43017f540a8e8694df5aff42706c643525a8",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/renault?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/4abb43017f540a8e8694df5aff42706c643525a8",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/renault"
+    }
+  },
+  {
+    "name": "replicate",
+    "path": "design-md/replicate",
+    "sha": "a92e5511b8b95e82450f5d623f9dc7ab92000107",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/replicate?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/replicate",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/a92e5511b8b95e82450f5d623f9dc7ab92000107",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/replicate?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/a92e5511b8b95e82450f5d623f9dc7ab92000107",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/replicate"
+    }
+  },
+  {
+    "name": "resend",
+    "path": "design-md/resend",
+    "sha": "239e12d129f442e4a9f7ffe5f547090a124dd0b0",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/resend?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/resend",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/239e12d129f442e4a9f7ffe5f547090a124dd0b0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/resend?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/239e12d129f442e4a9f7ffe5f547090a124dd0b0",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/resend"
+    }
+  },
+  {
+    "name": "revolut",
+    "path": "design-md/revolut",
+    "sha": "a8e23c3db49a62a3bc3bfffd96ceef6409ea8d10",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/revolut?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/revolut",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/a8e23c3db49a62a3bc3bfffd96ceef6409ea8d10",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/revolut?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/a8e23c3db49a62a3bc3bfffd96ceef6409ea8d10",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/revolut"
+    }
+  },
+  {
+    "name": "runwayml",
+    "path": "design-md/runwayml",
+    "sha": "74e766d03533480208f93ab46f5646992b4ee1d2",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/runwayml?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/runwayml",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/74e766d03533480208f93ab46f5646992b4ee1d2",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/runwayml?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/74e766d03533480208f93ab46f5646992b4ee1d2",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/runwayml"
+    }
+  },
+  {
+    "name": "sanity",
+    "path": "design-md/sanity",
+    "sha": "ed23589f5461c5a96823898a70bd63e6d6a9fbd0",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/sanity?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/sanity",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ed23589f5461c5a96823898a70bd63e6d6a9fbd0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/sanity?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/ed23589f5461c5a96823898a70bd63e6d6a9fbd0",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/sanity"
+    }
+  },
+  {
+    "name": "sentry",
+    "path": "design-md/sentry",
+    "sha": "e558c9ab49c81416b0e7b1bcf22fff278e053aba",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/sentry?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/sentry",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/e558c9ab49c81416b0e7b1bcf22fff278e053aba",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/sentry?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/e558c9ab49c81416b0e7b1bcf22fff278e053aba",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/sentry"
+    }
+  },
+  {
+    "name": "shopify",
+    "path": "design-md/shopify",
+    "sha": "324430500bfa89b762f23f259843bb6e38131c11",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/shopify?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/shopify",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/324430500bfa89b762f23f259843bb6e38131c11",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/shopify?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/324430500bfa89b762f23f259843bb6e38131c11",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/shopify"
+    }
+  },
+  {
+    "name": "slack",
+    "path": "design-md/slack",
+    "sha": "16818663fd11dbbec4c0f6affb06d94be44a3321",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/slack?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/slack",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/16818663fd11dbbec4c0f6affb06d94be44a3321",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/slack?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/16818663fd11dbbec4c0f6affb06d94be44a3321",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/slack"
+    }
+  },
+  {
+    "name": "spacex",
+    "path": "design-md/spacex",
+    "sha": "d4cbedbf2c9c6e03948f376c86610cae75bcdedb",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/spacex?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/spacex",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/d4cbedbf2c9c6e03948f376c86610cae75bcdedb",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/spacex?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/d4cbedbf2c9c6e03948f376c86610cae75bcdedb",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/spacex"
+    }
+  },
+  {
+    "name": "spotify",
+    "path": "design-md/spotify",
+    "sha": "17eb42cef3c673168033cbf7cd0388c66f6e759f",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/spotify?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/spotify",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/17eb42cef3c673168033cbf7cd0388c66f6e759f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/spotify?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/17eb42cef3c673168033cbf7cd0388c66f6e759f",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/spotify"
+    }
+  },
+  {
+    "name": "starbucks",
+    "path": "design-md/starbucks",
+    "sha": "31da2b50fd85dbe088e80e075e5b9951903cab5a",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/starbucks?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/starbucks",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/31da2b50fd85dbe088e80e075e5b9951903cab5a",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/starbucks?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/31da2b50fd85dbe088e80e075e5b9951903cab5a",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/starbucks"
+    }
+  },
+  {
+    "name": "stripe",
+    "path": "design-md/stripe",
+    "sha": "b16d4c6be6c04fb694c28a40e444aa9793bcc06c",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/stripe?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/stripe",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b16d4c6be6c04fb694c28a40e444aa9793bcc06c",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/stripe?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b16d4c6be6c04fb694c28a40e444aa9793bcc06c",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/stripe"
+    }
+  },
+  {
+    "name": "supabase",
+    "path": "design-md/supabase",
+    "sha": "14f13bfe239f8127473beef3ebbca749ebae1708",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/supabase?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/supabase",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/14f13bfe239f8127473beef3ebbca749ebae1708",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/supabase?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/14f13bfe239f8127473beef3ebbca749ebae1708",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/supabase"
+    }
+  },
+  {
+    "name": "superhuman",
+    "path": "design-md/superhuman",
+    "sha": "8f09922a4b8a0b478a7e5a0f268ffce617e53cb6",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/superhuman?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/superhuman",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8f09922a4b8a0b478a7e5a0f268ffce617e53cb6",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/superhuman?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8f09922a4b8a0b478a7e5a0f268ffce617e53cb6",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/superhuman"
+    }
+  },
+  {
+    "name": "tesla",
+    "path": "design-md/tesla",
+    "sha": "8e294108f28d39c9aee03945177c209a687d42da",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/tesla?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/tesla",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8e294108f28d39c9aee03945177c209a687d42da",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/tesla?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8e294108f28d39c9aee03945177c209a687d42da",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/tesla"
+    }
+  },
+  {
+    "name": "theverge",
+    "path": "design-md/theverge",
+    "sha": "506a8c5e0b1d718122fc3392d0dd2a2cd6c067e5",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/theverge?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/theverge",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/506a8c5e0b1d718122fc3392d0dd2a2cd6c067e5",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/theverge?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/506a8c5e0b1d718122fc3392d0dd2a2cd6c067e5",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/theverge"
+    }
+  },
+  {
+    "name": "together.ai",
+    "path": "design-md/together.ai",
+    "sha": "1e4f290e8ab9554d1416f33a3e13977292290361",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/together.ai?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/together.ai",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/1e4f290e8ab9554d1416f33a3e13977292290361",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/together.ai?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/1e4f290e8ab9554d1416f33a3e13977292290361",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/together.ai"
+    }
+  },
+  {
+    "name": "uber",
+    "path": "design-md/uber",
+    "sha": "b986466c01a897b2a947c446747f590258bb433f",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/uber?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/uber",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b986466c01a897b2a947c446747f590258bb433f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/uber?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b986466c01a897b2a947c446747f590258bb433f",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/uber"
+    }
+  },
+  {
+    "name": "vercel",
+    "path": "design-md/vercel",
+    "sha": "83bee7b9d285d6deaaa908ab3562ad85960772d0",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/vercel?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/vercel",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/83bee7b9d285d6deaaa908ab3562ad85960772d0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/vercel?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/83bee7b9d285d6deaaa908ab3562ad85960772d0",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/vercel"
+    }
+  },
+  {
+    "name": "vodafone",
+    "path": "design-md/vodafone",
+    "sha": "4087d36f76983127e8eb15561a9f6524e5b32225",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/vodafone?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/vodafone",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/4087d36f76983127e8eb15561a9f6524e5b32225",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/vodafone?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/4087d36f76983127e8eb15561a9f6524e5b32225",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/vodafone"
+    }
+  },
+  {
+    "name": "voltagent",
+    "path": "design-md/voltagent",
+    "sha": "8162ed1ed3a0fdbc0b75b7e74542ffe76e6cdcc3",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/voltagent?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/voltagent",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8162ed1ed3a0fdbc0b75b7e74542ffe76e6cdcc3",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/voltagent?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8162ed1ed3a0fdbc0b75b7e74542ffe76e6cdcc3",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/voltagent"
+    }
+  },
+  {
+    "name": "warp",
+    "path": "design-md/warp",
+    "sha": "8a318e7e59dafbc01f87ed939bc4fd615384d291",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/warp?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/warp",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8a318e7e59dafbc01f87ed939bc4fd615384d291",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/warp?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/8a318e7e59dafbc01f87ed939bc4fd615384d291",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/warp"
+    }
+  },
+  {
+    "name": "webflow",
+    "path": "design-md/webflow",
+    "sha": "c3b1357ef0a2ba2166209ff805d9661029fbdd6f",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/webflow?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/webflow",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/c3b1357ef0a2ba2166209ff805d9661029fbdd6f",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/webflow?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/c3b1357ef0a2ba2166209ff805d9661029fbdd6f",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/webflow"
+    }
+  },
+  {
+    "name": "wired",
+    "path": "design-md/wired",
+    "sha": "08ef4dd14d63fb93bf88270fde016803f1e72d86",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/wired?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/wired",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/08ef4dd14d63fb93bf88270fde016803f1e72d86",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/wired?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/08ef4dd14d63fb93bf88270fde016803f1e72d86",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/wired"
+    }
+  },
+  {
+    "name": "wise",
+    "path": "design-md/wise",
+    "sha": "22e9259536881a3ab596616582d2020e8e2f92b0",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/wise?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/wise",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/22e9259536881a3ab596616582d2020e8e2f92b0",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/wise?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/22e9259536881a3ab596616582d2020e8e2f92b0",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/wise"
+    }
+  },
+  {
+    "name": "x.ai",
+    "path": "design-md/x.ai",
+    "sha": "b0dcd265d7b969675fe0a7eb24fc308dab18ceeb",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/x.ai?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/x.ai",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b0dcd265d7b969675fe0a7eb24fc308dab18ceeb",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/x.ai?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/b0dcd265d7b969675fe0a7eb24fc308dab18ceeb",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/x.ai"
+    }
+  },
+  {
+    "name": "zapier",
+    "path": "design-md/zapier",
+    "sha": "026ca6009e5aa841a2c261ee2c9464c09bb42f31",
+    "size": 0,
+    "url": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/zapier?ref=main",
+    "html_url": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/zapier",
+    "git_url": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/026ca6009e5aa841a2c261ee2c9464c09bb42f31",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/VoltAgent/awesome-design-md/contents/design-md/zapier?ref=main",
+      "git": "https://api.github.com/repos/VoltAgent/awesome-design-md/git/trees/026ca6009e5aa841a2c261ee2c9464c09bb42f31",
+      "html": "https://github.com/VoltAgent/awesome-design-md/tree/main/design-md/zapier"
+    }
+  }
+]

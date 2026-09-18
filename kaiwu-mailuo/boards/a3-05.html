@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="kit.css">
+<style>
+  .land { display: grid; grid-template-columns: 1fr 520px 1fr; gap: 0; align-items: stretch; margin-top: 30px; }
+  .res { border: 1.5px solid var(--line); background: var(--card); padding: 26px 30px; }
+  .res h4 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+  .bridge { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 30px; }
+  .bridge .core {
+    width: 360px; text-align: center; background: var(--steel-2); color: #f2ecdd;
+    padding: 30px 20px 34px; font-size: 34px; font-weight: 700; letter-spacing: 0.12em;
+    box-shadow: 0 16px 40px rgba(38,34,28,.25);
+  }
+  .bridge .core .kai { font-size: 40px; }
+  .bridge .up, .bridge .down { font-family: var(--hei); font-size: 19px; color: var(--ink-2); text-align: center; line-height: 1.6; }
+  .loop { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px; margin-top: 32px; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="pad">
+    <div class="board-head">
+      <div>
+        <div class="kicker">《开物脉络》· 落地场景与社会价值 · A3-05</div>
+        <div class="h1" style="margin-top: 18px;">概念落地场景：新余古今钢铁工业研学链</div>
+      </div>
+      <div class="stamp">Conceptual Deployment<br><span style="font-size: 18px; letter-spacing: 0.1em;">概念应用场景 · 未涉企业授权</span></div>
+    </div>
+
+    <div class="land">
+      <div class="res">
+        <div class="chip" style="margin-bottom: 12px;">古代端</div>
+        <h4>分宜 · 凤凰山 · 天工文化资源</h4>
+        <div class="body-t" style="font-size: 21px;">
+          凤凰山铁矿遗址（唐晚期—明）·《天工开物》著书地
+        </div>
+        <div class="kai" style="font-size: 26px; margin-top: 16px; color: var(--cinnabar);">古代“从材到器”</div>
+        <div class="src"><b>来源：</b>新余市博物馆公开资料</div>
+      </div>
+      <div class="bridge">
+        <div class="up">↓ 古代线：取材 · 控火 · 提纯 · 成形 · 控性</div>
+        <div class="core"><span class="kai">开物脉络</span><div style="font-size: 18px; font-weight: 400; letter-spacing: .2em; margin-top: 10px; color:#b9c4d2;">认知导航 · 课程衔接 · 缺口感知</div></div>
+        <div class="down" style="margin-top: 14px;">↑ 现代线：炼铁 · 炼钢 · 连铸 · 轧制 · 新材料</div>
+      </div>
+      <div class="res">
+        <div class="chip steel" style="margin-bottom: 12px;">现代端</div>
+        <h4>新钢历史陈列馆 · “印象新钢”工业旅游</h4>
+        <div class="body-t" style="font-size: 21px;">
+          建于 2500m³ 高炉炉台的展馆 · 毗邻高炉智慧集控中心 · 工业旅游路线首站
+        </div>
+        <div class="kai" style="font-size: 26px; margin-top: 16px; color: var(--steel);">现代“从铁到钢”</div>
+        <div class="src"><b>来源：</b>国家档案局公开报道 · 新余市工信局</div>
+      </div>
+    </div>
+
+    <div class="loop">
+      <div class="card accent">
+        <div class="h3" style="margin-bottom: 10px;">对学校：研学有了课程出口</div>
+        <div class="body-t" style="font-size: 20px;">
+          工艺节点 ↔ 课标概念（化学 · 地理 · 历史 · 物理 · 职业认知）↔ 现场观察任务 ↔ 学习证据，
+          回应企业命题中“工业研学与课标衔接不足”的真实痛点。
+        </div>
+      </div>
+      <div class="card steel">
+        <div class="h3" style="margin-bottom: 10px;">对场馆：展陈有了数据依据</div>
+        <div class="body-t" style="font-size: 20px;">
+          断点排行告诉场馆“哪条工艺关系最容易被误解”，用于优化展陈说明与讲解词——
+          数据只来自真实交互信号，不冒充教育测量。
+        </div>
+      </div>
+      <div class="card">
+        <div class="h3" style="margin-bottom: 10px;">对城市：模式可以复制</div>
+        <div class="body-t" style="font-size: 20px;">
+          同一框架可延展至新余锂电产业：<br>资源 → 材料 → 电芯 → PACK → 应用 → 回收。
+          本次比赛<b>只论证框架，不做第二产业实现</b>。
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+      <div class="kicker steel">框架可复制性（只论证，不在本次比赛实现）</div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-top: 14px; font-family: var(--hei); font-size: 20px; flex-wrap: wrap;">
+        <span class="chip gray">钢铁（本次）</span>
+        <span class="cinnabar">→</span>
+        <span style="border: 1.5px solid var(--line); padding: 8px 20px; background: var(--card);">资源</span>
+        <span style="border: 1.5px solid var(--line); padding: 8px 20px; background: var(--card);">材料</span>
+        <span style="border: 1.5px solid var(--line); padding: 8px 20px; background: var(--card);">电芯</span>
+        <span style="border: 1.5px solid var(--line); padding: 8px 20px; background: var(--card);">PACK</span>
+        <span style="border: 1.5px solid var(--line); padding: 8px 20px; background: var(--card);">应用</span>
+        <span style="border: 1.5px solid var(--line); padding: 8px 20px; background: var(--card);">回收</span>
+        <span class="small" style="margin-left: 10px;">新余锂电产业同构工艺链 · 同一认知导航框架</span>
+      </div>
+    </div>
+
+    <div class="card accent" style="margin-top: 30px; padding: 22px 32px;">
+      <span class="h3 kai cinnabar">政策与需求侧</span>
+      <span class="body-t" style="margin-left: 18px; font-size: 21px;">
+        七部门 2026 年工业旅游政策明确支持依托现代工厂、工业遗产、博物馆开展工业研学，纳入工业科普、
+        技能体验与学校教育衔接；2026 年三项企业命题分别提出工业旅游研学分层、个性化研学与智慧博物馆需求——
+        需求真实存在，本作品回答的是它们共同缺失的一块：<b>古今工艺关系的认知机制</b>。
+      </span>
+    </div>
+
+    <div class="foot">
+      <span class="tiny hei">《开物脉络》——面向工业研学的古今工艺认知导航系统 · 参赛方向：数字智能 · 诚实边界：概念部署，未获企业授权</span>
+      <span class="tiny hei">A3-05 / 5</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

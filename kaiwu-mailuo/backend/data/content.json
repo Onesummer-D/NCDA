@@ -1,0 +1,1035 @@
+{
+  "meta": {
+    "product": "开物脉络",
+    "subtitle": "面向工业研学的古今工艺认知导航系统",
+    "region": "江西·新余",
+    "evidence_boundary": "所有古今关系均标注 relation_type：documented_relation（史料关联）/ functional_comparison（功能类比）/ conceptual_parallel（设计解释）。不将\"共同解决类似问题\"表述为\"直接技术传承\"。"
+  },
+  "evidence_sources": [
+    {
+      "id": "E01",
+      "title": "新余市博物馆·凤凰山铁矿遗址介绍",
+      "publisher": "新余市博物馆",
+      "date": "公开资料",
+      "url": "https://www.xysmuseum.com/587.html",
+      "note": "遗址延续唐晚期至明代，遗存涵盖采矿、燃料、冶炼炉、铁水、铸模等环节；馆方采用谨慎表述：该遗址\"应是\"宋应星在分宜撰写《天工开物》铁冶部分的重要资料来源地之一。"
+    },
+    {
+      "id": "E02",
+      "title": "工业锻脊梁 实干开新局",
+      "publisher": "新余市工业和信息化局",
+      "date": "2026-09",
+      "url": "https://gxj.xinyu.gov.cn/gxw/zwdt/2026-09/10/content_1bf1a62c6a874439b8e193641ca73a97.shtml",
+      "note": "新余已基本形成\"铁矿石采选—炼铁—炼钢—轧材—钢材精深加工—钢铁新材料应用\"完整钢铁产业链；2025年钢铁产业营收占三大主导产业的42.5%。"
+    },
+    {
+      "id": "E03",
+      "title": "江西新余新钢历史陈列馆开馆",
+      "publisher": "国家档案局网站转载",
+      "date": "2022-05",
+      "url": "https://www.saac.gov.cn/daj/c100218/202205/c576345df9934dc58956c78c9553b67e.shtml",
+      "note": "陈列馆建在2500立方米高炉炉台上，毗邻高炉智慧集控中心，是\"印象新钢\"工业旅游路线首站；馆内约800平方米，有数字化厂区沙盘，并对《天工开物》冶铁场景进行声光电还原。"
+    },
+    {
+      "id": "E04",
+      "title": "文化和旅游部等七部门关于推动工业旅游发展的相关政策",
+      "publisher": "文化和旅游部",
+      "date": "2026-06",
+      "url": "https://www.mct.gov.cn/preview/whhlyqyzcxxfw/zhgl/202606/t20260601_966065.html",
+      "note": "支持依托现代工厂、工业遗产、博物馆展示馆开展工业研学，纳入工业科普、技能体验、数字仿真与学校教育衔接；要求真实生产区域严格安全、应急与保密管理。"
+    },
+    {
+      "id": "E05",
+      "title": "《天工开物》（明·宋应星）冶铸、锤锻、五金诸卷",
+      "publisher": "明崇祯十年（1637）初刊",
+      "date": "1637",
+      "url": "",
+      "note": "宋应星任分宜县教谕期间撰成。《天工开物》系统记录了明代采矿、冶炼、铸造、锻造等工艺知识。本系统仅引用篇目层面与通行工艺史表述，不逐字引用原文。"
+    },
+    {
+      "id": "E06",
+      "title": "新余市2025年国民经济和社会发展统计公报",
+      "publisher": "新余市统计局",
+      "date": "2026-05",
+      "url": "https://tjj.xinyu.gov.cn/tjj/stjgb/2026-05/11/content_1673b52e368a45cd91dad78e0e7c53b5.shtml",
+      "note": "2025年新余GDP 1215.58亿元，第二产业增加值433.25亿元。"
+    }
+  ],
+  "craft_questions": [
+    {
+      "id": "Q1",
+      "code": "取材",
+      "title": "材从哪里来？",
+      "essence": "自然材料不会直接变成产品。山中的石头，要经过选、采、备，才走向炉火。",
+      "ancient_answer_short": "入山取矿，识石选料",
+      "modern_answer_short": "矿山采选，炉料配比",
+      "why_changed": "原料从\"靠经验寻矿选矿\"走向\"地质勘探—规模开采—精准配料\"，因为需求量与品质稳定性都变了。"
+    },
+    {
+      "id": "Q2",
+      "code": "控火",
+      "title": "如何获得并控制冶炼所需的热与反应？",
+      "essence": "冶炼的本质是控制物质与能量的条件：温度、气氛、时间，古今都是这道题。",
+      "ancient_answer_short": "炉型、木炭、鼓风与火候经验",
+      "modern_answer_short": "高炉热风、炉料体系与自动检测控制",
+      "why_changed": "经验控制 → 标准化、仪器化、数字化控制。规模、质量与能源效率的要求，把\"老师傅的火候\"变成了\"集控中心的数据\"。"
+    },
+    {
+      "id": "Q3",
+      "code": "提纯",
+      "title": "如何让铁变得更纯、更好用？",
+      "essence": "\"炼出铁\"不等于\"得到钢\"。铁与钢的差别，古今都靠进一步加工解决。",
+      "ancient_answer_short": "反复锻打、炒钢、灌钢等技法去杂提优",
+      "modern_answer_short": "转炉炼钢：精确降碳、去除杂质",
+      "why_changed": "从\"以锻代炼、凭手感判断\"到\"按成分标准精确控制\"——对材料性能的要求越来越高。"
+    },
+    {
+      "id": "Q4",
+      "code": "成形",
+      "title": "如何让材料成形为器？",
+      "essence": "\"炼出来\"只是中间态。液态如何定型、坯料如何成材，是造物从材料走向器物的关键一步。",
+      "ancient_answer_short": "铸模浇铸、锻打成器",
+      "modern_answer_short": "连铸成坯、轧制成材",
+      "why_changed": "从单件铸锻走向连续化成型——一次浇铸出长坯，再连续轧制，效率与一致性完全不同。"
+    },
+    {
+      "id": "Q5",
+      "code": "控性",
+      "title": "如何让器物更可靠、性能更好？",
+      "essence": "同样是铁器，农具、锅具、兵器的做法各不相同——性能适配是古今共同的问题。",
+      "ancient_answer_short": "工匠经验：按用途决定锻打次数与用料",
+      "modern_answer_short": "成分—组织—性能设计，钢材精深加工与新材料研发",
+      "why_changed": "从\"手感与经验\"走向\"成分、组织、性能的定量设计与检验\"。"
+    },
+    {
+      "id": "Q6",
+      "code": "传技",
+      "title": "造物的知识如何记录和传承？",
+      "essence": "工艺会失传。记录方式本身，就是造物文明的一部分。",
+      "ancient_answer_short": "师徒相授 + 《天工开物》图文记录",
+      "modern_answer_short": "工艺标准、数字集控档案与职业教育",
+      "why_changed": "从个人经验与图文著述，走向标准化文档与数字化系统。你正在使用的这个研学系统，正是这种传承方式的延续。"
+    },
+    {
+      "id": "Q7",
+      "code": "善境",
+      "title": "如何让造物对人、对环境更负责？",
+      "essence": "炼炉改变了人与自然的关系，也改变了责任的范围。",
+      "ancient_answer_short": "作坊选址近矿近林，防护手段有限",
+      "modern_answer_short": "绿色低碳改造、安全生产与保密管理",
+      "why_changed": "现代工业把安全、环保、能源效率纳入工艺本身的要求——这也是今天进入钢厂必须走安全路线的原因。"
+    }
+  ],
+  "process_nodes": [
+    {
+      "id": "A1",
+      "era": "ancient",
+      "stage": "取材",
+      "title": "山中取矿",
+      "subtitle": "识石·选料",
+      "location": "凤凰山铁矿遗址（新余）",
+      "time_label": "唐晚期—明代",
+      "summary": "矿石不是直接可用的\"铁\"。古人入山找矿、识石、选料，把含铁的矿石从山中取出，为冶炼做准备。",
+      "details": [
+        "凤凰山铁矿遗址延续时间涵盖唐晚期至明代，是江西省内罕见的保存较完整的古代铁矿冶铸遗存。",
+        "遗址保留有矿石等遗存，可反映从原料采集开始的完整冶铁过程。",
+        "选料决定成败：含铁量太低的矿石，炼不出好铁。"
+      ],
+      "question_ids": [
+        "Q1",
+        "Q6"
+      ],
+      "evidence_ids": [
+        "E01",
+        "E05"
+      ],
+      "is_observation_point": false
+    },
+    {
+      "id": "A2",
+      "era": "ancient",
+      "stage": "燃料",
+      "title": "烧炭备薪",
+      "subtitle": "燃料的选择",
+      "location": "凤凰山铁矿遗址（新余）",
+      "time_label": "唐晚期—明代",
+      "summary": "冶铁先要有火。中国古代冶铁长期以木炭为主要燃料——它既要烧得够热，又不能把过多杂质带进铁里。",
+      "details": [
+        "凤凰山遗址的遗存中包含燃料选用环节，说明古人对燃料有明确要求。",
+        "木炭比普通柴薪更耐烧、更纯净，是古代冶铁长期的主力燃料。",
+        "燃料的选择直接影响炉温与铁的质量——这是古人版的\"燃料工艺学\"。"
+      ],
+      "question_ids": [
+        "Q2",
+        "Q7"
+      ],
+      "evidence_ids": [
+        "E01"
+      ],
+      "is_observation_point": false
+    },
+    {
+      "id": "A3",
+      "era": "ancient",
+      "stage": "冶炼",
+      "title": "筑炉冶炼",
+      "subtitle": "炉·风·火候",
+      "location": "凤凰山铁矿遗址（新余）",
+      "time_label": "唐晚期—明代",
+      "summary": "矿石入炉，加燃料、鼓风、控火候，铁从矿石中被还原出来，汇成铁水。这是整个古代冶铁的核心环节。",
+      "details": [
+        "遗址保留有冶铁炉遗迹，可反映炉体结构与冶炼方式。",
+        "鼓风决定炉温：中国古代从人力鼓风发展到水力鼓风（水排）等手段。",
+        "没有温度计的年代，\"火候\"靠工匠经验判断——炉色、火苗、烟，都是数据。",
+        "冶炼的产物是生铁（铁水）；它还不是能直接做器具的\"钢\"。"
+      ],
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "evidence_ids": [
+        "E01",
+        "E05"
+      ],
+      "is_observation_point": true
+    },
+    {
+      "id": "A4",
+      "era": "ancient",
+      "stage": "成形",
+      "title": "浇铸成器",
+      "subtitle": "铸模·浇注",
+      "location": "凤凰山铁矿遗址（新余）",
+      "time_label": "唐晚期—明代",
+      "summary": "铁水注入铸模，冷凝成器坯。遗址保留的铸模，正是古人\"从液态到器物\"这一步的实证。",
+      "details": [
+        "遗址保留有铸模等遗存，对应成品提取环节。",
+        "浇铸让液态铁水一次定型为器物毛坯，适合批量生产同类器物。",
+        "铸出的生铁器件硬而脆——很多器具还需要进一步加工。"
+      ],
+      "question_ids": [
+        "Q4"
+      ],
+      "evidence_ids": [
+        "E01"
+      ],
+      "is_observation_point": false
+    },
+    {
+      "id": "A5",
+      "era": "ancient",
+      "stage": "成形·控性",
+      "title": "锻打精制",
+      "subtitle": "千锤百炼",
+      "location": "《天工开物》锤锻卷所记工艺",
+      "time_label": "明代（工艺传统更早）",
+      "summary": "反复加热、锻打，去除缺陷、调整性能——\"百炼成钢\"说的就是这条路。让铁变纯变韧，古人靠锤与火。",
+      "details": [
+        "《天工开物》锤锻卷系统记录了明代锻造工艺；反复锻打是古人改善铁质的主要手段之一。",
+        "炒钢、灌钢等古代技法的核心目的，同样是让铁更纯、更接近今天所说的\"钢\"。",
+        "锻打既是成形，也是控性——一个动作同时解决两道造物题。"
+      ],
+      "question_ids": [
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6"
+      ],
+      "evidence_ids": [
+        "E05"
+      ],
+      "is_observation_point": false
+    },
+    {
+      "id": "M1",
+      "era": "modern",
+      "stage": "取材",
+      "title": "铁矿石采选",
+      "subtitle": "从矿山到炉料",
+      "location": "新余·现代钢铁产业链起点",
+      "time_label": "今天",
+      "summary": "地质勘探、规模开采、选矿富集、精准配料——现代钢铁从原料端就开始了精确控制。",
+      "details": [
+        "新余已形成\"铁矿石采选—炼铁—炼钢—轧材—钢材精深加工—钢铁新材料应用\"的完整产业链。",
+        "现代选矿把矿石富集到稳定品位，再按配比与熔剂、燃料一起组成\"炉料\"。",
+        "原料端的稳定，是后面每一道工序稳定的前提。"
+      ],
+      "question_ids": [
+        "Q1",
+        "Q7"
+      ],
+      "evidence_ids": [
+        "E02"
+      ],
+      "is_observation_point": false
+    },
+    {
+      "id": "M2",
+      "era": "modern",
+      "stage": "冶炼",
+      "title": "高炉炼铁",
+      "subtitle": "铁水的诞生",
+      "location": "新钢·高炉区（新钢历史陈列馆即建于高炉炉台）",
+      "time_label": "今天",
+      "summary": "炉料在巨大高炉中连续反应，出的是铁水——含碳量高、还需精炼，还不是最终的钢。",
+      "details": [
+        "高炉连续生产：炉料从顶部加入，热风从下部鼓入，铁水与炉渣分别从不同出口排出。",
+        "关键点：高炉出来的产品是\"铁水\"，含碳量约4%上下且含杂质，硬而脆。",
+        "新钢历史陈列馆就建在一座2500立方米高炉的炉台上——你脚下就是这条工艺线的现场。",
+        "高炉运行由智慧集控中心远程监测，工人在控制室里看到的是实时数据，而非炉前肉眼看火。"
+      ],
+      "question_ids": [
+        "Q2",
+        "Q3"
+      ],
+      "evidence_ids": [
+        "E02",
+        "E03"
+      ],
+      "is_observation_point": true
+    },
+    {
+      "id": "M3",
+      "era": "modern",
+      "stage": "提纯",
+      "title": "转炉炼钢",
+      "subtitle": "从铁水到钢水",
+      "location": "新钢·炼钢区",
+      "time_label": "今天",
+      "summary": "铁水进入转炉，吹氧降碳、去除杂质，把\"铁\"变成成分受精确控制的\"钢\"——这是铁与钢的分界线。",
+      "details": [
+        "炼钢的核心是降碳与去杂：把含碳量从约4%降到2%以下（通常远低于此），并控制硫、磷等杂质。",
+        "为什么必须炼钢？生铁硬而脆，无法深度加工；钢才有强度与韧性的平衡。",
+        "成分由仪器在线检测，按标准精确控制——这是与古人\"凭手感\"最大的不同。"
+      ],
+      "question_ids": [
+        "Q3",
+        "Q2",
+        "Q5"
+      ],
+      "evidence_ids": [
+        "E02"
+      ],
+      "is_observation_point": true
+    },
+    {
+      "id": "M4",
+      "era": "modern",
+      "stage": "成形",
+      "title": "连铸成坯",
+      "subtitle": "钢水的定型",
+      "location": "新钢·连铸区",
+      "time_label": "今天",
+      "summary": "钢水连续浇铸、连续冷凝，直接拉出长长的钢坯——现代版的\"从液态定型\"。",
+      "details": [
+        "连铸让钢水不再一模一件，而是连续凝固成钢坯，效率与质量一致性大幅提升。",
+        "钢坯是\"中间态\"：既不是钢板，也不是最终产品。",
+        "从钢水到钢坯，对应古代的浇铸环节——同一个\"液态成形\"问题，不同的时代解法。"
+      ],
+      "question_ids": [
+        "Q4"
+      ],
+      "evidence_ids": [
+        "E02"
+      ],
+      "is_observation_point": true
+    },
+    {
+      "id": "M5",
+      "era": "modern",
+      "stage": "成形·控性",
+      "title": "轧制成材",
+      "subtitle": "塑性成形",
+      "location": "新钢·轧制区",
+      "time_label": "今天",
+      "summary": "钢坯加热后通过一系列轧辊，被连续压延成板材、线材、型材——控制形状，也改善性能。",
+      "details": [
+        "轧制的原理与锻打相通：都是让金属在受压下发生塑性变形，改善内部组织。",
+        "轧机的精度决定钢材的厚度公差——现代产品的\"毫米之争\"在这里完成。",
+        "到这里，钢才第一次成为可以直接使用的\"材\"。"
+      ],
+      "question_ids": [
+        "Q4",
+        "Q5"
+      ],
+      "evidence_ids": [
+        "E02"
+      ],
+      "is_observation_point": true
+    },
+    {
+      "id": "M6",
+      "era": "modern",
+      "stage": "应用",
+      "title": "精深加工与新材料",
+      "subtitle": "从材到器，从器到未来",
+      "location": "新余·钢铁新材料应用",
+      "time_label": "今天",
+      "summary": "钢材经过精深加工成为部件与产品，并向钢铁新材料延伸——造物故事从\"炉台\"走向\"生活与产业\"。",
+      "details": [
+        "新余钢铁产业链的末端是\"钢材精深加工—钢铁新材料应用\"，钢铁进入汽车、机械、建造等场景。",
+        "今天的问题已从\"怎样炼出钢\"升级为\"怎样更洁净、更精确、更低碳、更数字化\"。",
+        "2025年钢铁产业营收占新余三大主导产业的42.5%——钢铁仍然是这座城市的产业底色。"
+      ],
+      "question_ids": [
+        "Q5",
+        "Q6",
+        "Q7"
+      ],
+      "evidence_ids": [
+        "E02",
+        "E06"
+      ],
+      "is_observation_point": false
+    }
+  ],
+  "relation_edges": [
+    {
+      "id": "R01",
+      "from_id": "A1",
+      "to_id": "A3",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E01"
+      ],
+      "note": "遗址反映原料采集到冶炼的完整链条。"
+    },
+    {
+      "id": "R02",
+      "from_id": "A2",
+      "to_id": "A3",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E01"
+      ],
+      "note": "燃料选用是遗址反映的必要环节。"
+    },
+    {
+      "id": "R03",
+      "from_id": "A3",
+      "to_id": "A4",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E01"
+      ],
+      "note": "铁水经铸模浇铸成器，对应遗址铸模遗存。"
+    },
+    {
+      "id": "R04",
+      "from_id": "A3",
+      "to_id": "A5",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "medium",
+      "evidence_ids": [
+        "E05"
+      ],
+      "note": "冶炼所得铁料经锻打精制成器；《天工开物》锤锻卷记其法。"
+    },
+    {
+      "id": "R05",
+      "from_id": "M1",
+      "to_id": "M2",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E02"
+      ],
+      "note": "炉料入高炉。"
+    },
+    {
+      "id": "R06",
+      "from_id": "M2",
+      "to_id": "M3",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E02"
+      ],
+      "note": "铁水经炼钢成为钢水——本系统最重要的认知节点。"
+    },
+    {
+      "id": "R07",
+      "from_id": "M3",
+      "to_id": "M4",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E02"
+      ],
+      "note": "钢水连铸成坯。"
+    },
+    {
+      "id": "R08",
+      "from_id": "M4",
+      "to_id": "M5",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E02"
+      ],
+      "note": "钢坯轧制成材。"
+    },
+    {
+      "id": "R09",
+      "from_id": "M5",
+      "to_id": "M6",
+      "type": "prerequisite",
+      "relation_type": "documented_relation",
+      "confidence": "high",
+      "evidence_ids": [
+        "E02"
+      ],
+      "note": "钢材精深加工与应用。"
+    },
+    {
+      "id": "R10",
+      "from_id": "A1",
+      "to_id": "M1",
+      "type": "contrast",
+      "relation_type": "conceptual_parallel",
+      "confidence": "interpretive",
+      "evidence_ids": [
+        "E01",
+        "E02"
+      ],
+      "note": "同答\"材从哪里来\"：经验选料 ↔ 勘探采选。设计解释，非技术传承。"
+    },
+    {
+      "id": "R11",
+      "from_id": "A3",
+      "to_id": "M2",
+      "type": "contrast",
+      "relation_type": "functional_comparison",
+      "confidence": "interpretive",
+      "evidence_ids": [
+        "E01",
+        "E02"
+      ],
+      "note": "同答\"如何获得金属\"：古代冶炉 ↔ 现代高炉。功能类比，不构成直接技术传承。"
+    },
+    {
+      "id": "R12",
+      "from_id": "A4",
+      "to_id": "M4",
+      "type": "contrast",
+      "relation_type": "functional_comparison",
+      "confidence": "interpretive",
+      "evidence_ids": [
+        "E01",
+        "E02"
+      ],
+      "note": "同答\"液态如何定型\"：铸模浇铸 ↔ 连铸成坯。"
+    },
+    {
+      "id": "R13",
+      "from_id": "A5",
+      "to_id": "M5",
+      "type": "contrast",
+      "relation_type": "functional_comparison",
+      "confidence": "interpretive",
+      "evidence_ids": [
+        "E05",
+        "E02"
+      ],
+      "note": "同答\"塑性如何成形\"：锻打 ↔ 轧制，原理相通。"
+    },
+    {
+      "id": "R14",
+      "from_id": "A5",
+      "to_id": "M3",
+      "type": "contrast",
+      "relation_type": "functional_comparison",
+      "confidence": "interpretive",
+      "evidence_ids": [
+        "E05",
+        "E02"
+      ],
+      "note": "同答\"如何让铁变纯\"：锻打去杂提优 ↔ 转炉降碳去杂。"
+    },
+    {
+      "id": "R15",
+      "from_id": "A2",
+      "to_id": "M2",
+      "type": "contrast",
+      "relation_type": "functional_comparison",
+      "confidence": "interpretive",
+      "evidence_ids": [
+        "E01",
+        "E02"
+      ],
+      "note": "同答\"热从哪里来\"：木炭 ↔ 焦炭与热风体系。"
+    }
+  ],
+  "observation_tasks": [
+    {
+      "id": "T1",
+      "node_id": "M2",
+      "mode": "choice",
+      "prompt": "观察提示：站在高炉前（或沙盘前），先抬头看看。然后回答——从高炉里出来的，已经是最终能做汽车的钢了吗？",
+      "options": [
+        "是，高炉出来的就是钢材",
+        "不是，出来的是铁水，还需要进一步炼钢",
+        "出来的是钢板"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "fe_vs_steel",
+      "expected_signal_correct": "verified:fe_vs_steel",
+      "source_refs": [
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "id": "T2",
+      "node_id": "M3",
+      "mode": "choice",
+      "prompt": "炼钢为什么要\"吹氧\"？用你刚才看到的想一想。",
+      "options": [
+        "为了让炉子烧得更旺好看",
+        "为了把铁水里过多的碳和杂质去掉",
+        "为了给钢水加热到更高温度"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "why_steelmaking",
+      "expected_signal_correct": "verified:why_steelmaking",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "T3",
+      "node_id": "M4",
+      "mode": "choice",
+      "prompt": "连铸机出来的长长的东西，是什么？",
+      "options": [
+        "钢板，可以直接卖",
+        "钢坯，还需要轧制",
+        "铁矿石"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "slab_not_product",
+      "expected_signal_correct": "verified:slab_not_product",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "T4",
+      "node_id": "A3",
+      "mode": "observe",
+      "prompt": "观察任务：古人没有温度计，他们靠什么判断\"火候\"到了？在场景图或展陈中找出你认为的线索。",
+      "options": [],
+      "correct_index": null,
+      "gap_topic_on_wrong": null,
+      "expected_signal_correct": "exposed:huohou",
+      "source_refs": [
+        "E01",
+        "E05"
+      ]
+    },
+    {
+      "id": "T5",
+      "node_id": "M5",
+      "mode": "choice",
+      "prompt": "轧制和古代的锻打，最根本的共同点是什么？",
+      "options": [
+        "都是让金属受压发生塑性变形",
+        "都是用火直接烧",
+        "都需要先做成铁水"
+      ],
+      "correct_index": 0,
+      "gap_topic_on_wrong": "forming_principle",
+      "expected_signal_correct": "verified:forming_principle",
+      "source_refs": [
+        "E02",
+        "E05"
+      ]
+    }
+  ],
+  "curriculum_links": [
+    {
+      "id": "C1",
+      "node_id": "M2",
+      "subject": "化学",
+      "concept": "金属的冶炼·氧化还原反应",
+      "hook": "高炉里发生的主要是\"还原\"：把铁从氧化物中夺回来。",
+      "verification_source": "高中化学必修·金属矿物的冶炼；需对照正式教材逐条校核",
+      "needs_verification": true
+    },
+    {
+      "id": "C2",
+      "node_id": "M3",
+      "subject": "化学",
+      "concept": "氧化还原·物质的纯度与组成",
+      "hook": "炼钢的核心是可控的氧化：降碳、去杂。",
+      "verification_source": "高中化学必修·氧化还原反应的应用；需对照正式教材逐条校核",
+      "needs_verification": true
+    },
+    {
+      "id": "C3",
+      "node_id": "M1",
+      "subject": "地理",
+      "concept": "工业区位因素",
+      "hook": "为什么钢厂傍矿而建、临水临路？区位条件在变。",
+      "verification_source": "高中地理必修·工业区位；需对照正式教材逐条校核",
+      "needs_verification": true
+    },
+    {
+      "id": "C4",
+      "node_id": "M6",
+      "subject": "地理",
+      "concept": "产业结构与区域发展",
+      "hook": "一座\"钢城\"如何延长产业链、走向新材料？",
+      "verification_source": "高中地理选择性必修·区域发展；需对照正式教材逐条校核",
+      "needs_verification": true
+    },
+    {
+      "id": "C5",
+      "node_id": "A5",
+      "subject": "历史",
+      "concept": "中国古代手工业·冶金",
+      "hook": "从官营作坊到民间铁货，冶铁如何塑造古代经济。",
+      "verification_source": "高中历史·中国古代经济；需对照正式教材逐条校核",
+      "needs_verification": true
+    },
+    {
+      "id": "C6",
+      "node_id": "A3",
+      "subject": "历史",
+      "concept": "文献与考古的互证",
+      "hook": "《天工开物》的文字与凤凰山的遗存，如何互相印证？",
+      "verification_source": "史料实证素养（历史课程标准）",
+      "needs_verification": true
+    },
+    {
+      "id": "C7",
+      "node_id": "M5",
+      "subject": "物理",
+      "concept": "力与形变（塑性形变拓展）",
+      "hook": "轧辊把钢\"揉\"成材——塑性变形的工程应用。",
+      "verification_source": "高中物理·相互作用（拓展关联）；需对照正式教材逐条校核",
+      "needs_verification": true
+    },
+    {
+      "id": "C8",
+      "node_id": "M2",
+      "subject": "劳动·职业认知",
+      "concept": "现代制造过程控制",
+      "hook": "今天的炉前工更多是\"看数据的人\"——职业形态在变。",
+      "verification_source": "劳动课程·职业启蒙；需对照课标逐条校核",
+      "needs_verification": true
+    }
+  ],
+  "explanations": [
+    {
+      "id": "X1",
+      "title": "炼铁 ≠ 炼钢",
+      "body": "高炉炼出的是铁水：含碳量高（约4%）、还带着硫磷等杂质，硬而脆，一敲就裂，没法深加工。要让铁变成强度和韧性兼备的钢，必须再进转炉，把碳降到2%以下并去除杂质——\"炼铁\"和\"炼钢\"，是两道不同的工序。",
+      "question_id": "Q3",
+      "node_ids": [
+        "M2",
+        "M3"
+      ],
+      "gap_topics": [
+        "fe_vs_steel",
+        "why_steelmaking"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "X2",
+      "title": "连铸与轧制",
+      "body": "钢水先连铸成钢坯——那是\"中间态\"，既不是钢板也不是最终产品。钢坯再加热、轧制，才能成为板材、线材、型材。所以从炉台到成品，至少要经过：炼铁 → 炼钢 → 连铸 → 轧制。",
+      "question_id": "Q4",
+      "node_ids": [
+        "M2",
+        "M3",
+        "M4",
+        "M5"
+      ],
+      "gap_topics": [
+        "fe_vs_steel",
+        "slab_not_product"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "X3",
+      "title": "火候",
+      "body": "没有温度计的年代，炉色、火苗、烟都是\"数据\"。老师傅看火色辨温度，听风声知炉况——经验就是古代的过程控制系统。《天工开物》把这些经验画下来、写下来，让一个人的手艺变成许多人可以学的知识。",
+      "question_id": "Q2",
+      "node_ids": [
+        "A3"
+      ],
+      "gap_topics": [
+        "huohou"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E01",
+        "E05"
+      ]
+    },
+    {
+      "id": "X4",
+      "title": "千锤百炼",
+      "body": "反复加热、锻打，既挤出杂质、焊合缺陷，也让铁的内部组织更致密——\"百炼成钢\"是古人用锤子回答的\"提纯\"问题。今天转炉吹氧降碳，回答的是同一道题，只是工具从铁锤变成了氧枪。",
+      "question_id": "Q3",
+      "node_ids": [
+        "A5",
+        "M3"
+      ],
+      "gap_topics": [
+        "ancient_iron_quality",
+        "forming_principle"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E05"
+      ]
+    },
+    {
+      "id": "X5",
+      "title": "提纯 · 古今",
+      "body": "古代：反复锻打、炒钢、灌钢——凭经验让铁更纯。今天：转炉吹氧、仪器检测——按标准控制成分。题没变：把铁变成更好用的材料。变的是答案的精度：从\"差不多\"到\"万分之几\"。",
+      "question_id": "Q3",
+      "node_ids": [
+        "A5",
+        "M3"
+      ],
+      "gap_topics": [
+        "ancient_iron_quality",
+        "fe_vs_steel"
+      ],
+      "depth": "deep",
+      "source_refs": [
+        "E05",
+        "E02"
+      ]
+    },
+    {
+      "id": "X6",
+      "title": "成形 · 古今",
+      "body": "古人把铁水注进铸模，一件一件浇出来；今天连铸机让钢水连续凝固，拉出上百米的长坯。同一个\"液态定型\"的问题，一个是单件慢铸，一个是连续快铸——效率与一致性，是现代工厂给出的新答案。",
+      "question_id": "Q4",
+      "node_ids": [
+        "A4",
+        "M4"
+      ],
+      "gap_topics": [
+        "forming_principle"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E01",
+        "E02"
+      ]
+    },
+    {
+      "id": "X7",
+      "title": "锻打与轧制",
+      "body": "让金属在压力下变形，锻打和轧制说的是同一件事。古人一锤一锤打；今天钢坯穿过一组组轧辊，被连续压到目标厚度。你刚才在轧机前看到的，其实是\"千锤百炼\"的工业化版本。",
+      "question_id": "Q4",
+      "node_ids": [
+        "A5",
+        "M5"
+      ],
+      "gap_topics": [
+        "forming_principle"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E05",
+        "E02"
+      ]
+    },
+    {
+      "id": "X8",
+      "title": "著书分宜",
+      "body": "宋应星在分宜写下《天工开物》，把散在匠人手里的经验变成系统的图文知识。新余市博物馆认为，凤凰山铁矿遗址\"应是\"其铁冶部分的重要资料来源地之一。记录，让工艺跨过四百年——今天你在现场看到的一切，也在被数字系统记录着。",
+      "question_id": "Q6",
+      "node_ids": [
+        "A3",
+        "A5",
+        "M6"
+      ],
+      "gap_topics": [
+        "knowledge_transfer"
+      ],
+      "depth": "core",
+      "source_refs": [
+        "E01",
+        "E05"
+      ]
+    },
+    {
+      "id": "X9",
+      "title": "新余产业链",
+      "body": "铁矿石采选 → 炼铁 → 炼钢 → 轧材 → 精深加工 → 新材料应用——新余已基本形成完整钢铁产业链，2025年钢铁产业营收占三大主导产业的42.5%。你今天的参观路线，就是沿着这条链走了一遍。",
+      "question_id": "Q1",
+      "node_ids": [
+        "M1",
+        "M6"
+      ],
+      "gap_topics": [
+        "industry_chain"
+      ],
+      "depth": "intro",
+      "source_refs": [
+        "E02",
+        "E06"
+      ]
+    },
+    {
+      "id": "X10",
+      "title": "安全路线",
+      "body": "现代钢厂的高温、机械与介质环境决定了：参观区域必须与生产区域隔离，路线固定、开放状态受控。所以系统不会\"带你乱走\"——它调整的是你看什么、怎么解释，而物理路线永远交给安全和场馆管理。",
+      "question_id": "Q7",
+      "node_ids": [
+        "M2",
+        "M5"
+      ],
+      "gap_topics": [
+        "safety"
+      ],
+      "depth": "intro",
+      "source_refs": [
+        "E04"
+      ]
+    },
+    {
+      "id": "X11",
+      "title": "一块铁，近四百年",
+      "body": "从凤凰山的矿石，到《天工开物》的图文，再到今天新钢的炉台——材料在变、炉子在变、控制方式在变，但\"取材—控火—提纯—成形—控性\"这道造物题一直延续。看懂这道题的延续，才算看懂了这座钢城。",
+      "question_id": "Q6",
+      "node_ids": [
+        "A1",
+        "M6"
+      ],
+      "gap_topics": [
+        "knowledge_transfer",
+        "industry_chain"
+      ],
+      "depth": "deep",
+      "source_refs": [
+        "E01",
+        "E02",
+        "E05"
+      ]
+    }
+  ],
+  "qa_knowledge": [
+    {
+      "id": "K1",
+      "keywords": [
+        "天工开物",
+        "宋应星",
+        "分宜"
+      ],
+      "question_hint": "《天工开物》和新余有什么关系？",
+      "answer": "明代宋应星在分宜（今新余市辖县）任教谕期间撰成《天工开物》，系统记录了包括冶铁在内的工艺知识。新余市博物馆对凤凰山铁矿遗址与该书的关系采用谨慎表述：该遗址\"应是\"宋应星撰写铁冶部分的重要资料来源地之一。",
+      "source_refs": [
+        "E01",
+        "E05"
+      ]
+    },
+    {
+      "id": "K2",
+      "keywords": [
+        "铁和钢",
+        "区别",
+        "钢和铁",
+        "为什么炼钢"
+      ],
+      "question_hint": "铁和钢到底有什么区别？",
+      "answer": "主要差别在含碳量与杂质：生铁含碳约4%上下、硬而脆；钢含碳量低于2%（通常远低于此），强度与韧性可以兼得。所以高炉出来的铁水必须再经炼钢降碳去杂，才能成为可深度加工的钢。",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "K3",
+      "keywords": [
+        "凤凰山",
+        "遗址",
+        "古代冶铁"
+      ],
+      "question_hint": "凤凰山铁矿遗址是什么年代的？",
+      "answer": "据新余市博物馆介绍，凤凰山铁矿遗址延续时间涵盖唐晚期至明代，遗存涉及采矿、燃料、冶炼炉、铁水和成品提取等环节，能较完整地反映古代铁冶过程。",
+      "source_refs": [
+        "E01"
+      ]
+    },
+    {
+      "id": "K4",
+      "keywords": [
+        "新钢",
+        "陈列馆",
+        "参观",
+        "工业旅游"
+      ],
+      "question_hint": "新钢历史陈列馆在哪里、有什么？",
+      "answer": "据公开报道，新钢历史陈列馆建在一座2500立方米高炉的炉台上，毗邻高炉智慧集控中心，是\"印象新钢\"工业旅游路线的第一站。馆内约800平方米，设有数字化厂区沙盘，并对《天工开物》冶铁场景进行了声光电还原。",
+      "source_refs": [
+        "E03"
+      ]
+    },
+    {
+      "id": "K5",
+      "keywords": [
+        "产业链",
+        "新余钢铁",
+        "产业"
+      ],
+      "question_hint": "新余的钢铁产业完整吗？",
+      "answer": "据新余市工信局2026年公开资料，当地已基本形成\"铁矿石采选—炼铁—炼钢—轧材—钢材精深加工—钢铁新材料应用\"的完整钢铁产业链；2025年钢铁产业营收占三大主导产业的42.5%。",
+      "source_refs": [
+        "E02",
+        "E06"
+      ]
+    },
+    {
+      "id": "K6",
+      "keywords": [
+        "连铸",
+        "钢坯",
+        "轧制"
+      ],
+      "question_hint": "钢水怎么变成钢板？",
+      "answer": "路径是：钢水 → 连铸成钢坯 → 加热轧制成材。钢坯是中间态，不是最终产品；轧制让钢坯连续压延成板材、线材、型材，厚度精度由轧机控制。",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "K7",
+      "keywords": [
+        "安全",
+        "路线",
+        "能不能自己走"
+      ],
+      "question_hint": "在钢厂里可以自己随便走吗？",
+      "answer": "不可以。工业旅游政策明确要求真实生产区域严格安全、应急与保密管理，参观区域与生产区域隔离。所以本系统的物理路线固定且经场馆批准，智能系统只调整观察重点与解释深度，不规划现场行走路线。",
+      "source_refs": [
+        "E04"
+      ]
+    }
+  ]
+}

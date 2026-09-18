@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="kit.css">
+<style>
+  .flow { display: flex; align-items: stretch; gap: 0; margin-top: 30px; }
+  .flow-step { flex: 1; position: relative; padding: 26px 24px 22px; border: 1.5px solid var(--line); background: var(--card); }
+  .flow-step + .flow-step { margin-left: 34px; }
+  .flow-step + .flow-step::before {
+    content: '↓'; position: absolute; left: -33px; top: 50%; transform: translateY(-50%);
+    font-size: 34px; color: var(--cinnabar); font-family: var(--hei);
+  }
+  .flow-era { font-family: var(--hei); font-size: 17px; letter-spacing: 0.2em; margin-bottom: 8px; }
+  .flow-title { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
+  .flow-desc { font-size: 19px; line-height: 1.6; color: var(--ink-2); }
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 34px; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="pad">
+    <div class="board-head">
+      <div>
+        <div class="kicker">《开物脉络》· 选题与地域依据 · A3-01</div>
+        <div class="h1" style="margin-top: 18px;">从矿石到钢材，新余的一条千年造物脉络</div>
+      </div>
+      <div class="stamp">天工开物 × 新余钢铁</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-era cinnabar">唐晚期 — 明</div>
+        <div class="flow-title">凤凰山古铁冶</div>
+        <div class="flow-desc">采矿 · 燃料 · 冶铁炉 · 铁水 · 铸模，遗存可反映完整的古代铁冶过程</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-era cinnabar">明 · 1637</div>
+        <div class="flow-title">《天工开物》</div>
+        <div class="flow-desc">宋应星任分宜县教谕期间撰成；馆方谨慎表述：凤凰山“应是”其铁冶部分重要资料来源地之一</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-era steelc">工业化时代</div>
+        <div class="flow-title">新钢建立</div>
+        <div class="flow-desc">“如何稳定、大规模地把钢炼出来”——钢城的时代命题</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-era steelc">今天</div>
+        <div class="flow-title">完整钢铁产业链</div>
+        <div class="flow-desc">铁矿石采选—炼铁—炼钢—轧材—精深加工—新材料应用；2025 年钢铁营收占三大主导产业 42.5%</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-era steelc">进行时</div>
+        <div class="flow-title">绿色与数字化</div>
+        <div class="flow-desc">更洁净、更精确、更低碳——造物问题仍在延续</div>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div class="card accent">
+        <div class="h3" style="margin-bottom: 12px;">这条脉络不是我们找出来的，它就在新余</div>
+        <div class="body-t" style="font-size: 22px;">
+          古代矿冶遗址 → 《天工开物》地方关联 → 现代大型钢企 → 工业旅游展陈 → 当代完整产业链，
+          五段资源在同城连续存在——这是《开物脉络》真正的地域壁垒。
+        </div>
+        <div class="src"><b>来源：</b>新余市博物馆·凤凰山铁矿遗址介绍；新余市工信局《工业锻脊梁 实干开新局》（2026-09）；新余市统计局 2025 年统计公报</div>
+      </div>
+      <div>
+        <div class="card steel">
+          <div class="h3" style="margin-bottom: 12px;">但“展示古今” ≠ “理解古今之间的造物逻辑”</div>
+          <div class="body-t" style="font-size: 22px;">
+            新钢历史陈列馆建在 2500m³ 高炉炉台上，是“印象新钢”工业旅游首站，
+            馆内已有数字沙盘与《天工开物》冶铁场景声光电还原——单纯的古今数字展示<b>不再是创新</b>。
+          </div>
+          <div class="src"><b>来源：</b>国家档案局《江西新余新钢历史陈列馆开馆》（2022-05）</div>
+        </div>
+        <div class="card accent" style="margin-top: 26px;">
+          <div class="h3 kai cinnabar" style="margin-bottom: 12px;">于是设计问题变成——</div>
+          <div class="body-t kai" style="font-size: 26px; color: var(--ink);">
+            如何把“古今放在一起看”，升级为“古今造物问题可交互、可计算、可验证”？
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 18px; margin-top: 32px;">
+      <span class="chip">地域性</span><span class="chip">文化价值</span><span class="chip">真实需求</span>
+      <span class="chip steel">需求侧佐证：2026 工业旅游政策明确鼓励依托现代工厂与工业遗产开展工业研学，并要求纳入课程衔接（文旅部等七部门，2026-06）</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 26px; margin-top: 30px;">
+      <div class="card" style="text-align: center; padding: 24px 20px;">
+        <div class="kicker gray" style="font-size: 18px;">赛题第一句</div>
+        <div class="h3 kai" style="margin: 10px 0 8px;">自然之材 → 实用之器</div>
+        <div class="small">矿石 → 铁水 → 钢水 → 钢坯 → 钢材 → 现代产品，<br>这就是产品的信息架构本身</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px 20px;">
+        <div class="kicker gray" style="font-size: 18px;">赛题第二句</div>
+        <div class="h3 kai" style="margin: 10px 0 8px;">传统文化 → 现代生活</div>
+        <div class="small">凤凰山古铁冶 /《天工开物》↔ 现代新余钢铁产业，<br>古今造物问题对照</div>
+      </div>
+      <div class="card" style="text-align: center; padding: 24px 20px;">
+        <div class="kicker gray" style="font-size: 18px;">赛题第三句</div>
+        <div class="h3 kai" style="margin: 10px 0 8px;">数字智能 → 产业升级</div>
+        <div class="small">工业研学 + 认知导航 + 课程衔接 + 场馆反馈，<br>数字智能赋能工业文化资源服务化</div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <span class="tiny hei">《开物脉络》——面向工业研学的古今工艺认知导航系统 · 参赛方向：数字智能</span>
+      <span class="tiny hei">A3-01 / 5</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
