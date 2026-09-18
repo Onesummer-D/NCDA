@@ -20,8 +20,6 @@ export default function Craft() {
     setQi(i)
     setView('auto')
     setPos(i % 2 === 0 ? 0 : 100)
-  }
-  const markAnswered = () => {
     if (!answered.has(q.id)) {
       answered.add(q.id)
       signal({ question_id: q.id, signal_type: 'action_click', detail: `craft_q_${q.id}` })

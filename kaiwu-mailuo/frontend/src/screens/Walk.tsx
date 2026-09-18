@@ -7,7 +7,6 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const [current, setCurrent] = useState('M2')
   const [expanded, setExpanded] = useState<string | null>(null)
   const [picked, setPicked] = useState<number | null>(null)
-  const [answeredTasks, setAnsweredTasks] = useState<Record<string, boolean>>({})
   const [reco, setReco] = useState<RecoResponse | null>(null)
   const [stage, setStage] = useState<'observe' | 'quiz'>('observe')
 
@@ -36,7 +35,6 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
     if (picked !== null || !task) return
     setPicked(i)
     const correct = task.correct_index === i
-    setAnsweredTasks((m) => ({ ...m, [task.id]: correct }))
     signal({
       node_id: node.id, task_id: task.id, signal_type: 'task_answer',
       correct, gap_topic: correct ? null : task.gap_topic_on_wrong,
@@ -70,7 +68,6 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
               ) : (
                 <button className="o-btn primary" onClick={() => {
                   signal({ node_id: node.id, task_id: task.id, signal_type: 'task_answer', correct: null, detail: task.expected_signal_correct })
-                  setAnsweredTasks((m) => ({ ...m, [task.id]: true }))
                   refreshReco(node.id)
                 }}>记录</button>
               )}

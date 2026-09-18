@@ -4,7 +4,7 @@ import { api } from '../api'
 
 interface QaResult { hit: boolean; answer: string; question_hint?: string; source_refs?: string[] }
 
-const SUGGESTED = ['铁和钢有什么区别？', '《天工开物》和新余有什么关系？', '凤凰山遗址是什么年代的？', '钢水怎么变成钢板？', '在钢厂里可以自己走吗？']
+const SUGGESTED = ['铁和钢的区别', '《天工开物》与新余', '凤凰山遗址', '钢水到钢板', '参观路线']
 
 export default function Qa() {
   const { session, evidenceTitle } = useApp()
@@ -17,8 +17,7 @@ export default function Qa() {
     if (!query) return
     setBusy(true)
     try {
-      const r = await api.qa(query, session.id ?? undefined)
-      setResult(r)
+      setResult(await api.qa(query, session.id ?? undefined))
     } finally {
       setBusy(false)
     }
@@ -26,13 +25,10 @@ export default function Qa() {
 
   return (
     <div className="page">
-      <div className="kicker">追问 · 证据约束</div>
-      <h2 className="craft-title" style={{ fontSize: 24 }}>问一个工艺问题</h2>
-      <p style={{ fontSize: 12.5, color: 'var(--ink-2)', marginTop: 6 }}>
-        回答基于可追溯公开资料生成，并显示来源卡；资料库未覆盖的问题会明确说明，绝不自由发挥冶金史。
-      </p>
+      <div className="eyebrow accent">追问 · 证据约束</div>
+      <h2 className="h-page" style={{ marginTop: 12 }}>问</h2>
 
-      <div className="qa-chip-row">
+      <div className="qa-suggest">
         {SUGGESTED.map((s) => (
           <button key={s} className="qa-chip" onClick={() => { setQuery(s); ask(s) }}>{s}</button>
         ))}
@@ -40,28 +36,24 @@ export default function Qa() {
 
       <div className="qa-input-row">
         <input value={query} onChange={(e) => setQuery(e.target.value)}
-          placeholder="输入你的问题…" onKeyDown={(e) => { if (e.key === 'Enter') ask(query) }} />
+          placeholder="输入问题…" onKeyDown={(e) => { if (e.key === 'Enter') ask(query) }} />
         <button disabled={busy} onClick={() => ask(query)}>问</button>
       </div>
 
       {result && (
-        <div className={`qa-answer reco-card ${result.hit ? '' : 'qa-no-evidence'}`} style={{ borderLeftColor: result.hit ? 'var(--cinnabar)' : 'var(--ink-3)' }}>
-          <div className="reco-kicker" style={{ color: result.hit ? 'var(--cinnabar)' : 'var(--ink-3)' }}>
-            {result.hit ? '基于资料库回答' : '证据边界提示'}
-          </div>
-          <p style={{ marginTop: 8, color: 'var(--ink)' }}>{result.answer}</p>
-          {result.hit && result.source_refs && (
-            <div className="source-card">
-              来源：<span className="src-title">{result.source_refs.map(evidenceTitle).join('；')}</span>
-            </div>
+        <div className="qa-result reco-card">
+          {result.hit ? (
+            <>
+              <div className="r-body" style={{ marginTop: 0 }}>{result.answer}</div>
+              {result.source_refs && (
+                <div className="r-src"><b>来源</b>　{result.source_refs.map(evidenceTitle).join('；')}</div>
+              )}
+            </>
+          ) : (
+            <div className="qa-miss">{result.answer}</div>
           )}
         </div>
       )}
-
-      <p className="note-ethical">
-        设计说明：本演示版问答使用规则检索 + 知识库；正式版将接入 Evidence-grounded RAG（可替换 LLM Adapter），
-        检索不到权威证据时不生成回答。
-      </p>
     </div>
   )
 }
