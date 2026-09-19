@@ -9,9 +9,11 @@ CONTENT_PATH = BASE / "data" / "content.json"
 
 
 def get_conn() -> sqlite3.Connection:
-    conn = sqlite3.connect(DB_PATH)
+    # 研学现场多名学生并发写入（认知信号/问答），设置等待超时避免 "database is locked"
+    conn = sqlite3.connect(DB_PATH, timeout=30)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA busy_timeout = 30000")
     return conn
 
 

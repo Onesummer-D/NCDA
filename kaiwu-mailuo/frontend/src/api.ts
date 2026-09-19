@@ -24,8 +24,13 @@ export interface CurriculumLink {
   verification_source: string; needs_verification: number
 }
 export interface Evidence { id: string; title: string; publisher: string; date: string; url: string; note: string }
+export interface RelationEdge {
+  id: string; from_id: string; to_id: string; type: string
+  relation_type: string; confidence: string; note: string
+  evidence_ids: string[]
+}
 export interface ContentBundle {
-  questions: CraftQuestion[]; nodes: ProcessNode[]; tasks: ObservationTask[]
+  questions: CraftQuestion[]; nodes: ProcessNode[]; edges: RelationEdge[]; tasks: ObservationTask[]
   curriculum: CurriculumLink[]; explanations: Explanation[]; evidence: Evidence[]
 }
 export interface RecoCard {
@@ -71,7 +76,7 @@ export const api = {
     fetch('/api/qa', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, session_id: sessionId }),
-    }).then((r) => j<{ hit: boolean; answer: string; question_hint?: string; source_refs?: string[] }>(r)),
+    }).then((r) => j<{ hit: boolean; answer: string; question_hint?: string; source_refs?: string[]; suggestions?: string[] }>(r)),
   spectrum: (sessionId: number) => fetch(`/api/spectrum/${sessionId}`).then((r) => j<SpectrumResponse>(r)),
   finish: (sessionId: number) =>
     fetch(`/api/session/${sessionId}/finish`, {

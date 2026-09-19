@@ -1,6 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useApp } from '../store'
-import { api, type ObservationTask, type RecoResponse } from '../api'
+import { api, type ObservationTask, type RecoResponse, type SpectrumResponse } from '../api'
+import { NODE_IMAGES, FALLBACK_IMG, type ImgMeta } from '../images'
+
+/** 从推荐理由推断依据类型，驱动卡片徽章（Gap Engine 的可解释性外显） */
+function reasonFlag(reasons: string[]): { label: string; hot: boolean } {
+  if (reasons.some((r) => r.startsWith('命中理解断点'))) return { label: '补断点', hot: true }
+  if (reasons.some((r) => r.includes('负担调节'))) return { label: '减负担', hot: false }
+  if (reasons.some((r) => r.includes('当前工艺节点'))) return { label: '顺当前', hot: false }
+  return { label: '讲解序列', hot: false }
+}
 
 export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => void }) {
   const { content, session, signal, evidenceTitle } = useApp()
@@ -8,6 +17,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const [expanded, setExpanded] = useState<string | null>(null)
   const [picked, setPicked] = useState<number | null>(null)
   const [reco, setReco] = useState<RecoResponse | null>(null)
+  const [spec, setSpec] = useState<SpectrumResponse | null>(null)
   const [stage, setStage] = useState<'observe' | 'quiz'>('observe')
 
   const nodes = content?.nodes ?? []
@@ -20,12 +30,18 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
     setReco(r)
   }, [session.id])
 
+  const refreshSpec = useCallback(async () => {
+    if (session.id == null) return
+    try { setSpec(await api.spectrum(session.id)) } catch { /* 未开始会话时忽略 */ }
+  }, [session.id])
+
   useEffect(() => {
     if (session.id == null || !current) return
     signal({ node_id: current, signal_type: 'visit' })
     setPicked(null)
     setStage('observe')
     refreshReco(current)
+    refreshSpec()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, session.id])
 
@@ -40,6 +56,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
       correct, gap_topic: correct ? null : task.gap_topic_on_wrong,
     })
     refreshReco(node.id)
+    refreshSpec()
   }
 
   const chain = [...nodes].sort((a, b) => (a.era === b.era ? a.id.localeCompare(b.id) : a.era === 'ancient' ? -1 : 1))
@@ -47,11 +64,28 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const idx = modernChain.findIndex((n) => n.id === current)
   const nextModern = idx >= 0 && idx + 1 < modernChain.length ? modernChain[idx + 1] : null
   const lastWrong = picked !== null && task && picked !== task.correct_index
+  const img: ImgMeta = NODE_IMAGES[node.id] ?? FALLBACK_IMG
+  const mainEvidence = node.evidence_ids[0]
 
   return (
     <div className="page">
-      <div className="node-head">
-        <span className={`node-era ${node.era}`}>{node.era === 'ancient' ? '古' : '今'} · {node.stage}</span>
+      <div className="node-media">
+        <img src={img.src} alt={node.title} />
+        <span className={`nm-era ${node.era}`}>{node.era === 'ancient' ? '古' : '今'} · {node.stage}</span>
+        <div className="nm-cap">
+          <b>{img.credit}</b>
+          <span>{img.license}</span>
+        </div>
+      </div>
+      <a className="src-block" href={img.page} target="_blank" rel="noreferrer">
+        <img className="src-thumb" src={img.src} alt="" />
+        <span>
+          <span className="src-pub">{mainEvidence ? evidenceTitle(mainEvidence) : '开物脉络内容库'}</span>
+          <span className="src-title" style={{ display: 'block' }}>图片来源 · {img.credit}</span>
+        </span>
+        <span className="src-tag">{img.license}<br />Wikimedia</span>
+      </a>
+      <div className="node-head" style={{ marginTop: 18 }}>
         <h2 className="node-title">{node.title}</h2>
         <div className="node-sub">{node.subtitle} · {node.location} · {node.time_label}</div>
         <p className="node-summary">{node.summary}</p>
@@ -69,6 +103,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
                 <button className="o-btn primary" onClick={() => {
                   signal({ node_id: node.id, task_id: task.id, signal_type: 'task_answer', correct: null, detail: task.expected_signal_correct })
                   refreshReco(node.id)
+                  refreshSpec()
                 }}>记录</button>
               )}
             </div>
@@ -99,17 +134,23 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
       {reco && reco.recommendations.length > 0 && (
         <div className="reco">
           <div className="eyebrow" style={{ marginBottom: 12 }}>补一环</div>
-          {reco.recommendations.map((r) => (
-            <div key={r.id} className="reco-card">
-              <div className="r-eyebrow">{r.depth === 'deep' ? '深一层' : r.depth === 'intro' ? '先知道' : '核心'}</div>
-              <div className="r-title">{r.title}</div>
-              <div className="r-body">{r.body}</div>
-              {reco.variant === 'adaptive' && r.reasons.length > 0 && (
-                <div className="r-why">依据 · {r.reasons.join(' / ')}</div>
-              )}
-              <div className="r-src"><b>来源</b>　{r.source_refs.map(evidenceTitle).join('；')}</div>
-            </div>
-          ))}
+          {reco.recommendations.map((r) => {
+            const flag = reasonFlag(r.reasons)
+            return (
+              <div key={r.id} className="reco-card">
+                <div className="r-head">
+                  <span className="r-eyebrow">{r.depth === 'deep' ? '深一层' : r.depth === 'intro' ? '先知道' : '核心'}</span>
+                  {reco.variant === 'adaptive' && <span className={`r-flag ${flag.hot ? '' : 'quiet'}`}>{flag.label}</span>}
+                </div>
+                <div className="r-title">{r.title}</div>
+                <div className="r-body">{r.body}</div>
+                {reco.variant === 'adaptive' && r.reasons.length > 0 && (
+                  <div className="r-why">依据 · {r.reasons.join(' / ')}</div>
+                )}
+                <div className="r-src"><b>来源</b>　{r.source_refs.map(evidenceTitle).join('；')}</div>
+              </div>
+            )
+          })}
         </div>
       )}
 
@@ -143,6 +184,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
               <span className="ch-name">{n.title}</span>
               {n.is_observation_point && <span className="ch-obs" title="观察点" />}
               <span className="ch-stage">{n.stage}</span>
+              {spec && <span className={`ch-state ${spec.states[n.id] ?? 'unseen'}`} title="开物谱状态" />}
             </button>
             {expanded === n.id && (
               <ul className="node-detail">

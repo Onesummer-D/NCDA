@@ -20,6 +20,8 @@ export default function Teacher() {
     api.teacher().then(setData).catch(() => {})
   }, [])
 
+  const maxGap = data ? Math.max(1, ...data.top_gap_topics.map((g) => g.n)) : 1
+
   return (
     <div className="teacher-page">
       <div className="t-head">
@@ -44,30 +46,40 @@ export default function Teacher() {
           <div className="eyebrow section-label">任务数据</div>
           <table className="ttable">
             <thead>
-              <tr><th>节点</th><th>到达</th><th>完成</th><th>首答对</th><th>首答错</th></tr>
+              <tr><th>节点</th><th>到达</th><th>完成</th><th>首答对</th><th>首答错</th><th>完成率</th></tr>
             </thead>
             <tbody>
-              {data.tasks.map((t) => (
-                <tr key={t.task_id}>
-                  <td>{t.node_id}</td>
-                  <td className="num">{t.reached}</td>
-                  <td className="num">{t.answered}</td>
-                  <td className="num t-pos">{t.first_correct}</td>
-                  <td className="num t-neg">{t.first_wrong}</td>
-                </tr>
-              ))}
+              {data.tasks.map((t) => {
+                const ratio = t.reached > 0 ? t.answered / t.reached : 0
+                return (
+                  <tr key={t.task_id}>
+                    <td>{t.node_id}</td>
+                    <td className="num">{t.reached}</td>
+                    <td className="num">{t.answered}</td>
+                    <td className="num t-pos">{t.first_correct}</td>
+                    <td className="num t-neg">{t.first_wrong}</td>
+                    <td className="bar-cell">
+                      {Math.round(ratio * 100)}%
+                      <div className="bar-track"><div className="bar-fill" style={{ width: `${ratio * 100}%` }} /></div>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
 
           <div className="eyebrow section-label">断点排行</div>
           <table className="ttable">
-            <thead><tr><th>工艺关系</th><th>人次</th></tr></thead>
+            <thead><tr><th>工艺关系</th><th style={{ width: '45%' }}>人次</th></tr></thead>
             <tbody>
               {data.top_gap_topics.length === 0 && <tr><td colSpan={2} className="t-note">暂无</td></tr>}
               {data.top_gap_topics.map((g) => (
                 <tr key={g.gap_topic}>
                   <td>{GAP_LABEL[g.gap_topic] ?? g.gap_topic}</td>
-                  <td className="num">{g.n}</td>
+                  <td className="bar-cell">
+                    <span className="num">{g.n}</span>
+                    <div className="bar-track"><div className="bar-fill hot" style={{ width: `${(g.n / maxGap) * 100}%` }} /></div>
+                  </td>
                 </tr>
               ))}
             </tbody>

@@ -264,9 +264,17 @@ def qa(body: dict) -> dict:
         if score > best_score:
             best, best_score = k, score
     if not best:
+        suggestions: list[str] = []
+        for k in rows(conn, "SELECT question_hint FROM qa_knowledge ORDER BY id"):
+            hint = k["question_hint"]
+            if hint and hint not in suggestions:
+                suggestions.append(hint)
+            if len(suggestions) == 3:
+                break
         conn.close()
         return {"hit": False, "answer":
-                "这个问题暂时超出了资料库的范围。为了避免凭空编造冶金史，我需要先查证可靠资料再回答——你可以先问一问带队老师，或换个和工艺流程有关的问题。"}
+                "这个问题暂时超出了资料库的范围。为了避免凭空编造冶金史，我需要先查证可靠资料再回答——你可以先问一问带队老师，或换个和工艺流程有关的问题。",
+                "suggestions": suggestions}
     conn.close()
     return {
         "hit": True,
@@ -371,14 +379,9 @@ def _advice(gaps) -> str:
 
 
 # ---------------------------------------------------------------- 静态前端（生产模式）
-# API 路由注册在前、静态目录挂载在后：/api/* 走接口，其余走 dist（含 #/teacher 的 index.html）
+# API 路由注册在前、静态目录挂载在后：/api/* 走接口，其余（含 /assets /images /favicon.svg）走 dist
 from fastapi.staticfiles import StaticFiles  # noqa: E402
-from fastapi.responses import FileResponse  # noqa: E402
 
 DIST = BASE.parent / "frontend" / "dist"
 if (DIST / "index.html").exists():
-    app.mount("/assets", StaticFiles(directory=str(DIST / "assets")), name="assets")
-
-    @app.get("/", include_in_schema=False)
-    def index() -> FileResponse:
-        return FileResponse(DIST / "index.html")
+    app.mount("/", StaticFiles(directory=str(DIST), html=True), name="dist")

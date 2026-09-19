@@ -1,11 +1,14 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../store'
+import { NODE_IMAGES, FALLBACK_IMG } from '../images'
 
-export default function Craft() {
-  const { content, signal } = useApp()
+type View = 'auto' | 'ancient' | 'modern' | 'why'
+
+export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
+  const { content, signal, craftQi, setCraftQi, setQaSeed } = useApp()
   const [qi, setQi] = useState(0)
   const [pos, setPos] = useState(0)
-  const [view, setView] = useState<'auto' | 'ancient' | 'modern' | 'why'>('auto')
+  const [view, setView] = useState<View>('auto')
 
   const questions = content?.questions ?? []
   const q = questions[qi]
@@ -14,20 +17,28 @@ export default function Craft() {
   const era = pos < 50 ? 'ancient' : 'modern'
   const shown = view === 'auto' ? era : view
 
-  if (!q) return <div className="page" />
-
-  const pick = (i: number) => {
-    setQi(i)
+  // 其他页面（首页阶段卡）跳转时定位到指定问题
+  useEffect(() => {
+    if (craftQi == null) return
+    setQi(craftQi)
+    setPos(craftQi % 2 === 0 ? 0 : 100)
     setView('auto')
-    setPos(i % 2 === 0 ? 0 : 100)
-    if (!answered.has(q.id)) {
-      answered.add(q.id)
-      signal({ question_id: q.id, signal_type: 'action_click', detail: `craft_q_${q.id}` })
-    }
-  }
+    window.scrollTo(0, 0)
+    setCraftQi(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [craftQi])
+
+  useEffect(() => {
+    if (q) signal({ question_id: q.id, signal_type: 'action_click', detail: `craft_q_${q.id}` })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qi])
+
+  if (!q) return <div className="page" />
 
   const ancientNodes = content?.nodes.filter((n) => n.era === 'ancient' && n.question_ids.includes(q.id)) ?? []
   const modernNodes = content?.nodes.filter((n) => n.era === 'modern' && n.question_ids.includes(q.id)) ?? []
+  const eraNodes = shown === 'ancient' ? ancientNodes : modernNodes
+  const eraImg = NODE_IMAGES[eraNodes[0]?.id ?? ''] ?? FALLBACK_IMG
 
   return (
     <div className="page">
@@ -38,27 +49,41 @@ export default function Craft() {
       </div>
 
       <div className="slider-block">
-        <div className="slider-ends"><span>明代 · 凤凰山</span><span>今天 · 新钢</span></div>
+        <div className="slider-ends">
+          <span className="end-ancient">明代 · 凤凰山</span>
+          <span className="end-modern">今天 · 新钢</span>
+        </div>
         <input
           type="range" min={0} max={100} value={pos}
           onChange={(e) => { setPos(Number(e.target.value)); setView('auto') }}
           aria-label="时间轴"
         />
+        <div className="q-seg">
+          <button className={view === 'auto' ? 'active' : ''} onClick={() => setView('auto')}>跟随时间轴</button>
+          <button className={view === 'ancient' ? 'active' : ''} onClick={() => setView('ancient')}>古</button>
+          <button className={view === 'modern' ? 'active' : ''} onClick={() => setView('modern')}>今</button>
+          <button className={view === 'why' ? 'active' : ''} onClick={() => setView('why')}>变</button>
+        </div>
       </div>
 
       {shown !== 'why' ? (
-        <div className={`era-panel ${era}`}>
-          <span className="e-tag">{era === 'ancient' ? '古' : '今'}</span>
-          <div className="era-answer">{era === 'ancient' ? q.ancient_answer_short : q.modern_answer_short}</div>
+        <div key={`${q.id}-${shown}`} className={`era-panel ${shown}`}>
+          <img className="era-img" src={eraImg.src} alt={q.title} />
+          <span className="e-tag">{shown === 'ancient' ? '古' : '今'} · {eraImg.credit}</span>
+          <div className="era-answer">{shown === 'ancient' ? q.ancient_answer_short : q.modern_answer_short}</div>
           <ul className="era-points">
-            {(era === 'ancient' ? ancientNodes : modernNodes).map((n) => (
+            {eraNodes.map((n) => (
               <li key={n.id}><b>{n.title}</b>　{n.summary}</li>
             ))}
           </ul>
+          <button
+            className="panel-link"
+            onClick={() => { setQaSeed(shown === 'ancient' ? '《天工开物》和新余有什么关系？' : '铁和钢到底有什么区别？'); onGoto('qa') }}
+          >就这一问，追问一句 →</button>
         </div>
       ) : (
-        <div className="why-panel">
-          <span className="e-tag" style={{ color: 'var(--accent)' }}>变</span>
+        <div key={`${q.id}-why`} className="why-panel">
+          <span className="w-tag">变 · 为什么不一样了</span>
           <div className="w-text">{q.why_changed}</div>
         </div>
       )}
@@ -68,7 +93,7 @@ export default function Craft() {
           <button
             key={qq.id}
             className={`${i === qi ? 'active' : ''} ${answered.has(qq.id) ? 'answered' : ''}`}
-            onClick={() => pick(i)}
+            onClick={() => { setQi(i); setView('auto'); setPos(i % 2 === 0 ? 0 : 100) }}
           >{qq.code}</button>
         ))}
       </div>

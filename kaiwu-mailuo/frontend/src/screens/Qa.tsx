@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useApp } from '../store'
 import { api } from '../api'
 
-interface QaResult { hit: boolean; answer: string; question_hint?: string; source_refs?: string[] }
+interface QaResult {
+  hit: boolean; answer: string
+  question_hint?: string; source_refs?: string[]; suggestions?: string[]
+}
 
 const SUGGESTED = ['铁和钢的区别', '《天工开物》与新余', '凤凰山遗址', '钢水到钢板', '参观路线']
 
 export default function Qa() {
-  const { session, evidenceTitle } = useApp()
+  const { session, evidenceTitle, qaSeed, setQaSeed } = useApp()
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<QaResult | null>(null)
   const [busy, setBusy] = useState(false)
@@ -23,10 +26,21 @@ export default function Qa() {
     }
   }
 
+  // 其他页面（考考你卡 / 造物问追问）预置的问题
+  useEffect(() => {
+    if (!qaSeed) return
+    const q = qaSeed
+    setQaSeed(null)
+    setQuery(q)
+    ask(q)
+    window.scrollTo(0, 0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qaSeed])
+
   return (
     <div className="page">
       <div className="eyebrow accent">追问 · 证据约束</div>
-      <h2 className="h-page" style={{ marginTop: 12 }}>问</h2>
+      <h2 className="h-page" style={{ marginTop: 12 }}>问个开物</h2>
 
       <div className="qa-suggest">
         {SUGGESTED.map((s) => (
@@ -50,7 +64,20 @@ export default function Qa() {
               )}
             </>
           ) : (
-            <div className="qa-miss">{result.answer}</div>
+            <>
+              <span className="qa-miss-tag">未收录 · 不编造</span>
+              <div className="qa-miss">{result.answer}</div>
+              {result.suggestions && result.suggestions.length > 0 && (
+                <>
+                  <div className="qa-sugg-label">你可以试着问</div>
+                  <div className="qa-suggest">
+                    {result.suggestions.map((s) => (
+                      <button key={s} className="qa-chip" onClick={() => { setQuery(s); ask(s) }}>{s}</button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
           )}
         </div>
       )}
