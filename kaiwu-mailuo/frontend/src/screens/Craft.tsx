@@ -121,7 +121,7 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
               <span className="qn-dot" />
               <span className="qn-body">
                 <b>{qq.code}</b>
-                <i>{qq.title.length > 14 ? qq.title.slice(0, 13) + '…' : qq.title}</i>
+                <i>{qq.title}</i>
               </span>
             </button>
           )

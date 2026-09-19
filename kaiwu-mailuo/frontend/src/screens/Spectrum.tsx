@@ -19,6 +19,8 @@ const numLabel = (id: string) =>
   id.startsWith('A')
     ? (['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ'][Number(id.slice(1)) - 1] ?? id)
     : String(Number(id.slice(1)))
+/** 脉络网里的长名缩写（完整名见选中信息条与现场页） */
+const SHORT_NAME: Record<string, string> = { M6: '精深加工' }
 
 /* 脉络网布局：古列在左，今列在右，关系边横跨两侧 */
 const AX_ANC = 104
@@ -201,24 +203,24 @@ export default function Spectrum() {
             return (
               <g key={n.id} className="g-node" onClick={() => setSelected(isSel ? null : n.id)}>
                 {st === 'gap_detected' && (
-                  <circle className="pulse" cx={cx} cy={cy} r={16} fill="none" stroke="var(--gap)" strokeWidth={1.5} />
+                  <circle className="pulse" cx={cx} cy={cy} r={19} fill="none" stroke="var(--gap)" strokeWidth={1.5} />
                 )}
                 <circle
                   className="disc"
-                  cx={cx} cy={cy} r={16}
+                  cx={cx} cy={cy} r={19}
                   fill={discFill}
                   stroke={isSel ? 'var(--ink)' : discStroke}
                   strokeWidth={isSel ? 1.5 : 1}
                 />
-                <text className="g-id" x={cx} y={cy + 3.5} fill={idFill}>{numLabel(n.id)}</text>
+                <text className="g-id" x={cx} y={cy + 4.5} fill={idFill}>{numLabel(n.id)}</text>
                 <text
                   className="g-name"
-                  x={n.era === 'ancient' ? cx - 26 : cx + 26}
-                  y={cy + 4}
+                  x={n.era === 'ancient' ? cx - 30 : cx + 30}
+                  y={cy + 5}
                   textAnchor={n.era === 'ancient' ? 'end' : 'start'}
                   fill={isSel ? 'var(--accent)' : 'var(--ink)'}
-                >{n.title}</text>
-                <circle cx={cx} cy={cy} r={26} fill="transparent" style={{ pointerEvents: 'all' }} />
+                >{SHORT_NAME[n.id] ?? n.title}</text>
+                <circle cx={cx} cy={cy} r={28} fill="transparent" style={{ pointerEvents: 'all' }} />
               </g>
             )
           })}

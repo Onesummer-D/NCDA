@@ -3,7 +3,7 @@ import { useApp } from '../store'
 
 /** 右上角圆形头像 + 下拉菜单（登录 / 分享海报 / 收藏 / 昵称 / 教师控制台） */
 export default function AvatarMenu({ onShare }: { onShare: () => void }) {
-  const { user, setUser, favorites, content } = useApp()
+  const { user, setUser, favorites, content, setWalkNodeId } = useApp()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -15,14 +15,19 @@ export default function AvatarMenu({ onShare }: { onShare: () => void }) {
     return () => document.removeEventListener('mousedown', onDoc)
   }, [])
 
-  const favNames = favorites
-    .map((id) => content?.nodes.find((n) => n.id === id)?.title)
-    .filter(Boolean) as string[]
+  const favNodes = favorites
+    .map((id) => ({ id, title: content?.nodes.find((n) => n.id === id)?.title ?? id }))
 
   const rename = () => {
     if (!user) return
     const name = window.prompt('修改昵称', user.name)
     if (name && name.trim()) setUser({ ...user, name: name.trim() })
+  }
+
+  const gotoFav = (id: string) => {
+    setWalkNodeId(id)
+    location.hash = '#/walk'
+    setOpen(false)
   }
 
   return (
@@ -41,14 +46,14 @@ export default function AvatarMenu({ onShare }: { onShare: () => void }) {
               </div>
               <button className="am-item" onClick={() => { setOpen(false); onShare() }}>分享研学海报</button>
               <div className="am-item am-static">
-                收藏地点{favNames.length ? `（${favNames.length}）` : '（空）'}
-                {favNames.length > 0 && (
-                  <span className="am-favs">{favNames.join(' · ')}</span>
-                )}
+                收藏地点{favNodes.length ? `（${favNodes.length}）` : '（空）'}
+                {favNodes.length > 0 && favNodes.map((f) => (
+                  <button key={f.id} className="am-fav" onClick={() => gotoFav(f.id)}>{f.title}</button>
+                ))}
               </div>
               <button className="am-item" onClick={() => { setOpen(false); rename() }}>修改昵称</button>
               {user.role === 'teacher' && (
-                <a className="am-item" href="#/teacher" onClick={() => setOpen(false)}>教师控制台 →</a>
+                <a className="am-item" href="#/teacher" onClick={() => setOpen(false)}>教师控制台</a>
               )}
               <button className="am-item am-quit" onClick={() => { setUser(null); setOpen(false) }}>退出登录</button>
             </>
@@ -57,7 +62,6 @@ export default function AvatarMenu({ onShare }: { onShare: () => void }) {
               <div className="am-head"><span className="am-name">游客</span><span className="am-role">未登录</span></div>
               <a className="am-item" href="#/login" onClick={() => setOpen(false)}>登录 / 注册</a>
               <button className="am-item" onClick={() => { setOpen(false); onShare() }}>分享研学海报</button>
-              <div className="am-item am-static">收藏地点（登录后可用）</div>
             </>
           )}
         </div>

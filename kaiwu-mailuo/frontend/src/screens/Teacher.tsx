@@ -13,11 +13,26 @@ const GAP_LABEL: Record<string, string> = {
   safety: '安全边界',
 }
 
+const NODE_TITLES: Record<string, string> = {
+  A1: '山中取矿', A2: '烧炭备薪', A3: '筑炉冶炼', A4: '浇铸成器', A5: '锻打精制',
+  M1: '铁矿石采选', M2: '高炉炼铁', M3: '转炉炼钢', M4: '连铸成坯', M5: '轧制成材', M6: '精深加工与新材料',
+}
+
 export default function Teacher() {
   const [data, setData] = useState<TeacherSummary | null>(null)
+  const [updatedAt, setUpdatedAt] = useState('')
+
+  const load = () => {
+    api.teacher().then((d) => {
+      setData(d)
+      setUpdatedAt(new Date().toLocaleTimeString('zh-CN'))
+    }).catch(() => {})
+  }
 
   useEffect(() => {
-    api.teacher().then(setData).catch(() => {})
+    load()
+    const iv = setInterval(load, 15000)   // 每 15 秒自动刷新，数据始终是活的
+    return () => clearInterval(iv)
   }, [])
 
   const maxGap = data ? Math.max(1, ...data.top_gap_topics.map((g) => g.n)) : 1
@@ -26,8 +41,11 @@ export default function Teacher() {
     <div className="teacher-page">
       <div className="t-head">
         <div>
-          <div className="eyebrow accent">教师 · 场馆</div>
-          <h1 style={{ marginTop: 10 }}>理解断点</h1>
+          <h1>理解断点</h1>
+          <div className="t-live">
+            <span className="t-live-dot" />实时数据{updatedAt && ` · 更新于 ${updatedAt}`}
+            <button className="t-refresh" onClick={load}>刷新</button>
+          </div>
         </div>
         <div className="t-fine">《开物脉络》</div>
       </div>
@@ -41,23 +59,24 @@ export default function Teacher() {
             <div className="stat-box"><div className="n">{data.top_gap_topics[0]?.n ?? 0}</div><div className="label">最高断点</div></div>
           </div>
 
-          {data.advice && <div className="advice-box">{data.advice}</div>}
+          {data.advice && (
+            <p className="advice-plain"><b>建议</b>　{data.advice.replace(/^建议：/, '')}</p>
+          )}
 
-          <div className="eyebrow section-label">任务数据</div>
+          <h3 className="t-section">任务数据</h3>
           <table className="ttable">
             <thead>
-              <tr><th>节点</th><th>到达</th><th>完成</th><th>首答对</th><th>首答错</th><th>完成率</th></tr>
+              <tr><th>节点</th><th>到达</th><th>完成</th><th>首答对</th><th style={{ width: '30%' }}>完成率</th></tr>
             </thead>
             <tbody>
               {data.tasks.map((t) => {
                 const ratio = t.reached > 0 ? t.answered / t.reached : 0
                 return (
                   <tr key={t.task_id}>
-                    <td>{t.node_id}</td>
+                    <td>{NODE_TITLES[t.node_id] ?? t.node_id}</td>
                     <td className="num">{t.reached}</td>
                     <td className="num">{t.answered}</td>
                     <td className="num t-pos">{t.first_correct}</td>
-                    <td className="num t-neg">{t.first_wrong}</td>
                     <td className="bar-cell">
                       {Math.round(ratio * 100)}%
                       <div className="bar-track"><div className="bar-fill" style={{ width: `${ratio * 100}%` }} /></div>
@@ -68,7 +87,7 @@ export default function Teacher() {
             </tbody>
           </table>
 
-          <div className="eyebrow section-label">断点排行</div>
+          <h3 className="t-section">断点排行</h3>
           <table className="ttable">
             <thead><tr><th>工艺关系</th><th style={{ width: '45%' }}>人次</th></tr></thead>
             <tbody>
@@ -84,8 +103,6 @@ export default function Teacher() {
               ))}
             </tbody>
           </table>
-
-          <div className="t-note">示例数据 · 场馆端用于展陈优化，教师端用于返校讨论聚焦</div>
         </>
       )}
       {!data && <div className="t-note">读取中…</div>}
