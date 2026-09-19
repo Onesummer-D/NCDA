@@ -1,16 +1,20 @@
 @echo off
-chcp 65001 >nul
-title å¼€ç‰©è„‰ç»œ - æœ¬åœ°æœåŠ¡
+title ¿ªÎïÂöÂç - ±¾µØ·şÎñ
 cd /d "%~dp0kaiwu-mailuo\backend"
 
-echo æ­£åœ¨å¯åŠ¨ã€Œå¼€ç‰©è„‰ç»œã€æœ¬åœ°æœåŠ¡...
-echo å¯åŠ¨åè¯·ç”¨æµè§ˆå™¨æ‰“å¼€:
-echo   å­¦ç”Ÿç«¯  http://localhost:8100
-echo   æ•™å¸ˆç«¯  http://localhost:8100/#/teacher
+echo ============================================
+echo   ¿ªÎïÂöÂç ¡¤ ±¾µØ·şÎñÆô¶¯ÖĞ
+echo ============================================
+echo   Ñ§Éú¶Ë  http://localhost:8100
+echo   ½ÌÊ¦¶Ë  http://localhost:8100/#/teacher
 echo.
-echo å…³é—­æœ¬çª—å£å³åœæ­¢æœåŠ¡ã€‚å¦‚æœå‰ç«¯æ”¹è¿‡ä»£ç ï¼Œè¯·å…ˆåœ¨ frontend ç›®å½•æ‰§è¡Œ npm run buildã€‚
+echo   ¹Ø±Õ±¾´°¿Ú¼´Í£Ö¹·şÎñ¡£
+echo   ÈôÌáÊ¾¶Ë¿Ú±»Õ¼ÓÃ£¬ÇëÏÈ¹Ø±Õ¾ÉµÄ·şÎñ´°¿Ú¡£
 echo.
+rem ÑÓ³Ù 3 ÃëµÈ·şÎñ¾ÍĞ÷£¬ÔÙ´ò¿ªä¯ÀÀÆ÷
+start "" /min cmd /c "timeout /t 3 /nobreak >nul && start http://localhost:8100"
 
-start "" http://localhost:8100
 python -m uvicorn main:app --host 127.0.0.1 --port 8100
+echo.
+echo ·şÎñÒÑÍË³ö¡£ÈôÇ°¶Ë¸Ä¹ı´úÂë£¬ÇëÏÈÔÚ frontend Ä¿Â¼Ö´ĞĞ npm run build ÔÙÖØĞÂÆô¶¯¡£
 pause
