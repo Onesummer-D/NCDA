@@ -4,6 +4,8 @@ import { api, type ContentBundle } from './api'
 
 const SESSION_KEY = 'kaiwu_session_v1'
 const USER_KEY = 'kaiwu_user_v1'
+const FAV_KEY = 'kaiwu_fav_v1'
+const VISIT_KEY = 'kaiwu_visit_v1'
 
 interface SessionState {
   id: number | null
@@ -36,6 +38,14 @@ function loadUser(): UserInfo | null {
   return null
 }
 
+function loadFavs(): string[] {
+  try {
+    const raw = localStorage.getItem(FAV_KEY)
+    if (raw) return JSON.parse(raw)
+  } catch { /* ignore */ }
+  return []
+}
+
 interface AppContextValue {
   content: ContentBundle | null
   session: SessionState
@@ -44,10 +54,15 @@ interface AppContextValue {
   evidenceTitle: (ref: string) => string
   user: UserInfo | null
   setUser: (u: UserInfo | null) => void
-  craftQi: number | null          // 预置到造物问的问题序号
+  craftQi: number | null
   setCraftQi: (i: number | null) => void
-  qaContext: string | null        // "再问一句"来源造物问 id（跳转时清空旧问答）
+  qaContext: string | null
   setQaContext: (id: string | null) => void
+  favorites: string[]
+  toggleFav: (nodeId: string) => void
+  walkNodeId: string | null
+  setWalkNodeId: (id: string | null) => void
+  visitStart: number | null   // 本次研学开始时间戳（海报算游览时长用）
 }
 
 const AppContext = createContext<AppContextValue>(null as unknown as AppContextValue)
@@ -55,9 +70,15 @@ const AppContext = createContext<AppContextValue>(null as unknown as AppContextV
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [content, setContent] = useState<ContentBundle | null>(null)
   const [session, setSession] = useState<SessionState>(loadSession)
-  const [user, setUser] = useState<UserInfo | null>(loadUser)
+  const [user, setUserState] = useState<UserInfo | null>(loadUser)
   const [craftQi, setCraftQi] = useState<number | null>(null)
   const [qaContext, setQaContext] = useState<string | null>(null)
+  const [favorites, setFavorites] = useState<string[]>(loadFavs)
+  const [walkNodeId, setWalkNodeId] = useState<string | null>(null)
+  const [visitStart, setVisitStart] = useState<number | null>(() => {
+    const v = Number(localStorage.getItem(VISIT_KEY))
+    return Number.isFinite(v) && v > 0 ? v : null
+  })
 
   useEffect(() => {
     api.content().then(setContent).catch(() => {})
@@ -76,8 +97,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const startSession = async (mode: string, variant: string) => {
     const s = await api.createSession(mode, variant)
     const next: SessionState = { id: s.session_id, mode, variant: s.variant }
-    try { localStorage.setItem(SESSION_KEY, JSON.stringify(next)) } catch { /* 隐私模式忽略 */ }
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(next))
+      localStorage.setItem(VISIT_KEY, String(Date.now()))
+    } catch { /* 隐私模式忽略 */ }
     setSession(next)
+    setVisitStart(Date.now())
   }
 
   const signal = (payload: Record<string, unknown>) => {
@@ -88,19 +113,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const evidenceTitle = (ref: string) => {
     if (!content) return ref
     const ev = content.evidence.find((e) => e.id === ref)
-    return ev ? `${ev.publisher}·${ev.title}` : ref
+    if (!ev) return ref
+    // 标题里已含机构名时不再重复前缀
+    return ev.title.includes(ev.publisher) ? ev.title : `${ev.publisher}·${ev.title}`
   }
 
-  const saveUser = (u: UserInfo | null) => {
+  const setUser = (u: UserInfo | null) => {
     try {
       if (u) localStorage.setItem(USER_KEY, JSON.stringify(u))
       else localStorage.removeItem(USER_KEY)
     } catch { /* ignore */ }
-    setUser(u)
+    setUserState(u)
+  }
+
+  const toggleFav = (nodeId: string) => {
+    setFavorites((f) => {
+      const next = f.includes(nodeId) ? f.filter((x) => x !== nodeId) : [...f, nodeId]
+      try { localStorage.setItem(FAV_KEY, JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
   }
 
   return (
-    <AppContext.Provider value={{ content, session, startSession, signal, evidenceTitle, user, setUser: saveUser, craftQi, setCraftQi, qaContext, setQaContext }}>
+    <AppContext.Provider value={{
+      content, session, startSession, signal, evidenceTitle,
+      user, setUser, craftQi, setCraftQi, qaContext, setQaContext,
+      favorites, toggleFav, walkNodeId, setWalkNodeId, visitStart,
+    }}>
       {children}
     </AppContext.Provider>
   )

@@ -14,6 +14,11 @@ const STATE_LABEL: Record<string, string> = {
 const STATE_COLOR: Record<string, string> = {
   unseen: 'transparent', exposed: 'var(--steel)', verified: 'var(--ok)', gap_detected: 'var(--gap)',
 }
+/** 古列用罗马数字，今列用阿拉伯数字 */
+const numLabel = (id: string) =>
+  id.startsWith('A')
+    ? (['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ'][Number(id.slice(1)) - 1] ?? id)
+    : String(Number(id.slice(1)))
 
 /* 脉络网布局：古列在左，今列在右，关系边横跨两侧 */
 const AX_ANC = 104
@@ -205,7 +210,7 @@ export default function Spectrum() {
                   stroke={isSel ? 'var(--ink)' : discStroke}
                   strokeWidth={isSel ? 1.5 : 1}
                 />
-                <text className="g-id" x={cx} y={cy + 3.5} fill={idFill}>{n.id}</text>
+                <text className="g-id" x={cx} y={cy + 3.5} fill={idFill}>{numLabel(n.id)}</text>
                 <text
                   className="g-name"
                   x={n.era === 'ancient' ? cx - 26 : cx + 26}
@@ -234,22 +239,6 @@ export default function Spectrum() {
         <span><i style={{ background: 'var(--steel)' }} />已接触</span>
         <span><i style={{ background: 'var(--ok)' }} />已验证</span>
         <span><i style={{ background: 'var(--gap)' }} />出现断点</span>
-      </div>
-      <p className="legend-note">
-        实线 = 你已经走过的联系，虚线 = 还没接触。线色区分关系的依据：
-        <i className="line" style={{ background: 'var(--rel-doc)' }} />史料关联、
-        <i className="line" style={{ background: 'var(--rel-func)' }} />功能类比、
-        <i className="line" style={{ background: 'var(--rel-para)' }} />设计解释（均可在来源页核对）。
-      </p>
-
-      <div className="spec-list">
-        {content.nodes.map((n) => (
-          <div key={n.id} className="spec-row">
-            <span className={`s-dot ${(data?.states ?? {})[n.id] ?? 'unseen'}`} />
-            <span className="s-name">{n.title}</span>
-            <span className="s-era">{n.era === 'ancient' ? '古' : '今'} · {n.stage}</span>
-          </div>
-        ))}
       </div>
 
       {data && data.key_changes.length > 0 && (

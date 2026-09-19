@@ -8,8 +8,9 @@ export default function Login() {
   const [role, setRole] = useState<'student' | 'teacher'>('student')
 
   const enter = (u: UserInfo | null) => {
+    try { localStorage.setItem('kaiwu_seen_v1', '1') } catch { /* ignore */ }
     setUser(u)
-    location.hash = u?.role === 'teacher' ? '#/' : '#/'
+    location.hash = '#/'
   }
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AppProvider, useApp } from './store'
+import { api } from './api'
 import Home from './screens/Home'
 import Craft from './screens/Craft'
 import Walk from './screens/Walk'
@@ -8,19 +9,21 @@ import Qa from './screens/Qa'
 import Teacher from './screens/Teacher'
 import Login from './screens/Login'
 import Doc from './screens/Doc'
+import Splash from './screens/Splash'
+import AvatarMenu from './components/AvatarMenu'
+import { renderPoster } from './poster'
 
 type Tab = 'home' | 'craft' | 'walk' | 'spectrum' | 'qa'
-type DocKey = 'about' | 'privacy' | 'terms'
 
 const TAB_KEYS: Tab[] = ['home', 'craft', 'walk', 'spectrum', 'qa']
-const DOC_KEYS: DocKey[] = ['about', 'privacy', 'terms']
+const DOC_KEYS = ['about', 'privacy', 'terms']
 const tabFromHash = (): Tab => {
   const h = window.location.hash.replace(/^#\//, '')
   return (TAB_KEYS as string[]).includes(h) ? (h as Tab) : 'home'
 }
-const docFromHash = (): DocKey | null => {
+const docFromHash = () => {
   const h = window.location.hash.replace(/^#\//, '')
-  return (DOC_KEYS as string[]).includes(h) ? (h as DocKey) : null
+  return (DOC_KEYS as string[]).includes(h) ? (h as 'about' | 'privacy' | 'terms') : null
 }
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
@@ -32,11 +35,11 @@ const TABS: { key: Tab; label: string; icon: string }[] = [
 ]
 
 function Shell() {
-  const { session, user } = useApp()
+  const { session, user, content, visitStart } = useApp()
   const [tab, setTab] = useState<Tab>(tabFromHash)
   const [mode, setMode] = useState('')
+  const [shareMsg, setShareMsg] = useState('')
 
-  // hash ↔ 标签页双向同步：页面可分享、可直达（#/walk、#/spectrum…）
   useEffect(() => {
     const onHash = () => setTab(tabFromHash())
     window.addEventListener('hashchange', onHash)
@@ -47,10 +50,40 @@ function Shell() {
     if (window.location.hash !== want) history.replaceState(null, '', want)
   }, [tab])
 
-  // 模式即主题：选中模式（或会话模式）立即切换全局强调色
   useEffect(() => {
     document.body.dataset.mode = session.id != null ? session.mode : (mode || 'school')
   }, [mode, session.id, session.mode])
+
+  // —— 分享研学海报：系统分享面板优先，不支持则保存图片 ——
+  const sharePoster = async () => {
+    if (!content) return
+    let states: Record<string, string> = {}
+    if (session.id != null) {
+      try { states = (await api.spectrum(session.id)).states } catch { /* 会话失效则用空状态 */ }
+    }
+    const blob = await renderPoster({
+      content, states, visitStart,
+      userName: user?.name ?? null,
+      shareUrl: `${location.origin}/#/`,
+    })
+    if (!blob) { setShareMsg('海报生成失败'); setTimeout(() => setShareMsg(''), 2000); return }
+    const file = new File([blob], '开物脉络-研学海报.png', { type: 'image/png' })
+    const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean }
+    if (nav.share && nav.canShare?.({ files: [file] })) {
+      try {
+        await nav.share({ files: [file], title: '开物脉络 · 我的研学海报', text: '今天在新钢打卡了这些工艺节点，来看看我的开物谱！' })
+        setShareMsg('已分享')
+      } catch { /* 用户取消了分享面板 */ }
+    } else {
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(blob)
+      a.download = '开物脉络-研学海报.png'
+      a.click()
+      URL.revokeObjectURL(a.href)
+      setShareMsg('海报已保存，发到群里就能分享')
+    }
+    setTimeout(() => setShareMsg(''), 2600)
+  }
 
   return (
     <div className="shell">
@@ -67,21 +100,36 @@ function Shell() {
           </button>
         ))}
       </nav>
-      {/* 已登录老师：悬浮入口直达教师控制台 */}
-      {user?.role === 'teacher' && tab !== 'home' && (
-        <a className="teacher-fab" href="#/teacher" title="教师控制台">师</a>
-      )}
+      <AvatarMenu onShare={sharePoster} />
+      {shareMsg && <div className="share-toast">{shareMsg}</div>}
     </div>
   )
 }
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash)
+  const [splashDone, setSplashDone] = useState(
+    () => localStorage.getItem('kaiwu_seen_v1') === '1' || !!localStorage.getItem('kaiwu_user_v1'),
+  )
   useEffect(() => {
     const onHash = () => setHash(window.location.hash)
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
+
+  // 首次访问：粒子开屏 → 登录页；之后直接进应用
+  const firstVisit = localStorage.getItem('kaiwu_seen_v1') !== '1' && !splashDone
+  if (firstVisit) {
+    return (
+      <Splash
+        onDone={() => {
+          history.replaceState(null, '', '#/login')
+          setHash('#/login')
+          setSplashDone(true)
+        }}
+      />
+    )
+  }
 
   if (hash === '#/teacher') return <Teacher />
   if (hash === '#/login') return <AppProvider><Login /></AppProvider>

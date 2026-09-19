@@ -14,8 +14,8 @@ function reasonFlag(reasons: string[]): { label: string; hot: boolean } {
 }
 
 export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => void }) {
-  const { content, session, signal, evidenceTitle } = useApp()
-  const [current, setCurrent] = useState('M2')
+  const { content, session, signal, evidenceTitle, favorites, toggleFav, walkNodeId, setWalkNodeId } = useApp()
+  const [current, setCurrent] = useState('A1')
   const [expanded, setExpanded] = useState<string | null>(null)
   const [picked, setPicked] = useState<number | null>(null)
   const [reco, setReco] = useState<RecoResponse | null>(null)
@@ -48,6 +48,16 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, session.id])
 
+  // 从收藏/菜单跳到指定节点
+  useEffect(() => {
+    if (walkNodeId == null) return
+    setCurrent(walkNodeId)
+    setExpanded(null)
+    window.scrollTo(0, 0)
+    setWalkNodeId(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [walkNodeId])
+
   if (!node) return <div className="page" />
 
   const pickOption = (i: number) => {
@@ -69,34 +79,49 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const lastWrong = picked !== null && task && picked !== task.correct_index
   const img: ImgMeta = NODE_IMAGES[node.id] ?? FALLBACK_IMG
   const mainEvidence = node.evidence_ids[0]
+  const fav = favorites.includes(node.id)
 
   return (
     <div className="page">
       {lightbox && <Lightbox img={img} onClose={() => setLightbox(false)} />}
       <div className="node-media">
         <img src={img.src} alt={node.title} onClick={() => setLightbox(true)} style={{ cursor: 'zoom-in' }} />
-        <span className={`nm-era ${node.era}`}>{node.era === 'ancient' ? '古' : '今'} · {node.stage}</span>
-        <div className="nm-cap">
-          <b>{img.credit}</b>
-          <span>{img.license}</span>
-        </div>
       </div>
       <div className="nm-actions">
-        <button className="nm-btn" onClick={() => setLightbox(true)} aria-label="放大查看">🔍</button>
-        <a className="nm-btn" href={img.src} download={`kaiwu-${node.id}.jpg`} aria-label="下载图片">⬇</a>
-        <span className="nm-hint">点击图片可放大 · 长按保存</span>
+        <button className="nm-btn" onClick={() => setLightbox(true)} aria-label="放大查看">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="M20 20l-4.8-4.8" />
+            <path d="M10.5 7.8v5.4M7.8 10.5h5.4" />
+          </svg>
+        </button>
+        <a className="nm-btn" href={img.src} download={`kaiwu-${node.id}.jpg`} aria-label="下载图片">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 4v10" />
+            <path d="M8 10.5l4 4 4-4" />
+            <path d="M4.5 19.5h15" />
+          </svg>
+        </a>
+        <button
+          className={`nm-btn ${fav ? 'faved' : ''}`}
+          onClick={() => toggleFav(node.id)}
+          aria-label={fav ? '取消收藏' : '收藏这个地点'}
+          title={fav ? '取消收藏' : '收藏这个地点'}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill={fav ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round">
+            <path d="M12 20.5s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.9c0 5.4-7.5 10-7.5 10z" />
+          </svg>
+        </button>
       </div>
       <a className="src-block" href={img.page} target="_blank" rel="noreferrer">
         <img className="src-thumb" src={img.src} alt="" />
-        <span>
+        <span className="src-main">
           <span className="src-pub">{mainEvidence ? evidenceTitle(mainEvidence) : '开物脉络内容库'}</span>
-          <span className="src-title" style={{ display: 'block' }}>图片来源 · {img.credit}</span>
         </span>
-        <span className="src-tag">{img.license}<br />{img.page.includes('wikimedia') ? 'Wikimedia Commons' : img.page.includes('cctv') ? '央视网' : '新余市博物馆'}</span>
+        <span className="src-tag">{img.page.includes('wikimedia') ? 'Wikimedia Commons' : img.page.includes('cctv') ? '央视网' : '新余市博物馆'}</span>
       </a>
       <div className="node-head" style={{ marginTop: 18 }}>
         <h2 className="node-title">{node.title}</h2>
-        <div className="node-sub">{node.subtitle} · {node.location} · {node.time_label}</div>
         <p className="node-summary">{node.summary}</p>
       </div>
 
@@ -169,8 +194,10 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
           <div className="eyebrow" style={{ marginBottom: 6 }}>课堂衔接</div>
           {content.curriculum.filter((c) => c.node_id === node.id).map((c) => (
             <div key={c.id} className="cur-row">
-              <span className="c-sub">{c.subject.slice(0, 2)}</span>
-              <span className="c-text">{c.concept} —— {c.hook}</span>
+              <span className="c-badge" data-subject={c.subject.slice(0, 2)}>
+                {c.subject.slice(0, 1)}
+              </span>
+              <span className="c-text"><b>{c.subject}</b>　{c.concept} —— {c.hook}</span>
             </div>
           ))}
         </div>

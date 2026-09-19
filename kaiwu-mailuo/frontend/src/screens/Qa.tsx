@@ -45,7 +45,6 @@ export default function Qa() {
         <img src={QA_HERO.src} alt="" />
         <div className="qa-hero-info">
           <div className="qa-hero-title">问个开物</div>
-          <div className="qa-hero-sub">答案均有出处 · 未收录的会直接说明</div>
         </div>
       </div>
 
@@ -86,7 +85,7 @@ export default function Qa() {
               </>
             ) : (
               <>
-                <span className="qa-miss-tag">未收录 · 不编造</span>
+                <span className="qa-miss-tag">未收录</span>
                 <div className="qa-miss">{result.answer}</div>
                 {result.suggestions && result.suggestions.length > 0 && (
                   <>

@@ -5,7 +5,7 @@ import { HERO_SLIDES, CRAFT_CARD_IMAGES, IMG_META } from '../images'
 const MODES = [
   { key: 'casual', title: '轻松看看', desc: '古今故事 · 基础导览', swatch: '#96692a', glyph: '谈' },
   { key: 'curious', title: '想看懂', desc: '认知导航 · 工艺因果', swatch: '#38617d', glyph: '析' },
-  { key: 'school', title: '学校研学', desc: '观察任务 · 课堂衔接 · 教师反馈', swatch: '#b8432c', glyph: '研' },
+  { key: 'school', title: '学校研学', desc: '观察任务 · 课堂衔接', swatch: '#b8432c', glyph: '研' },
 ]
 
 export default function Home({ mode, onMode, onEnter }: {
@@ -13,7 +13,7 @@ export default function Home({ mode, onMode, onEnter }: {
   onMode: (m: string) => void
   onEnter: (tab: 'craft' | 'walk' | 'spectrum' | 'qa') => void
 }) {
-  const { content, session, startSession, setCraftQi, setQaContext, user, setUser } = useApp()
+  const { content, session, startSession, setCraftQi, setQaContext } = useApp()
   const [starting, setStarting] = useState(false)
   const stripRef = useRef<HTMLDivElement>(null)
 
@@ -114,7 +114,7 @@ export default function Home({ mode, onMode, onEnter }: {
       </div>
 
       <div style={{ marginTop: 34, paddingLeft: 22 }}>
-        <div className="eyebrow" style={{ marginBottom: 8 }}>按工艺阶段逛 · 左右滑动</div>
+        <div className="eyebrow" style={{ marginBottom: 8 }}>按工艺阶段逛</div>
         <div className="strip-wrap">
           <div className="strip" ref={stripRef}>
             {(content?.questions ?? []).map((q) => {
@@ -154,7 +154,7 @@ export default function Home({ mode, onMode, onEnter }: {
         )}
       </div>
 
-      {/* —— 产品化页脚 —— */}
+      {/* —— 页脚：直接排在纯白底上 —— */}
       <footer className="site-footer">
         <div className="sf-brand">
           <span className="sf-logo">开物脉络</span>
@@ -168,18 +168,8 @@ export default function Home({ mode, onMode, onEnter }: {
           <a href="#/about">参观指南</a>
           <a href="#/privacy">隐私政策</a>
           <a href="#/terms">服务条款</a>
-          {user ? (
-            <button className="sf-user" onClick={() => setUser(null)}>
-              {user.name}（{user.role === 'teacher' ? '老师' : '学生'}）· 退出
-            </button>
-          ) : (
-            <a href="#/login">登录 / 注册</a>
-          )}
         </div>
-        {user?.role === 'teacher' && (
-          <a className="sf-teacher" href="#/teacher">进入教师控制台 →</a>
-        )}
-        <div className="sf-copy">© 2026 开物脉络 · NCDA 天工开物杯参赛作品 · 图片来源见各页图注</div>
+        <div className="sf-copy">© 2026 开物脉络</div>
       </footer>
     </div>
   )

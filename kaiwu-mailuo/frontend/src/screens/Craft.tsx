@@ -88,20 +88,44 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
           >再问一句 →</button>
         </div>
       ) : (
-        <div key={`${q.id}-why`} className="why-panel">
-          <span className="w-tag">变 · 为什么不一样了</span>
-          <div className="w-text">{q.why_changed}</div>
+        <div key={`${q.id}-why`} className="why-block">
+          <div className="why-duo">
+            <figure>
+              <img src={IMG_META[CRAFT_PANEL_IMAGES[q.id]?.ancient ?? 'a1']?.src ?? ''} alt="古" />
+              <figcaption>古 · {q.code}</figcaption>
+            </figure>
+            <span className="why-arrow">→</span>
+            <figure>
+              <img src={IMG_META[CRAFT_PANEL_IMAGES[q.id]?.modern ?? 'm1']?.src ?? ''} alt="今" />
+              <figcaption>今 · 新钢</figcaption>
+            </figure>
+          </div>
+          <div className="why-plain">
+            <span className="w-tag">变 · 为什么不一样了</span>
+            <p>{q.why_changed}</p>
+            <SpeakButton text={q.why_changed} />
+          </div>
         </div>
       )}
 
-      <div className="q-dots">
-        {questions.map((qq, i) => (
-          <button
-            key={qq.id}
-            className={`${i === qi ? 'active' : ''} ${answered.has(qq.id) ? 'answered' : ''}`}
-            onClick={() => { setQi(i); setView('auto'); setPos(i % 2 === 0 ? 0 : 100) }}
-          >{qq.code}</button>
-        ))}
+      {/* 步骤节点轴：左 1·3·5·7，右 2·4·6 */}
+      <div className="q-axis">
+        {questions.map((qq, i) => {
+          const side = i % 2 === 0 ? 'left' : 'right'
+          return (
+            <button
+              key={qq.id}
+              className={`q-node ${side} ${i === qi ? 'active' : ''} ${answered.has(qq.id) ? 'answered' : ''}`}
+              onClick={() => { setQi(i); setView('auto'); setPos(i % 2 === 0 ? 0 : 100) }}
+            >
+              <span className="qn-dot" />
+              <span className="qn-body">
+                <b>{qq.code}</b>
+                <i>{qq.title.length > 14 ? qq.title.slice(0, 13) + '…' : qq.title}</i>
+              </span>
+            </button>
+          )
+        })}
       </div>
     </div>
   )
