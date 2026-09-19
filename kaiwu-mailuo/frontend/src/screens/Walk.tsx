@@ -83,7 +83,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
           <span className="src-pub">{mainEvidence ? evidenceTitle(mainEvidence) : '开物脉络内容库'}</span>
           <span className="src-title" style={{ display: 'block' }}>图片来源 · {img.credit}</span>
         </span>
-        <span className="src-tag">{img.license}<br />Wikimedia</span>
+        <span className="src-tag">{img.license}<br />{img.page.includes('wikimedia') ? 'Wikimedia Commons' : '央视网'}</span>
       </a>
       <div className="node-head" style={{ marginTop: 18 }}>
         <h2 className="node-title">{node.title}</h2>
