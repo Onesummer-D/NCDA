@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useApp } from '../store'
 import { api, type ObservationTask, type RecoResponse, type SpectrumResponse } from '../api'
 import { NODE_IMAGES, FALLBACK_IMG, type ImgMeta } from '../images'
+import Lightbox from '../components/Lightbox'
+import SpeakButton from '../components/SpeakButton'
 
 /** 从推荐理由推断依据类型，驱动卡片徽章（Gap Engine 的可解释性外显） */
 function reasonFlag(reasons: string[]): { label: string; hot: boolean } {
@@ -19,6 +21,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const [reco, setReco] = useState<RecoResponse | null>(null)
   const [spec, setSpec] = useState<SpectrumResponse | null>(null)
   const [stage, setStage] = useState<'observe' | 'quiz'>('observe')
+  const [lightbox, setLightbox] = useState(false)
 
   const nodes = content?.nodes ?? []
   const node = nodes.find((n) => n.id === current)
@@ -69,13 +72,19 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
 
   return (
     <div className="page">
+      {lightbox && <Lightbox img={img} onClose={() => setLightbox(false)} />}
       <div className="node-media">
-        <img src={img.src} alt={node.title} />
+        <img src={img.src} alt={node.title} onClick={() => setLightbox(true)} style={{ cursor: 'zoom-in' }} />
         <span className={`nm-era ${node.era}`}>{node.era === 'ancient' ? '古' : '今'} · {node.stage}</span>
         <div className="nm-cap">
           <b>{img.credit}</b>
           <span>{img.license}</span>
         </div>
+      </div>
+      <div className="nm-actions">
+        <button className="nm-btn" onClick={() => setLightbox(true)} aria-label="放大查看">🔍</button>
+        <a className="nm-btn" href={img.src} download={`kaiwu-${node.id}.jpg`} aria-label="下载图片">⬇</a>
+        <span className="nm-hint">点击图片可放大 · 长按保存</span>
       </div>
       <a className="src-block" href={img.page} target="_blank" rel="noreferrer">
         <img className="src-thumb" src={img.src} alt="" />
@@ -83,7 +92,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
           <span className="src-pub">{mainEvidence ? evidenceTitle(mainEvidence) : '开物脉络内容库'}</span>
           <span className="src-title" style={{ display: 'block' }}>图片来源 · {img.credit}</span>
         </span>
-        <span className="src-tag">{img.license}<br />{img.page.includes('wikimedia') ? 'Wikimedia Commons' : '央视网'}</span>
+        <span className="src-tag">{img.license}<br />{img.page.includes('wikimedia') ? 'Wikimedia Commons' : img.page.includes('cctv') ? '央视网' : '新余市博物馆'}</span>
       </a>
       <div className="node-head" style={{ marginTop: 18 }}>
         <h2 className="node-title">{node.title}</h2>
@@ -96,6 +105,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
           <div className="observe">
             <div className="o-eyebrow">观察</div>
             <div className="o-text">{task.prompt.replace(/^观察提示：/, '').replace(/^观察任务：/, '')}</div>
+            <SpeakButton text={task.prompt} dark />
             <div className="o-actions">
               {task.mode === 'choice' ? (
                 <button className="o-btn primary" onClick={() => setStage('quiz')}>继续</button>

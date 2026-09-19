@@ -6,13 +6,21 @@ import Walk from './screens/Walk'
 import Spectrum from './screens/Spectrum'
 import Qa from './screens/Qa'
 import Teacher from './screens/Teacher'
+import Login from './screens/Login'
+import Doc from './screens/Doc'
 
 type Tab = 'home' | 'craft' | 'walk' | 'spectrum' | 'qa'
+type DocKey = 'about' | 'privacy' | 'terms'
 
 const TAB_KEYS: Tab[] = ['home', 'craft', 'walk', 'spectrum', 'qa']
+const DOC_KEYS: DocKey[] = ['about', 'privacy', 'terms']
 const tabFromHash = (): Tab => {
   const h = window.location.hash.replace(/^#\//, '')
   return (TAB_KEYS as string[]).includes(h) ? (h as Tab) : 'home'
+}
+const docFromHash = (): DocKey | null => {
+  const h = window.location.hash.replace(/^#\//, '')
+  return (DOC_KEYS as string[]).includes(h) ? (h as DocKey) : null
 }
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
@@ -24,9 +32,9 @@ const TABS: { key: Tab; label: string; icon: string }[] = [
 ]
 
 function Shell() {
-  const { session } = useApp()
+  const { session, user } = useApp()
   const [tab, setTab] = useState<Tab>(tabFromHash)
-  const [mode, setMode] = useState('school')
+  const [mode, setMode] = useState('')
 
   // hash ↔ 标签页双向同步：页面可分享、可直达（#/walk、#/spectrum…）
   useEffect(() => {
@@ -41,7 +49,7 @@ function Shell() {
 
   // 模式即主题：选中模式（或会话模式）立即切换全局强调色
   useEffect(() => {
-    document.body.dataset.mode = session.id != null ? session.mode : mode
+    document.body.dataset.mode = session.id != null ? session.mode : (mode || 'school')
   }, [mode, session.id, session.mode])
 
   return (
@@ -59,6 +67,10 @@ function Shell() {
           </button>
         ))}
       </nav>
+      {/* 已登录老师：悬浮入口直达教师控制台 */}
+      {user?.role === 'teacher' && tab !== 'home' && (
+        <a className="teacher-fab" href="#/teacher" title="教师控制台">师</a>
+      )}
     </div>
   )
 }
@@ -71,9 +83,11 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  if (hash === '#/teacher') {
-    return <Teacher />
-  }
+  if (hash === '#/teacher') return <Teacher />
+  if (hash === '#/login') return <AppProvider><Login /></AppProvider>
+  const doc = docFromHash()
+  if (doc) return <AppProvider><Doc doc={doc} /></AppProvider>
+
   return (
     <AppProvider>
       <Shell />

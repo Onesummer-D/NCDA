@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../store'
-import { NODE_IMAGES, FALLBACK_IMG } from '../images'
+import { CRAFT_PANEL_IMAGES, IMG_META, FALLBACK_IMG } from '../images'
+import SpeakButton from '../components/SpeakButton'
 
 type View = 'auto' | 'ancient' | 'modern' | 'why'
 
 export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
-  const { content, signal, craftQi, setCraftQi, setQaSeed } = useApp()
+  const { content, signal, craftQi, setCraftQi, setQaContext } = useApp()
   const [qi, setQi] = useState(0)
   const [pos, setPos] = useState(0)
   const [view, setView] = useState<View>('auto')
@@ -38,7 +39,9 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
   const ancientNodes = content?.nodes.filter((n) => n.era === 'ancient' && n.question_ids.includes(q.id)) ?? []
   const modernNodes = content?.nodes.filter((n) => n.era === 'modern' && n.question_ids.includes(q.id)) ?? []
   const eraNodes = shown === 'ancient' ? ancientNodes : modernNodes
-  const eraImg = NODE_IMAGES[eraNodes[0]?.id ?? ''] ?? FALLBACK_IMG
+  const panelName = shown === 'why' ? 'm2' : (CRAFT_PANEL_IMAGES[q.id]?.[shown] ?? 'm2')
+  const panelImg = IMG_META[panelName] ?? FALLBACK_IMG
+  const eraAnswer = shown === 'ancient' ? q.ancient_answer_short : q.modern_answer_short
 
   return (
     <div className="page">
@@ -68,9 +71,12 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
 
       {shown !== 'why' ? (
         <div key={`${q.id}-${shown}`} className={`era-panel ${shown}`}>
-          <img className="era-img" src={eraImg.src} alt={q.title} />
-          <span className="e-tag">{shown === 'ancient' ? '古' : '今'} · {eraImg.credit}</span>
-          <div className="era-answer">{shown === 'ancient' ? q.ancient_answer_short : q.modern_answer_short}</div>
+          <img className="era-img" src={panelImg.src} alt={q.title} />
+          <span className="e-tag">{shown === 'ancient' ? '古' : '今'} · {panelImg.credit}</span>
+          <div className="era-answer">
+            {eraAnswer}
+            <SpeakButton text={eraAnswer} />
+          </div>
           <ul className="era-points">
             {eraNodes.map((n) => (
               <li key={n.id}><b>{n.title}</b>　{n.summary}</li>
@@ -78,8 +84,8 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
           </ul>
           <button
             className="panel-link"
-            onClick={() => { setQaSeed(shown === 'ancient' ? '《天工开物》和新余有什么关系？' : '铁和钢到底有什么区别？'); onGoto('qa') }}
-          >就这一问，追问一句 →</button>
+            onClick={() => { setQaContext(q.id); onGoto('qa') }}
+          >再问一句 →</button>
         </div>
       ) : (
         <div key={`${q.id}-why`} className="why-panel">

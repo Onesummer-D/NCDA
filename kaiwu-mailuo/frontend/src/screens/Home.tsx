@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useApp } from '../store'
-import { HERO_SLIDES } from '../images'
+import { HERO_SLIDES, CRAFT_CARD_IMAGES, IMG_META } from '../images'
 
 const MODES = [
   { key: 'casual', title: '轻松看看', desc: '古今故事 · 基础导览', swatch: '#96692a', glyph: '谈' },
@@ -13,50 +13,61 @@ export default function Home({ mode, onMode, onEnter }: {
   onMode: (m: string) => void
   onEnter: (tab: 'craft' | 'walk' | 'spectrum' | 'qa') => void
 }) {
-  const { content, session, startSession, setQaSeed, setCraftQi } = useApp()
-  const [variant, setVariant] = useState('adaptive')
+  const { content, session, startSession, setCraftQi, setQaContext, user, setUser } = useApp()
   const [starting, setStarting] = useState(false)
-  const [slide, setSlide] = useState(0)
   const stripRef = useRef<HTMLDivElement>(null)
 
+  // —— 无缝轮播：首尾各克隆一张，播完过渡后瞬时归位 ——
+  const n = HERO_SLIDES.length
+  const [pos, setPos] = useState(1)                    // 在扩展轨道中的位置
+  const [anim, setAnim] = useState(true)
+  const extended = [HERO_SLIDES[n - 1], ...HERO_SLIDES, HERO_SLIDES[0]]
+
+  const go = (dir: 1 | -1) => setPos((p) => p + dir)
+  const onTrackEnd = () => {
+    if (pos === 0) { setAnim(false); setPos(n) }
+    else if (pos === n + 1) { setAnim(false); setPos(1) }
+  }
+  useEffect(() => {
+    if (!anim) requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)))
+  }, [anim])
+
+  // 自动轮播（首帧停留 8s）
+  useEffect(() => {
+    let iv: ReturnType<typeof setInterval> | undefined
+    const t = setTimeout(() => {
+      iv = setInterval(() => setPos((p) => p + 1), 5200)
+    }, 8000)
+    return () => { clearTimeout(t); if (iv) clearInterval(iv) }
+  }, [])
+
   const start = async (tab: 'craft' | 'walk') => {
+    if (!mode) return
     if (session.id != null) { onEnter(tab); return }
     setStarting(true)
     try {
-      await startSession(mode, variant)
+      await startSession(mode, 'adaptive')
       onEnter(tab)
     } finally {
       setStarting(false)
     }
   }
 
-  // hero 自动轮播（首帧停留 8s，之后每 5.2s 翻页）
-  useEffect(() => {
-    let iv: ReturnType<typeof setInterval> | undefined
-    const t = setTimeout(() => {
-      iv = setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 5200)
-    }, 8000)
-    return () => { clearTimeout(t); if (iv) clearInterval(iv) }
-  }, [])
-
   const scrollStrip = (dx: number) => stripRef.current?.scrollBy({ left: dx, behavior: 'smooth' })
-
-  const qCount = content?.questions.length ?? 0
-  const nAncient = content?.nodes.filter((n) => n.era === 'ancient').length ?? 0
-  const nModern = content?.nodes.filter((n) => n.era === 'modern').length ?? 0
-
-  // 阶段横滑卡：每道造物问配一张图（古法木刻优先）
-  const questions = content?.questions ?? []
+  const activeDot = ((pos - 1) % n + n) % n
 
   return (
     <div className="page" style={{ paddingLeft: 0, paddingRight: 0 }}>
       <div className="hero-carousel" style={{ margin: '0 22px' }}>
         <div className="hc-viewport">
-          <div className="hc-track" style={{ transform: `translateX(-${slide * 100}%)` }}>
-            {HERO_SLIDES.map((s) => (
-              <div key={s.src} className="hc-slide">
-                <img src={s.src} alt={s.title} />
-                <span className="hc-credit">{s.license}</span>
+          <div
+            className="hc-track"
+            style={{ transform: `translateX(-${pos * 100}%)`, transition: anim ? undefined : 'none' }}
+            onTransitionEnd={onTrackEnd}
+          >
+            {extended.map((s, i) => (
+              <div key={i} className="hc-slide">
+                <img src={s.src} alt={s.title} draggable={false} />
                 <div className="hc-info">
                   <div className="hc-eyebrow">{s.eyebrow}</div>
                   <div className="hc-title">{s.title}</div>
@@ -66,18 +77,22 @@ export default function Home({ mode, onMode, onEnter }: {
             ))}
           </div>
         </div>
-        <button className="hc-arrow left" aria-label="上一张" onClick={() => setSlide((slide + HERO_SLIDES.length - 1) % HERO_SLIDES.length)}>‹</button>
-        <button className="hc-arrow right" aria-label="下一张" onClick={() => setSlide((slide + 1) % HERO_SLIDES.length)}>›</button>
+        <button className="hc-arrow left" aria-label="上一张" onClick={() => go(-1)}>‹</button>
+        <button className="hc-arrow right" aria-label="下一张" onClick={() => go(1)}>›</button>
         <div className="hc-dots">
-          {HERO_SLIDES.map((_, i) => <i key={i} className={i === slide ? 'on' : ''} />)}
+          {HERO_SLIDES.map((_, i) => <i key={i} className={i === activeDot ? 'on' : ''} />)}
         </div>
       </div>
 
       <div style={{ padding: '0 22px' }}>
         <div className="modes">
-          <div className="eyebrow modes-label">选择你的参观方式 · 界面会随之变化</div>
+          <div className="eyebrow modes-label">选择你的参观方式</div>
           {MODES.map((m) => (
-            <button key={m.key} className={`mode-card ${mode === m.key ? 'selected' : ''}`} onClick={() => onMode(m.key)}>
+            <button
+              key={m.key}
+              className={`mode-card ${mode === m.key ? 'selected' : ''}`}
+              onClick={() => onMode(m.key)}
+            >
               <span className="m-swatch" style={{ background: m.swatch }}>{m.glyph}</span>
               <span className="m-body">
                 <span className="m-title">{m.title}</span>
@@ -89,10 +104,10 @@ export default function Home({ mode, onMode, onEnter }: {
         </div>
 
         <div className="actions">
-          <button className="btn-primary accent" disabled={starting} onClick={() => start('craft')}>
-            进入
+          <button className="btn-primary accent" disabled={starting || !mode} onClick={() => start('craft')}>
+            {mode ? '进入' : '先选择一种参观方式'}
           </button>
-          <button className="btn-ghost" onClick={() => start('walk')}>
+          <button className="btn-ghost" disabled={!mode} onClick={() => start('walk')}>
             直达现场
           </button>
         </div>
@@ -103,16 +118,15 @@ export default function Home({ mode, onMode, onEnter }: {
         <div className="strip-wrap">
           <div className="strip" ref={stripRef}>
             {(content?.questions ?? []).map((q) => {
-              const nodes = content?.nodes.filter((n) => n.question_ids.includes(q.id)) ?? []
-              const pick = nodes.find((n) => n.era === 'ancient') ?? nodes[0]
-              const qi = questions.indexOf(q)
+              const qi = (content?.questions ?? []).indexOf(q)
+              const imgName = CRAFT_CARD_IMAGES[q.id] ?? 'm2'
               return (
                 <button
                   key={q.id}
                   className="strip-card"
                   onClick={() => { setCraftQi(qi); onEnter('craft') }}
                 >
-                  {pick?.id && <img src={`/images/${pick.id}.jpg`} alt={q.title} loading="lazy" />}
+                  <img src={IMG_META[imgName]?.src ?? `/images/${imgName}.jpg`} alt="" loading="lazy" />
                   <span className="strip-title">
                     <b>{q.code}</b>
                     <span>{q.title}</span>
@@ -126,35 +140,47 @@ export default function Home({ mode, onMode, onEnter }: {
       </div>
 
       <div style={{ padding: '0 22px' }}>
-        {questions.length > 0 && (
+        {(content?.questions?.length ?? 0) > 0 && (
           <div className="test-card">
-            <img src="/images/m2.jpg" alt="高炉" loading="lazy" />
+            <img src="/images/m2.jpg" alt="新钢厂区" loading="lazy" />
             <div className="test-body">
               <span className="test-tag">考考你</span>
               <div className="test-q">高炉里出来的，已经是能做汽车的钢了吗？</div>
-              <button
-                className="test-link"
-                onClick={() => { setQaSeed('铁和钢到底有什么区别？'); onEnter('qa') }}
-              >看看答案 ↗</button>
+              <button className="test-link" onClick={() => { setQaContext(null); onEnter('qa') }}>
+                去问个明白 ↗
+              </button>
             </div>
           </div>
         )}
-
-        <div className="ab-row">
-          <span className="t-fine">分组</span>
-          <select value={variant} onChange={(e) => setVariant(e.target.value)} aria-label="测试分组">
-            <option value="adaptive">B · 缺口感知</option>
-            <option value="fixed">A · 固定序列</option>
-          </select>
-        </div>
-
-        <div className="t-fine" style={{ textAlign: 'center', marginTop: 26, letterSpacing: '0.12em' }}>
-          {qCount} 问 · {nAncient} 古 · {nModern} 今 · {content?.edges.length ?? 0} 缘
-        </div>
-        <div className="t-fine" style={{ textAlign: 'center', marginTop: 10, letterSpacing: 0 }}>
-          图片来源 Wikimedia Commons，授权信息见各页图注
-        </div>
       </div>
+
+      {/* —— 产品化页脚 —— */}
+      <footer className="site-footer">
+        <div className="sf-brand">
+          <span className="sf-logo">开物脉络</span>
+          <span className="sf-tagline">面向新余工业研学的古今工艺认知导航</span>
+        </div>
+        <p className="sf-about">
+          以《天工开物》与凤凰山古铁冶为起点，串起新余钢铁的完整产业链，让每一次参观都变成一场可追问、可验证的造物课。
+        </p>
+        <div className="sf-links">
+          <a href="#/about">关于我们</a>
+          <a href="#/about">参观指南</a>
+          <a href="#/privacy">隐私政策</a>
+          <a href="#/terms">服务条款</a>
+          {user ? (
+            <button className="sf-user" onClick={() => setUser(null)}>
+              {user.name}（{user.role === 'teacher' ? '老师' : '学生'}）· 退出
+            </button>
+          ) : (
+            <a href="#/login">登录 / 注册</a>
+          )}
+        </div>
+        {user?.role === 'teacher' && (
+          <a className="sf-teacher" href="#/teacher">进入教师控制台 →</a>
+        )}
+        <div className="sf-copy">© 2026 开物脉络 · NCDA 天工开物杯参赛作品 · 图片来源见各页图注</div>
+      </footer>
     </div>
   )
 }

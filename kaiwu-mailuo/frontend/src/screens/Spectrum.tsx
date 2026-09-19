@@ -1,16 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp } from '../store'
 import { api, type ProcessNode, type SpectrumResponse } from '../api'
+import { SPECTRUM_HERO } from '../images'
 
 const REL_COLOR: Record<string, string> = {
   documented_relation: 'var(--rel-doc)',
   functional_comparison: 'var(--rel-func)',
   conceptual_parallel: 'var(--rel-para)',
-}
-const REL_LABEL: Record<string, string> = {
-  documented_relation: '史料关联',
-  functional_comparison: '功能类比',
-  conceptual_parallel: '设计解释',
 }
 const STATE_LABEL: Record<string, string> = {
   unseen: '未接触', exposed: '已接触', verified: '已验证', gap_detected: '出现断点',
@@ -30,7 +26,9 @@ export default function Spectrum() {
   const { content, session } = useApp()
   const [data, setData] = useState<SpectrumResponse | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
+  const [posterMsg, setPosterMsg] = useState('')
   const sid = session.id
+  const posterRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     if (sid == null) { setData(null); return }
@@ -49,6 +47,73 @@ export default function Spectrum() {
     return { ancient: byEra('ancient'), modern: byEra('modern') }
   }, [content])
 
+  // —— 分享海报：把本次研学的开物谱画成一张可保存的图 ——
+  const makePoster = () => {
+    const canvas = posterRef.current
+    if (!canvas || !content) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const W = 720, H = 1080
+    canvas.width = W; canvas.height = H
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(0, 0, W, H)
+    // 顶部色带
+    ctx.fillStyle = '#b8432c'
+    ctx.fillRect(0, 0, W, 10)
+    // 标题
+    ctx.fillStyle = '#1c1915'
+    ctx.font = 'bold 52px "Microsoft YaHei", sans-serif'
+    ctx.fillText('开物脉络', 48, 110)
+    ctx.fillStyle = '#857e6e'
+    ctx.font = '22px "Microsoft YaHei", sans-serif'
+    ctx.fillText('新余工业研学 · 我的开物谱', 48, 150)
+    const date = new Date().toLocaleDateString('zh-CN')
+    ctx.fillText(date, W - 48 - ctx.measureText(date).width, 110)
+    // 统计
+    const states = data?.states ?? {}
+    const count = (s: string) => Object.values(states).filter((x) => x === s).length
+    ctx.fillStyle = '#4f4a42'
+    ctx.font = '26px "Microsoft YaHei", sans-serif'
+    ctx.fillText(`已验证 ${count('verified')} · 出现断点 ${count('gap_detected')} · 已接触 ${count('exposed')} · 未接触 ${count('unseen')}`, 48, 210)
+    // 分隔线
+    ctx.strokeStyle = 'rgba(28,25,21,.12)'
+    ctx.beginPath(); ctx.moveTo(48, 240); ctx.lineTo(W - 48, 240); ctx.stroke()
+    // 节点清单（两列）
+    ctx.font = '24px "Microsoft YaHei", sans-serif'
+    const items = [...grouped.ancient, ...grouped.modern]
+    items.forEach((nd, i) => {
+      const col = i % 2, row = Math.floor(i / 2)
+      const x = 60 + col * 330, y = 300 + row * 64
+      const st = states[nd.id] ?? 'unseen'
+      ctx.beginPath()
+      ctx.arc(x + 8, y - 8, 9, 0, Math.PI * 2)
+      if (st === 'unseen') { ctx.strokeStyle = 'rgba(28,25,21,.3)'; ctx.lineWidth = 1.5; ctx.stroke() }
+      else { ctx.fillStyle = STATE_COLOR[st] === 'transparent' ? '#999' : STATE_COLOR[st]; ctx.fill() }
+      ctx.fillStyle = '#1c1915'
+      ctx.fillText(nd.title, x + 28, y)
+      ctx.fillStyle = '#857e6e'
+      ctx.font = '17px "Microsoft YaHei", sans-serif'
+      ctx.fillText(STATE_LABEL[st] ?? '未接触', x + 28, y + 24)
+      ctx.font = '24px "Microsoft YaHei", sans-serif'
+    })
+    // 底部
+    ctx.strokeStyle = 'rgba(28,25,21,.12)'
+    ctx.beginPath(); ctx.moveTo(48, H - 90); ctx.lineTo(W - 48, H - 90); ctx.stroke()
+    ctx.fillStyle = '#1c1915'
+    ctx.font = 'bold 24px "Microsoft YaHei", sans-serif'
+    ctx.fillText('一块铁 · 近四百年', 48, H - 52)
+    ctx.fillStyle = '#857e6e'
+    ctx.font = '18px "Microsoft YaHei", sans-serif'
+    ctx.fillText('开物脉络 · 新余工业研学', W - 48 - ctx.measureText('开物脉络 · 新余工业研学').width, H - 52)
+    // 下载
+    const a = document.createElement('a')
+    a.href = canvas.toDataURL('image/png')
+    a.download = `开物谱研学海报-${date}.png`
+    a.click()
+    setPosterMsg('海报已保存到下载目录')
+    setTimeout(() => setPosterMsg(''), 2500)
+  }
+
   if (!content) return <div className="page" />
 
   const states: Record<string, string> = data?.states
@@ -66,6 +131,18 @@ export default function Spectrum() {
       <div className="eyebrow accent">参观结束</div>
       <h2 className="h-page" style={{ marginTop: 12 }}>我的开物谱</h2>
 
+      <div className="spec-hero">
+        <img src={SPECTRUM_HERO.src} alt={SPECTRUM_HERO.credit} />
+        <div className="spec-hero-cap">
+          <b>{SPECTRUM_HERO.credit}</b>
+          <span>{SPECTRUM_HERO.license}</span>
+        </div>
+      </div>
+      <p className="spec-intro">
+        左边是明代凤凰山的古法，右边是今天新钢的产线。
+        你每走到一处、验证一问，属于你的脉络就会被点亮——实线代表你已经接触过的联系，虚线还在等你。
+      </p>
+
       <div className="spec-graph">
         <svg viewBox="0 0 360 452" role="img" aria-label="古今工艺脉络网">
           <text className="g-era-label" x={AX_ANC} y={16} textAnchor="middle">古 · 凤凰山</text>
@@ -80,7 +157,6 @@ export default function Spectrum() {
             const y1 = yOf(e.from_id); const y2 = yOf(e.to_id)
             const mx = (x1 + x2) / 2
             const color = REL_COLOR[e.relation_type] ?? 'var(--ink-3)'
-            // 虚线只表示"未接触"：两端都到过即为实线；验证/断点边加重
             const known1 = s1 !== 'unseen'; const known2 = s2 !== 'unseen'
             const strong = s1 === 'verified' || s2 === 'verified' || s1 === 'gap_detected' || s2 === 'gap_detected'
             let width = 1.2
@@ -118,7 +194,7 @@ export default function Spectrum() {
             const idFill = st === 'unseen' ? 'var(--ink-3)' : '#fff'
             const isSel = selected === n.id
             return (
-              <g key={n.id} className={`g-node ${isSel ? 'sel' : ''}`} onClick={() => setSelected(isSel ? null : n.id)}>
+              <g key={n.id} className="g-node" onClick={() => setSelected(isSel ? null : n.id)}>
                 {st === 'gap_detected' && (
                   <circle className="pulse" cx={cx} cy={cy} r={16} fill="none" stroke="var(--gap)" strokeWidth={1.5} />
                 )}
@@ -157,13 +233,14 @@ export default function Spectrum() {
         <span><i style={{ background: 'transparent', border: '1px solid var(--hairline)' }} />未接触</span>
         <span><i style={{ background: 'var(--steel)' }} />已接触</span>
         <span><i style={{ background: 'var(--ok)' }} />已验证</span>
-        <span><i style={{ background: 'var(--accent)' }} />出现断点</span>
+        <span><i style={{ background: 'var(--gap)' }} />出现断点</span>
       </div>
-      <div className="legend" style={{ marginTop: 6 }}>
-        {Object.entries(REL_LABEL).map(([k, label]) => (
-          <span key={k}><i className="line" style={{ background: REL_COLOR[k] }} />{label}</span>
-        ))}
-      </div>
+      <p className="legend-note">
+        实线 = 你已经走过的联系，虚线 = 还没接触。线色区分关系的依据：
+        <i className="line" style={{ background: 'var(--rel-doc)' }} />史料关联、
+        <i className="line" style={{ background: 'var(--rel-func)' }} />功能类比、
+        <i className="line" style={{ background: 'var(--rel-para)' }} />设计解释（均可在来源页核对）。
+      </p>
 
       <div className="spec-list">
         {content.nodes.map((n) => (
@@ -183,10 +260,17 @@ export default function Spectrum() {
       )}
 
       {sid != null && (
-        <button className="btn-primary" style={{ marginTop: 26 }} onClick={finish}>
-          结束研学
-        </button>
+        <>
+          <button className="btn-primary accent" style={{ marginTop: 26 }} onClick={makePoster}>
+            生成研学海报 · 分享这一趟
+          </button>
+          {posterMsg && <div className="poster-msg">{posterMsg}</div>}
+          <button className="btn-ghost" style={{ marginTop: 10 }} onClick={finish}>
+            结束研学
+          </button>
+        </>
       )}
+      <canvas ref={posterRef} style={{ display: 'none' }} />
     </div>
   )
 }

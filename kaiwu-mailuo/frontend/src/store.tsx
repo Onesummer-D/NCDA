@@ -3,11 +3,17 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { api, type ContentBundle } from './api'
 
 const SESSION_KEY = 'kaiwu_session_v1'
+const USER_KEY = 'kaiwu_user_v1'
 
 interface SessionState {
   id: number | null
   mode: string
   variant: string
+}
+
+export interface UserInfo {
+  name: string
+  role: 'student' | 'teacher'
 }
 
 /** 现场刷新不丢研学进度：会话持久化到 localStorage */
@@ -22,16 +28,26 @@ function loadSession(): SessionState {
   return { id: null, mode: 'school', variant: 'adaptive' }
 }
 
+function loadUser(): UserInfo | null {
+  try {
+    const raw = localStorage.getItem(USER_KEY)
+    if (raw) return JSON.parse(raw)
+  } catch { /* ignore */ }
+  return null
+}
+
 interface AppContextValue {
   content: ContentBundle | null
   session: SessionState
   startSession: (mode: string, variant: string) => Promise<void>
   signal: (payload: Record<string, unknown>) => void
   evidenceTitle: (ref: string) => string
-  qaSeed: string | null           // 预置到问答页的问题（跨页跳转用）
-  setQaSeed: (q: string | null) => void
+  user: UserInfo | null
+  setUser: (u: UserInfo | null) => void
   craftQi: number | null          // 预置到造物问的问题序号
   setCraftQi: (i: number | null) => void
+  qaContext: string | null        // "再问一句"来源造物问 id（跳转时清空旧问答）
+  setQaContext: (id: string | null) => void
 }
 
 const AppContext = createContext<AppContextValue>(null as unknown as AppContextValue)
@@ -39,11 +55,22 @@ const AppContext = createContext<AppContextValue>(null as unknown as AppContextV
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [content, setContent] = useState<ContentBundle | null>(null)
   const [session, setSession] = useState<SessionState>(loadSession)
-  const [qaSeed, setQaSeed] = useState<string | null>(null)
+  const [user, setUser] = useState<UserInfo | null>(loadUser)
   const [craftQi, setCraftQi] = useState<number | null>(null)
+  const [qaContext, setQaContext] = useState<string | null>(null)
 
   useEffect(() => {
     api.content().then(setContent).catch(() => {})
+  }, [])
+
+  // 校验本地会话仍存在（后端重建库后失效则重置）
+  useEffect(() => {
+    if (session.id == null) return
+    api.spectrum(session.id).catch(() => {
+      try { localStorage.removeItem(SESSION_KEY) } catch { /* ignore */ }
+      setSession({ id: null, mode: 'school', variant: 'adaptive' })
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const startSession = async (mode: string, variant: string) => {
@@ -64,8 +91,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return ev ? `${ev.publisher}·${ev.title}` : ref
   }
 
+  const saveUser = (u: UserInfo | null) => {
+    try {
+      if (u) localStorage.setItem(USER_KEY, JSON.stringify(u))
+      else localStorage.removeItem(USER_KEY)
+    } catch { /* ignore */ }
+    setUser(u)
+  }
+
   return (
-    <AppContext.Provider value={{ content, session, startSession, signal, evidenceTitle, qaSeed, setQaSeed, craftQi, setCraftQi }}>
+    <AppContext.Provider value={{ content, session, startSession, signal, evidenceTitle, user, setUser: saveUser, craftQi, setCraftQi, qaContext, setQaContext }}>
       {children}
     </AppContext.Provider>
   )
