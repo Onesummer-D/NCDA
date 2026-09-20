@@ -11,13 +11,21 @@ interface QaResult {
 }
 
 export default function Qa() {
-  const { session, evidenceTitle, qaContext, content } = useApp()
+  const { session, evidenceTitle, qaContext, content, setCraftQi, setQaContext } = useApp()
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<QaResult | null>(null)
   const [busy, setBusy] = useState(false)
 
   const ctxQuestion = content?.questions.find((q) => q.id === qaContext)
   const suggestions = (qaContext && QA_SUGGESTIONS[qaContext]) || QA_DEFAULT_SUGGESTIONS
+
+  // 从造物问"再问一句"跳来时，左上角给一个原路返回的出口
+  const backToCraft = () => {
+    const idx = content?.questions.findIndex((q) => q.id === qaContext) ?? -1
+    if (idx >= 0) setCraftQi(idx)   // 回到刚才看的那道造物问
+    setQaContext(null)
+    location.hash = '#/craft'
+  }
 
   // DeepSeek 流式回答：先出「思考中」，随后逐字上屏
   const ask = (q: string) => {
@@ -50,6 +58,9 @@ export default function Qa() {
     <div style={{ paddingBottom: 40 }}>
       <div className="qa-hero">
         <img src={QA_HERO.src} alt="" />
+        {qaContext && (
+          <button className="qa-back" onClick={backToCraft}>← 返回造物问</button>
+        )}
         <div className="qa-hero-info">
           <div className="qa-hero-title">问个开物</div>
         </div>

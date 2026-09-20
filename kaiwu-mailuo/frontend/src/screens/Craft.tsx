@@ -7,10 +7,12 @@ import SpeakButton from '../components/SpeakButton'
 type View = 'auto' | 'ancient' | 'modern' | 'why'
 
 export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
-  const { content, signal, craftQi, setCraftQi, setQaContext } = useApp()
+  const { content, session, signal, craftQi, setCraftQi, setQaContext } = useApp()
   const [qi, setQi] = useState(0)
   const [pos, setPos] = useState(0)
-  const [view, setView] = useState<View>('auto')
+  // 想看懂：直接落在"变"（工艺因果）视图；其余模式从时间轴跟随开始
+  const defaultView: View = session.mode === 'curious' ? 'why' : 'auto'
+  const [view, setView] = useState<View>(defaultView)
   const [lightboxImg, setLightboxImg] = useState<{ src: string; credit: string; license: string; page: string } | null>(null)
 
   const questions = content?.questions ?? []
@@ -25,7 +27,7 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
     if (craftQi == null) return
     setQi(craftQi)
     setPos(craftQi % 2 === 0 ? 0 : 100)
-    setView('auto')
+    setView(defaultView)
     window.scrollTo(0, 0)
     setCraftQi(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps

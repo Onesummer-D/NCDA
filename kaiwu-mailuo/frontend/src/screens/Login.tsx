@@ -17,7 +17,7 @@ export default function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-brand">
-          <span className="auth-logo">开物脉络</span>
+          <span className="auth-logo">开物四百年</span>
           <span className="auth-sub">新余工业研学 · 古今工艺认知导航</span>
         </div>
 
@@ -34,7 +34,7 @@ export default function Login() {
         <div className="auth-roles">
           {[
             { key: 'student', title: '学生', desc: '研学任务 · 开物谱 · 问答' },
-            { key: 'teacher', title: '老师', desc: '班级数据 · 理解断点 · 教学反馈' },
+            { key: 'teacher', title: '老师', desc: '班级数据 · 教学反馈' },
           ].map((r) => (
             <button
               key={r.key}
@@ -52,7 +52,7 @@ export default function Login() {
             className="btn-primary accent"
             disabled={!name.trim()}
             onClick={() => enter({ name: name.trim(), role })}
-          >进入开物脉络</button>
+          >进入开物四百年</button>
           <button className="btn-ghost" onClick={() => enter(null)}>先以游客身份逛逛</button>
         </div>
       </div>

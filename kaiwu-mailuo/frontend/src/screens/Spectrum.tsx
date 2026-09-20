@@ -12,7 +12,11 @@ const STATE_LABEL: Record<string, string> = {
   unseen: '未接触', exposed: '已接触', verified: '已验证', gap_detected: '出现断点',
 }
 const STATE_COLOR: Record<string, string> = {
-  unseen: 'transparent', exposed: 'var(--steel)', verified: 'var(--ok)', gap_detected: 'var(--gap)',
+  unseen: 'transparent', exposed: 'var(--st-exposed)', verified: 'var(--st-verified)', gap_detected: 'var(--st-gap)',
+}
+/** canvas 无法解析 CSS 变量，海报绘制用同值 hex（与 :root 的 --st-* 保持一致） */
+const STATE_HEX: Record<string, string> = {
+  unseen: '#999999', exposed: '#cfa96b', verified: '#8c6a2f', gap_detected: '#b8432c',
 }
 /** 古列用罗马数字，今列用阿拉伯数字（开物谱脉络网与现场页工艺链共用） */
 export const numLabel = (id: string) =>
@@ -81,7 +85,7 @@ export default function Spectrum() {
     // 标题
     ctx.fillStyle = '#1c1915'
     ctx.font = 'bold 52px "Microsoft YaHei", sans-serif'
-    ctx.fillText('开物脉络', 48, 110)
+    ctx.fillText('开物四百年', 48, 110)
     ctx.fillStyle = '#857e6e'
     ctx.font = '22px "Microsoft YaHei", sans-serif'
     ctx.fillText('新余工业研学 · 我的开物谱', 48, 150)
@@ -106,7 +110,7 @@ export default function Spectrum() {
       ctx.beginPath()
       ctx.arc(x + 8, y - 8, 9, 0, Math.PI * 2)
       if (st === 'unseen') { ctx.strokeStyle = 'rgba(28,25,21,.3)'; ctx.lineWidth = 1.5; ctx.stroke() }
-      else { ctx.fillStyle = STATE_COLOR[st] === 'transparent' ? '#999' : STATE_COLOR[st]; ctx.fill() }
+      else { ctx.fillStyle = STATE_HEX[st] ?? '#999999'; ctx.fill() }
       ctx.fillStyle = '#1c1915'
       ctx.fillText(nd.title, x + 28, y)
       ctx.fillStyle = '#857e6e'
@@ -122,7 +126,7 @@ export default function Spectrum() {
     ctx.fillText('一块铁 · 近四百年', 48, H - 52)
     ctx.fillStyle = '#857e6e'
     ctx.font = '18px "Microsoft YaHei", sans-serif'
-    ctx.fillText('开物脉络 · 新余工业研学', W - 48 - ctx.measureText('开物脉络 · 新余工业研学').width, H - 52)
+    ctx.fillText('开物四百年 · 新余工业研学', W - 48 - ctx.measureText('开物四百年 · 新余工业研学').width, H - 52)
     // 下载
     const a = document.createElement('a')
     a.href = canvas.toDataURL('image/png')
@@ -159,7 +163,7 @@ export default function Spectrum() {
         左边是明代凤凰山的古法，右边是今天新钢的产线。
         你每走到一处、验证一问，属于你的脉络就会被点亮。
         <br />
-        实线代表你已经接触过的开物脉络，虚线还在等你去探索。
+        实线代表你已经接触过的工艺脉络，虚线还在等你去探索。
       </p>
 
       <div className="spec-graph">
@@ -215,7 +219,7 @@ export default function Spectrum() {
             return (
               <g key={n.id} className="g-node" onClick={() => setSelected(isSel ? null : n.id)}>
                 {st === 'gap_detected' && (
-                  <circle className="pulse" cx={cx} cy={cy} r={19} fill="none" stroke="var(--gap)" strokeWidth={1.5} />
+                  <circle className="pulse" cx={cx} cy={cy} r={19} fill="none" stroke="var(--st-gap)" strokeWidth={1.5} />
                 )}
                 <circle
                   className="disc"
@@ -250,9 +254,9 @@ export default function Spectrum() {
 
       <div className="legend" style={{ marginTop: 14 }}>
         <span><i style={{ background: 'transparent', border: '1px solid var(--hairline)' }} />未接触</span>
-        <span><i style={{ background: 'var(--steel)' }} />已接触</span>
-        <span><i style={{ background: 'var(--ok)' }} />已验证</span>
-        <span><i style={{ background: 'var(--gap)' }} />理解出现断点</span>
+        <span><i style={{ background: 'var(--st-exposed)' }} />已接触</span>
+        <span><i style={{ background: 'var(--st-verified)' }} />已验证</span>
+        <span><i style={{ background: 'var(--st-gap)' }} />理解出现断点</span>
       </div>
 
       {data && data.key_changes.length > 0 && (

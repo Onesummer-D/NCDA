@@ -140,7 +140,8 @@ export default function Home({ mode, onMode, onEnter }: {
       </div>
 
       <div style={{ padding: '0 22px' }}>
-        {(content?.questions?.length ?? 0) > 0 && (
+        {/* 轻松看看：纯故事导览，不推考试题 */}
+        {mode !== 'casual' && (content?.questions?.length ?? 0) > 0 && (
           <div className="test-card">
             <img src="/images/m2.jpg" alt="新钢厂区" loading="lazy" />
             <div className="test-body">
@@ -157,7 +158,7 @@ export default function Home({ mode, onMode, onEnter }: {
       {/* —— 页脚：直接排在纯白底上 —— */}
       <footer className="site-footer">
         <div className="sf-brand">
-          <span className="sf-logo">开物脉络</span>
+          <span className="sf-logo">开物四百年</span>
           <span className="sf-tagline">面向新余工业研学的古今工艺认知导航</span>
         </div>
         <p className="sf-about">
@@ -165,11 +166,11 @@ export default function Home({ mode, onMode, onEnter }: {
         </p>
         <div className="sf-links">
           <a href="#/about">关于我们</a>
-          <a href="#/about">参观指南</a>
+          <a href="#/guide">参观指南</a>
           <a href="#/privacy">隐私政策</a>
           <a href="#/terms">服务条款</a>
         </div>
-        <div className="sf-copy">© 2026 开物脉络</div>
+        <div className="sf-copy">© 2026 开物四百年</div>
       </footer>
     </div>
   )

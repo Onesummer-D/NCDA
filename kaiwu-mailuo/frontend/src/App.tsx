@@ -16,14 +16,14 @@ import { renderPoster } from './poster'
 type Tab = 'home' | 'craft' | 'walk' | 'spectrum' | 'qa'
 
 const TAB_KEYS: Tab[] = ['home', 'craft', 'walk', 'spectrum', 'qa']
-const DOC_KEYS = ['about', 'privacy', 'terms']
+const DOC_KEYS = ['about', 'guide', 'privacy', 'terms']
 const tabFromHash = (): Tab => {
   const h = window.location.hash.replace(/^#\//, '')
   return (TAB_KEYS as string[]).includes(h) ? (h as Tab) : 'home'
 }
 const docFromHash = () => {
   const h = window.location.hash.replace(/^#\//, '')
-  return (DOC_KEYS as string[]).includes(h) ? (h as 'about' | 'privacy' | 'terms') : null
+  return (DOC_KEYS as string[]).includes(h) ? (h as 'about' | 'guide' | 'privacy' | 'terms') : null
 }
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
@@ -72,17 +72,17 @@ function Shell() {
       shareUrl: `${location.origin}/#/`,
     })
     if (!blob) { setShareMsg('海报生成失败'); setTimeout(() => setShareMsg(''), 2000); return }
-    const file = new File([blob], '开物脉络-研学海报.png', { type: 'image/png' })
+    const file = new File([blob], '开物四百年-研学海报.png', { type: 'image/png' })
     const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean }
     if (nav.share && nav.canShare?.({ files: [file] })) {
       try {
-        await nav.share({ files: [file], title: '开物脉络 · 我的研学海报', text: '今天在新钢打卡了这些工艺节点，来看看我的开物谱！' })
+        await nav.share({ files: [file], title: '开物四百年 · 我的研学海报', text: '今天在新钢打卡了这些工艺节点，来看看我的开物谱！' })
         setShareMsg('已分享')
       } catch { /* 用户取消了分享面板 */ }
     } else {
       const a = document.createElement('a')
       a.href = URL.createObjectURL(blob)
-      a.download = '开物脉络-研学海报.png'
+      a.download = '开物四百年-研学海报.png'
       a.click()
       URL.revokeObjectURL(a.href)
       setShareMsg('海报已保存，发到群里就能分享')
@@ -125,7 +125,6 @@ export default function App() {
     return (
       <Splash
         onDone={() => {
-          try { localStorage.setItem(SPLASH_KEY, today) } catch { /* ignore */ }
           const logged = !!localStorage.getItem('kaiwu_user_v1')
           const target = logged ? (window.location.hash || '#/') : '#/login'
           if (window.location.hash !== target) history.replaceState(null, '', target)

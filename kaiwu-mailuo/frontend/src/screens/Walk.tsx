@@ -82,9 +82,9 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   }
 
   const chain = [...nodes].sort((a, b) => (a.era === b.era ? a.id.localeCompare(b.id) : a.era === 'ancient' ? -1 : 1))
-  const modernChain = chain.filter((n) => n.era === 'modern')
-  const idx = modernChain.findIndex((n) => n.id === current)
-  const nextModern = idx >= 0 && idx + 1 < modernChain.length ? modernChain[idx + 1] : null
+  // 每一站都有"下一站"：沿整条工艺链（古 A1–A5 → 今 M1–M6）顺序推进，末站 M6 除外
+  const idxAll = chain.findIndex((n) => n.id === current)
+  const nextNode = idxAll >= 0 && idxAll + 1 < chain.length ? chain[idxAll + 1] : null
   const img: ImgMeta = NODE_IMAGES[node.id] ?? FALLBACK_IMG
   const fav = favorites.includes(node.id)
 
@@ -132,7 +132,8 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
         <p className="node-summary">{node.summary}</p>
       </div>
 
-      {node.is_observation_point && tasks.length > 0 && (
+      {/* 轻松看看：只看故事与基础导览，不安排观察任务和答题 */}
+      {session.mode !== 'casual' && node.is_observation_point && tasks.length > 0 && (
         stage === 'observe' ? (
           <div className="observe">
             <div className="o-eyebrow">观察</div>
@@ -183,9 +184,12 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
         )
       )}
 
-      {reco && reco.recommendations.length > 0 && (
+      {/* 轻松看看不展示认知导航；想看懂突出"认知导航"定位 */}
+      {reco && reco.recommendations.length > 0 && session.mode !== 'casual' && (
         <div className="reco">
-          <div className="eyebrow" style={{ marginBottom: 12 }}>补一环</div>
+          <div className="eyebrow" style={{ marginBottom: 12 }}>
+            {session.mode === 'curious' ? '补一环 · 认知导航' : '补一环'}
+          </div>
           {reco.recommendations.map((r) => (
             <div key={r.id} className="reco-card">
               <div className="r-eyebrow">{r.depth === 'deep' ? '深一层' : r.depth === 'intro' ? '先知道' : '核心'}</div>
@@ -211,9 +215,14 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
         </div>
       )}
 
-      {nextModern && (
-        <button className="btn-primary next-btn" onClick={() => { setCurrent(nextModern.id); setExpanded(null); window.scrollTo(0, 0) }}>
-          下一站 · {nextModern.title}
+      {nextNode && (
+        <button
+          className={`btn-primary next-btn ${node.era === 'modern' ? 'modern-next' : ''}`}
+          onClick={() => { setCurrent(nextNode.id); setExpanded(null); window.scrollTo(0, 0) }}
+        >
+          {node.era === 'ancient' && nextNode.era === 'modern'
+            ? '穿越四百年 → 去看今天的开物脉络'
+            : `下一站 · ${nextNode.title}`}
         </button>
       )}
 

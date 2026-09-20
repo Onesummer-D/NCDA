@@ -44,7 +44,7 @@ export async function renderPoster(input: PosterInput): Promise<Blob | null> {
   // 抬头
   ctx.fillStyle = '#1c1915'
   ctx.font = 'bold 46px "Microsoft YaHei", sans-serif'
-  ctx.fillText('开物脉络', 48, 104)
+  ctx.fillText('开物四百年', 48, 104)
   ctx.fillStyle = '#857e6e'
   ctx.font = '20px "Microsoft YaHei", sans-serif'
   const sub = userName ? `${userName} 的研学足迹 · 新余工业研学` : '我的研学足迹 · 新余工业研学'

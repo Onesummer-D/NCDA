@@ -47,7 +47,7 @@ export default function Teacher() {
             <button className="t-refresh" onClick={load}>刷新</button>
           </div>
         </div>
-        <div className="t-fine">《开物脉络》</div>
+        <div className="t-fine">《开物四百年》</div>
       </div>
 
       {data && (

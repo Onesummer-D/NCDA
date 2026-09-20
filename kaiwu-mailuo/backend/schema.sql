@@ -1,4 +1,4 @@
--- 开物脉络 数据层（第一版：SQLite + JSON 内容）
+-- 开物四百年 数据层（第一版：SQLite + JSON 内容）
 PRAGMA journal_mode = WAL;
 
 CREATE TABLE IF NOT EXISTS questions (

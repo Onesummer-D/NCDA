@@ -1,4 +1,4 @@
-"""开物脉络 后端服务（FastAPI + SQLite）。
+"""开物四百年 后端服务（FastAPI + SQLite）。
 
 设计原则（对应技术设计文档）：
 - 内容动态适配，物理路线固定（本系统只调整观察重点与解释深度）；
@@ -24,7 +24,7 @@ from seed import init_db, get_conn, DB_PATH
 BASE = Path(__file__).parent
 META_PATH = BASE / "data" / "content.json"
 
-app = FastAPI(title="开物脉络 API", version="0.1.0")
+app = FastAPI(title="开物四百年 API", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
@@ -255,7 +255,7 @@ QA_MISS_TEXT = ("这个问题暂时超出了资料库的范围。为了避免凭
                 "——你可以先问一问带队老师，或换个和工艺流程有关的问题。")
 
 QA_SYSTEM_PROMPT = (
-    "你是研学系统《开物脉络》的问答助手「问个开物」，服务对象是参加钢铁工业研学的中小学生。"
+    "你是研学系统《开物四百年》的问答助手「问个开物」，服务对象是参加钢铁工业研学的中小学生。"
     "主题范围：凤凰山古铁冶、《天工开物》与宋应星、新余现代钢铁工业、古今冶铁炼钢工艺、研学参观安全。\n"
     "回答规则：\n"
     "1. 优先依据【资料库】作答，与资料保持一致，不与资料矛盾；\n"
