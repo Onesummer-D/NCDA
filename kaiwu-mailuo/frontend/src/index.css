@@ -844,15 +844,8 @@ table.ttable td.num { font-size: 15px; font-weight: 700; font-variant-numeric: t
 .auth-role.selected { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 .auth-role b { display: block; font-size: 15px; }
 .auth-role span { display: block; font-size: 11px; color: var(--ink-3); margin-top: 3px; line-height: 1.5; }
-.auth-page .btn-primary { margin-top: 24px; }
-.auth-ghost {
-  width: 100%; margin-top: 12px; padding: 12px;
-  font-size: 13.5px; color: var(--ink-2);
-  border: 1px solid var(--hairline); border-radius: 999px;
-  background: transparent;
-}
+.auth-page .actions { margin-top: 26px; }
 .auth-note { font-size: 11px; color: var(--ink-3); line-height: 1.7; margin-top: 18px; }
-.auth-back { font-size: 12.5px; color: var(--ink-3); margin-top: 14px; text-decoration: none; }
 
 .doc-page { align-items: flex-start; }
 .doc-back { font-size: 12.5px; color: var(--ink-3); text-decoration: none; margin-bottom: 20px; }

@@ -47,14 +47,14 @@ export default function Login() {
           ))}
         </div>
 
-        <button
-          className="btn-primary accent"
-          disabled={!name.trim()}
-          onClick={() => enter({ name: name.trim(), role })}
-        >进入开物脉络</button>
-        <button className="btn-ghost" onClick={() => enter(null)}>先以游客身份逛逛</button>
-
-        <a className="auth-back" href="#/">← 返回首页</a>
+        <div className="actions">
+          <button
+            className="btn-primary accent"
+            disabled={!name.trim()}
+            onClick={() => enter({ name: name.trim(), role })}
+          >进入开物脉络</button>
+          <button className="btn-ghost" onClick={() => enter(null)}>先以游客身份逛逛</button>
+        </div>
       </div>
     </div>
   )
