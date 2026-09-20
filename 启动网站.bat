@@ -1,6 +1,6 @@
 @echo off
 title 开物脉络 - 本地服务
-cd /d "%~dp0kaiwu-mailuo\backend"
+cd /d "%~dp0kaiwusibainian\backend"
 
 rem 取本机局域网 IPv4 地址（供手机访问）
 set LAN_IP=

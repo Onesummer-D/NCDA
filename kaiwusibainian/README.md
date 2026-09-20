@@ -1,4 +1,4 @@
-# 开物脉络（Kaiwu Mailuo）
+# 开物四百年（Kaiwu Sibainian）
 
 面向工业研学的古今工艺认知导航系统——NCDA「天工开物杯」参赛作品（数字智能方向）。
 
@@ -8,7 +8,7 @@
 ## 目录结构
 
 ```
-kaiwu-mailuo/
+kaiwusibainian/
 ├── backend/            FastAPI + SQLite 服务
 │   ├── main.py         全部 API（内容/会话/信号/Gap Engine/证据问答/开物谱/教师端）
 │   ├── schema.sql      数据层（工艺节点/关系边/任务/课程映射/认知信号）
