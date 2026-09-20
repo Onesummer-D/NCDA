@@ -19,15 +19,22 @@ export default function Qa() {
   const ctxQuestion = content?.questions.find((q) => q.id === qaContext)
   const suggestions = (qaContext && QA_SUGGESTIONS[qaContext]) || QA_DEFAULT_SUGGESTIONS
 
-  const ask = async (q: string) => {
-    const query = q.trim()
-    if (!query) return
+  // DeepSeek 流式回答：先出「思考中」，随后逐字上屏
+  const ask = (q: string) => {
+    const text = q.trim()
+    if (!text || busy) return
+    setQuery(text)
     setBusy(true)
-    try {
-      setResult(await api.qa(query, session.id ?? undefined))
-    } finally {
-      setBusy(false)
-    }
+    setResult({ hit: true, answer: '' })
+    api.qa(text, session.id ?? undefined, qaContext,
+      (meta) => setResult((prev) => ({
+        ...(prev ?? { hit: true, answer: '' }),
+        ...meta,
+        answer: meta.answer ?? prev?.answer ?? '',
+      })),
+      (d) => setResult((prev) => ({ ...(prev ?? { hit: true }), answer: (prev?.answer ?? '') + d })),
+    ).catch(() => setResult({ hit: false, answer: '网络不太顺畅，请检查后再试一次。' }))
+      .finally(() => setBusy(false))
   }
 
   // 每次带上下文跳转进来：清空上一轮问答，只给贴题建议，不自动提问
@@ -73,14 +80,16 @@ export default function Qa() {
           <div className="qa-result reco-card">
             {result.hit ? (
               <>
-                <div className="r-body" style={{ marginTop: 0 }}>{result.answer}</div>
+                <div className="r-body" style={{ marginTop: 0 }}>
+                  {result.answer || <span className="qa-thinking">{busy ? '思考中…' : ''}</span>}
+                </div>
                 <div className="qa-answer-foot">
-                  {result.source_refs && (
+                  {result.source_refs && result.answer && (
                     <div className="r-src" style={{ marginTop: 0, borderTop: 'none', paddingTop: 0 }}>
                       <b>来源</b>　{result.source_refs.map(evidenceTitle).join('；')}
                     </div>
                   )}
-                  <SpeakButton text={result.answer} />
+                  {result.answer && <SpeakButton text={result.answer} />}
                 </div>
               </>
             ) : (

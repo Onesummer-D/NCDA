@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useApp } from '../store'
 import { api, type ObservationTask, type RecoResponse, type SpectrumResponse } from '../api'
 import { NODE_IMAGES, FALLBACK_IMG, type ImgMeta } from '../images'
+import { numLabel } from './Spectrum'
 import Lightbox from '../components/Lightbox'
 import SpeakButton from '../components/SpeakButton'
 
@@ -22,16 +23,15 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const { content, session, signal, evidenceTitle, favorites, toggleFav, walkNodeId, setWalkNodeId } = useApp()
   const [current, setCurrent] = useState('A1')
   const [expanded, setExpanded] = useState<string | null>(null)
-  const [picked, setPicked] = useState<number | null>(null)
   const [reco, setReco] = useState<RecoResponse | null>(null)
   const [spec, setSpec] = useState<SpectrumResponse | null>(null)
   const [stage, setStage] = useState<'observe' | 'quiz'>('observe')
   const [lightbox, setLightbox] = useState(false)
-  const [recorded, setRecorded] = useState(false)
+  const [picked, setPicked] = useState<Record<string, number>>({})
 
   const nodes = content?.nodes ?? []
   const node = nodes.find((n) => n.id === current)
-  const task: ObservationTask | undefined = content?.tasks.find((t) => t.node_id === current)
+  const tasks: ObservationTask[] = content?.tasks.filter((t) => t.node_id === current) ?? []
 
   const refreshReco = useCallback(async (nodeId: string) => {
     if (session.id == null) return
@@ -46,12 +46,13 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
 
   useEffect(() => {
     if (session.id == null || !current) return
-    signal({ node_id: current, signal_type: 'visit' })
-    setPicked(null)
+    // 等访问记录落库后再拉开物谱/推荐，避免状态点亮滞后
+    signal({ node_id: current, signal_type: 'visit' }).then(() => {
+      refreshReco(current)
+      refreshSpec()
+    })
+    setPicked({})
     setStage('observe')
-    setRecorded(false)
-    refreshReco(current)
-    refreshSpec()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current, session.id])
 
@@ -67,16 +68,17 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
 
   if (!node) return <div className="page" />
 
-  const pickOption = (i: number) => {
-    if (picked !== null || !task) return
-    setPicked(i)
-    const correct = task.correct_index === i
+  const pickOption = (t: ObservationTask, i: number) => {
+    if (picked[t.id] !== undefined || t.correct_index == null) return
+    setPicked((p) => ({ ...p, [t.id]: i }))
+    const correct = t.correct_index === i
     signal({
-      node_id: node.id, task_id: task.id, signal_type: 'task_answer',
-      correct, gap_topic: correct ? null : task.gap_topic_on_wrong,
+      node_id: node.id, task_id: t.id, signal_type: 'task_answer',
+      correct, gap_topic: correct ? null : t.gap_topic_on_wrong,
+    }).then(() => {
+      refreshReco(node.id)
+      refreshSpec()
     })
-    refreshReco(node.id)
-    refreshSpec()
   }
 
   const chain = [...nodes].sort((a, b) => (a.era === b.era ? a.id.localeCompare(b.id) : a.era === 'ancient' ? -1 : 1))
@@ -130,62 +132,55 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
         <p className="node-summary">{node.summary}</p>
       </div>
 
-      {node.is_observation_point && task && (
+      {node.is_observation_point && tasks.length > 0 && (
         stage === 'observe' ? (
           <div className="observe">
             <div className="o-eyebrow">观察</div>
-            <div className="o-text">{task.prompt}</div>
-            <SpeakButton text={task.prompt} dark />
+            <div className="o-text">{tasks[0].prompt}</div>
+            <SpeakButton text={tasks[0].prompt} dark />
             <div className="o-actions">
-              {task.mode === 'choice' ? (
-                <button className="o-btn primary" onClick={() => setStage('quiz')}>继续</button>
-              ) : (
-                <button className="o-btn primary" onClick={() => {
-                  signal({ node_id: node.id, task_id: task.id, signal_type: 'task_answer', correct: null, detail: task.expected_signal_correct })
-                  setRecorded(true)
-                  refreshReco(node.id)
-                  refreshSpec()
-                }}>记录</button>
-              )}
+              <button className="o-btn primary" onClick={() => setStage('quiz')}>继续</button>
             </div>
-            {recorded && (
-              <div className="o-recorded">
-                已记录到你的开物谱 ✓
-                {task.expected_signal_correct && GAP_EXPLAIN[task.expected_signal_correct] && (
-                  <div className="o-recorded-note">{GAP_EXPLAIN[task.expected_signal_correct]}</div>
-                )}
-              </div>
-            )}
           </div>
         ) : (
           <>
             <div className="quiz-recap">
-              回到刚才的问题：<b>{task.prompt.split('\n').pop()?.replace(/^试着回答：/, '')}</b>
+              回到刚才的问题：<b>{tasks[0].prompt.split('\n').pop()?.replace(/^试着回答：/, '')}</b>
             </div>
-            <div className="quiz">
-              {task.options.map((opt, i) => (
-                <button
-                  key={i}
-                  className={`quiz-option ${picked === i ? (task.correct_index === i ? 'picked-correct' : 'picked-wrong') : picked !== null ? 'dim' : ''}`}
-                  onClick={() => pickOption(i)}
-                >
-                  <span className="opt-key">{String.fromCharCode(65 + i)}</span>
-                  <span>{opt}</span>
-                </button>
-              ))}
-            </div>
-            {picked !== null && task && picked !== task.correct_index && (
-              <div className="answer-feedback">
-                <div className="af-correct">正确答案：{String.fromCharCode(65 + (task.correct_index ?? 0))}　{task.options[task.correct_index ?? 0]}</div>
-                <div className="af-explain">{GAP_EXPLAIN[task.gap_topic_on_wrong ?? ''] ?? ''}</div>
-              </div>
-            )}
+            {tasks.map((t, qn) => {
+              const pick = picked[t.id]
+              const questionText = t.prompt.split('\n').pop()?.replace(/^试着回答：/, '')
+              return (
+                <div key={t.id} className="quiz-block">
+                  {qn > 0 && (
+                    <div className="quiz-recap"><b>第 {qn + 1} 问</b>　{questionText}</div>
+                  )}
+                  <div className="quiz">
+                    {t.options.map((opt, i) => (
+                      <button
+                        key={i}
+                        className={`quiz-option ${pick === i ? (t.correct_index === i ? 'picked-correct' : 'picked-wrong') : pick !== undefined ? 'dim' : ''}`}
+                        onClick={() => pickOption(t, i)}
+                      >
+                        <span className="opt-key">{String.fromCharCode(65 + i)}</span>
+                        <span>{opt}</span>
+                      </button>
+                    ))}
+                  </div>
+                  {pick !== undefined && t.correct_index != null && pick !== t.correct_index && (
+                    <>
+                      <div className="gap-flag">正确答案：{String.fromCharCode(65 + t.correct_index)}　{t.options[t.correct_index]}</div>
+                      <div className="af-explain">{GAP_EXPLAIN[t.gap_topic_on_wrong ?? ''] ?? ''}</div>
+                    </>
+                  )}
+                  {pick !== undefined && pick === t.correct_index && (
+                    <div className="gap-flag ok-flag">答对了</div>
+                  )}
+                </div>
+              )
+            })}
           </>
         )
-      )}
-
-      {picked !== null && task && picked === task.correct_index && (
-        <div className="gap-flag ok-flag">答对了</div>
       )}
 
       {reco && reco.recommendations.length > 0 && (
@@ -230,7 +225,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
               className={`chain-row ${n.era} ${n.id === current ? 'current' : ''}`}
               onClick={() => { setCurrent(n.id); setExpanded(n.id === expanded ? null : n.id); window.scrollTo(0, 0) }}
             >
-              <span className="ch-id">{n.id}</span>
+              <span className="ch-id">{numLabel(n.id)}</span>
               <span className="ch-name">{n.title}</span>
               {n.is_observation_point && <span className="ch-obs" title="观察点" />}
               <span className="ch-stage">{n.stage}</span>

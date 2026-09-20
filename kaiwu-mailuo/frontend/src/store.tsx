@@ -50,7 +50,7 @@ interface AppContextValue {
   content: ContentBundle | null
   session: SessionState
   startSession: (mode: string, variant: string) => Promise<void>
-  signal: (payload: Record<string, unknown>) => void
+  signal: (payload: Record<string, unknown>) => Promise<void>
   evidenceTitle: (ref: string) => string
   user: UserInfo | null
   setUser: (u: UserInfo | null) => void
@@ -105,9 +105,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setVisitStart(Date.now())
   }
 
-  const signal = (payload: Record<string, unknown>) => {
-    if (session.id == null) return
-    api.signal({ session_id: session.id, ...payload }).catch(() => {})
+  const signal = (payload: Record<string, unknown>): Promise<void> => {
+    if (session.id == null) return Promise.resolve()
+    return api.signal({ session_id: session.id, ...payload }).catch(() => {})
   }
 
   const evidenceTitle = (ref: string) => {

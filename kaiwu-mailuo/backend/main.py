@@ -3,17 +3,22 @@
 设计原则（对应技术设计文档）：
 - 内容动态适配，物理路线固定（本系统只调整观察重点与解释深度）；
 - Gap Engine 第一版为可解释规则，不使用机器学习；
-- 问答证据约束：知识库未命中时明确回答"暂未支持"，不自由发挥。
+- 问答与教师端建议接入 DeepSeek（资料库全量作为上下文，RAG 约束不编造），
+  接口异常时自动降级回本地知识库/规则话术，不因大模型故障不可用。
 """
+import hashlib
 import json
 import sqlite3
+import threading
 from pathlib import Path
 from typing import Any, Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+import deepseek
 from seed import init_db, get_conn, DB_PATH
 
 BASE = Path(__file__).parent
@@ -244,44 +249,109 @@ def recommend(session_id: int, node_id: Optional[str] = None) -> dict:
         conn.close()
 
 
-# ---------------------------------------------------------------- evidence QA
+# ---------------------------------------------------------------- evidence QA（检索 + DeepSeek 流式生成）
+
+QA_MISS_TEXT = ("这个问题暂时超出了资料库的范围。为了避免凭空编造冶金史，我需要先查证可靠资料再回答"
+                "——你可以先问一问带队老师，或换个和工艺流程有关的问题。")
+
+QA_SYSTEM_PROMPT = (
+    "你是研学系统《开物脉络》的问答助手「问个开物」，服务对象是参加钢铁工业研学的中小学生。"
+    "主题范围：凤凰山古铁冶、《天工开物》与宋应星、新余现代钢铁工业、古今冶铁炼钢工艺、研学参观安全。\n"
+    "回答规则：\n"
+    "1. 优先依据【资料库】作答，与资料保持一致，不与资料矛盾；\n"
+    "2. 资料未覆盖处可补充可靠的通用常识，但不得编造具体史实、年代、数据或引文；\n"
+    "3. 明显超出主题范围的问题，用一句话礼貌说明你只擅长研学主题，"
+    "并从资料库里挑一个相近的问题推荐给同学；\n"
+    "4. 用适合中小学生的口语化中文，友好、简洁，一般不超过 120 字，不使用 Markdown 标记。"
+)
+
+
+def _sse(obj: dict) -> str:
+    return f"data: {json.dumps(obj, ensure_ascii=False)}\n\n"
+
+
+class QaIn(BaseModel):
+    query: str
+    session_id: Optional[int] = None
+    context_question_id: Optional[str] = None
+
 
 @app.post("/api/qa")
-def qa(body: dict) -> dict:
-    query = (body.get("query") or "").strip()
-    session_id = body.get("session_id")
+def qa(body: QaIn) -> StreamingResponse:
+    query = (body.query or "").strip()
     if not query:
         raise HTTPException(400, "问题不能为空")
     conn = get_conn()
-    if session_id:
+    if body.session_id:
         conn.execute("INSERT INTO signals (session_id, signal_type, detail) VALUES (?,?,?)",
-                     (session_id, "qa_query", query[:200]))
+                     (body.session_id, "qa_query", query[:200]))
         conn.commit()
+
+    entries = rows(conn, "SELECT * FROM qa_knowledge ORDER BY id")
+
+    # 关键词检索：仅为回答挂证据来源（≥2 个关键词命中才可信），并准备换题建议
     best, best_score = None, 0
-    for k in rows(conn, "SELECT * FROM qa_knowledge"):
+    for k in entries:
         kws = jloads(k["keywords_json"])
-        score = sum(1 for kw in kws if kw in query)
+        hint = k["question_hint"] or ""
+        if hint and (hint == query or hint in query or query in hint):
+            score = 9  # 题面直接命中（一致或互为包含），视为最高置信
+        else:
+            score = sum(1 for kw in kws if kw in query)
         if score > best_score:
             best, best_score = k, score
-    if not best:
-        suggestions: list[str] = []
-        for k in rows(conn, "SELECT question_hint FROM qa_knowledge ORDER BY id"):
-            hint = k["question_hint"]
-            if hint and hint not in suggestions:
-                suggestions.append(hint)
-            if len(suggestions) == 3:
-                break
-        conn.close()
-        return {"hit": False, "answer":
-                "这个问题暂时超出了资料库的范围。为了避免凭空编造冶金史，我需要先查证可靠资料再回答——你可以先问一问带队老师，或换个和工艺流程有关的问题。",
-                "suggestions": suggestions}
+    suggestions: list[str] = []
+    for k in entries:
+        hint = k["question_hint"]
+        if hint and hint != (best or {}).get("question_hint") and hint not in suggestions:
+            suggestions.append(hint)
+        if len(suggestions) == 3:
+            break
+
+    # 学生当前正在探究的造物问（让回答贴合现场任务）
+    ctx_label = ""
+    if body.context_question_id:
+        q = conn.execute("SELECT code, title FROM questions WHERE id=?",
+                         (body.context_question_id,)).fetchone()
+        if q:
+            ctx_label = f"{q['code']} · {q['title']}"
+
+    knowledge_block = "\n".join(
+        f"【{k['question_hint']}】{k['answer']}" for k in entries)
+    messages = [
+        {"role": "system", "content": QA_SYSTEM_PROMPT},
+        {"role": "user", "content":
+            (f"【学生当前在探究】{ctx_label or '未指定'}\n"
+             f"【学生的问题】{query}\n\n【资料库】\n{knowledge_block}")},
+    ]
     conn.close()
-    return {
-        "hit": True,
-        "question_hint": best["question_hint"],
-        "answer": best["answer"],
-        "source_refs": jloads(best["source_refs_json"]),
-    }
+
+    meta: dict = {"hit": True}
+    if best is not None and best_score >= 2:
+        meta["question_hint"] = best["question_hint"]
+        meta["source_refs"] = jloads(best["source_refs_json"])
+
+    def gen():
+        yield _sse({"meta": meta})
+        streamed = False
+        try:
+            for delta in deepseek.chat_stream(messages):
+                streamed = True
+                yield _sse({"delta": delta})
+        except Exception:
+            # DeepSeek 不可用（网络/余额/密钥）→ 降级回本地知识库命中条目或"暂未支持"话术
+            if not streamed:
+                if best is not None and best_score >= 1:
+                    yield _sse({"meta": {"hit": True, "question_hint": best["question_hint"],
+                                         "source_refs": jloads(best["source_refs_json"])}})
+                    yield _sse({"delta": best["answer"]})
+                else:
+                    yield _sse({"meta": {"hit": False, "answer": QA_MISS_TEXT,
+                                         "suggestions": suggestions}})
+        yield _sse({"done": True})
+
+    return StreamingResponse(gen(), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 
 # ---------------------------------------------------------------- spectrum 开物谱
@@ -330,10 +400,50 @@ def spectrum(session_id: int) -> dict:
 
 # ---------------------------------------------------------------- teacher
 
+GAP_LABEL: dict[str, str] = {
+    "fe_vs_steel": "炼铁 → 炼钢", "why_steelmaking": "为什么炼钢",
+    "slab_not_product": "钢坯 ≠ 产品", "forming_principle": "锻打 ↔ 轧制",
+    "ancient_iron_quality": "古代提纯", "huohou": "火候判断",
+    "knowledge_transfer": "知识传承", "industry_chain": "产业链结构", "safety": "安全边界",
+}
+
+TEACHER_SYSTEM_PROMPT = (
+    "你是钢铁工业研学的教研助手，帮带队老师准备返校课堂讲解。"
+    "根据下列班级实时学习数据，输出一段可操作的教学建议："
+    "指出最值得全班补讲的知识点及讲法；若数据没有明显共性问题，"
+    "则肯定整体掌握情况并给一个轻量巩固建议。"
+    "只输出建议正文，一两句话、不超过 100 字，不要以「建议：」开头，不要客套。"
+)
+
+# 教师端 AI 建议：按数据指纹缓存（页面每 15s 自动刷新，不能每次都调大模型）
+_advice_cache: dict[str, str] = {}
+_advice_inflight: set[str] = set()
+_advice_lock = threading.Lock()
+
+
+def _gen_advice_async(fp: str, snapshot: dict) -> None:
+    try:
+        advice = deepseek.chat(
+            [{"role": "system", "content": TEACHER_SYSTEM_PROMPT},
+             {"role": "user", "content": json.dumps(snapshot, ensure_ascii=False, indent=1)}],
+            temperature=0.4, max_tokens=300, timeout=45)
+        if advice:
+            with _advice_lock:
+                if len(_advice_cache) > 8:
+                    _advice_cache.clear()
+                _advice_cache[fp] = advice
+    except Exception:
+        pass  # 生成失败则下次数据变化再试，页面始终有规则话术兜底
+    finally:
+        with _advice_lock:
+            _advice_inflight.discard(fp)
+
+
 @app.get("/api/teacher/summary")
 def teacher_summary() -> dict:
     conn = get_conn()
     tasks = rows(conn, "SELECT * FROM tasks ORDER BY id")
+    node_titles = {r["id"]: r["title"] for r in rows(conn, "SELECT id, title FROM nodes")}
     out = []
     for t in tasks:
         tid = t["id"]
@@ -359,13 +469,45 @@ def teacher_summary() -> dict:
         " GROUP BY gap_topic ORDER BY n DESC").fetchall()
     sessions = conn.execute("SELECT COUNT(*) AS n FROM sessions").fetchone()["n"]
     qa_count = conn.execute("SELECT COUNT(*) AS n FROM signals WHERE signal_type='qa_query'").fetchone()["n"]
+    recent_qa = [r["detail"] for r in conn.execute(
+        "SELECT detail FROM signals WHERE signal_type='qa_query' ORDER BY id DESC LIMIT 8")][::-1]
     conn.close()
+
+    # 组装供大模型阅读的数据快照，并按内容取指纹——数据不变就不重复调用
+    snapshot = {
+        "sessions": sessions, "qa_count": qa_count,
+        "tasks": [{"node": node_titles.get(t["node_id"], t["node_id"]), "prompt": t["prompt"],
+                   "reached": t["reached"], "answered": t["answered"],
+                   "first_correct": t["first_correct"], "first_wrong": t["first_wrong"]}
+                  for t in out],
+        "top_gap_topics": [{"label": GAP_LABEL.get(g["gap_topic"], g["gap_topic"]), "count": g["n"]}
+                           for g in gaps],
+        "recent_questions": recent_qa,
+    }
+    fp = hashlib.md5(json.dumps(snapshot, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+    advice, advice_source = _advice(gaps), "rule"
+    with _advice_lock:
+        cached = _advice_cache.get(fp)
+        inflight = fp in _advice_inflight
+    if cached:
+        advice, advice_source, advice_pending = cached, "ai", False
+    else:
+        advice_pending = False
+        if not inflight and deepseek.DEEPSEEK_API_KEY:
+            with _advice_lock:
+                _advice_inflight.add(fp)
+            threading.Thread(target=_gen_advice_async, args=(fp, snapshot), daemon=True).start()
+            advice_pending = True  # 生成中：本次先给规则话术，页面下次轮询即可拿到 AI 建议
+
     return {
         "sessions": sessions,
         "qa_count": qa_count,
         "tasks": out,
         "top_gap_topics": [{"gap_topic": r["gap_topic"], "n": r["n"]} for r in gaps],
-        "advice": _advice(gaps),
+        "advice": advice,
+        "advice_source": advice_source,
+        "advice_pending": advice_pending,
     }
 
 

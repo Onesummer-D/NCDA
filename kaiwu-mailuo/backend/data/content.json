@@ -53,6 +53,14 @@
       "date": "2026-05",
       "url": "https://tjj.xinyu.gov.cn/tjj/stjgb/2026-05/11/content_1673b52e368a45cd91dad78e0e7c53b5.shtml",
       "note": "2025年新余GDP 1215.58亿元，第二产业增加值433.25亿元。"
+    },
+    {
+      "id": "E07",
+      "title": "教育部等11部门关于推进中小学生研学旅行的意见（教基一〔2016〕8号）",
+      "publisher": "中华人民共和国教育部",
+      "date": "2016-12",
+      "url": "http://www.moe.gov.cn/srcsite/A06/s3325/201612/t20161219_292354.html",
+      "note": "把“安全性”列为研学旅行基本原则之一：坚持安全第一，建立安全保障机制，明确安全保障责任，落实安全保障措施；学校开展研学旅行须配备学校领导、教师和安全员，负责学生活动管理和安全保障。"
     }
   ],
   "craft_questions": [
@@ -627,12 +635,16 @@
     {
       "id": "T4",
       "node_id": "A3",
-      "mode": "observe",
+      "mode": "choice",
       "prompt": "看看眼前的炼铁炉场景。\n试着回答：古人没有温度计，靠什么判断“火候”到了？",
-      "options": [],
-      "correct_index": null,
-      "gap_topic_on_wrong": null,
-      "expected_signal_correct": "exposed:huohou",
+      "options": [
+        "用水银温度计测量炉温",
+        "看火色、听风声、观察渣铁的流动",
+        "按固定时辰，到点就开炉"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "huohou",
+      "expected_signal_correct": "verified:huohou",
       "source_refs": [
         "E01",
         "E05"
@@ -654,6 +666,183 @@
       "source_refs": [
         "E02",
         "E05"
+      ]
+    },
+    {
+      "id": "T6",
+      "node_id": "A3",
+      "mode": "choice",
+      "prompt": "看看眼前的炼铁炉场景。\n试着回答：把这类冶铁工艺图文记录下来的《天工开物》，是在哪里写成的？",
+      "options": [
+        "新余旁边的分宜县",
+        "江南的苏州",
+        "京城北京"
+      ],
+      "correct_index": 0,
+      "gap_topic_on_wrong": "knowledge_transfer",
+      "expected_signal_correct": "verified:knowledge_transfer",
+      "source_refs": [
+        "E05"
+      ]
+    },
+    {
+      "id": "T7",
+      "node_id": "A3",
+      "mode": "choice",
+      "prompt": "再看看炉里的火色。\n试着回答：如果火候不够、炉温偏低，炼出的铁会怎样？",
+      "options": [
+        "渣铁不分，炼出的铁质量差",
+        "铁水反而更纯",
+        "对铁的质量没有影响"
+      ],
+      "correct_index": 0,
+      "gap_topic_on_wrong": "huohou",
+      "expected_signal_correct": "verified:huohou",
+      "source_refs": [
+        "E01",
+        "E05"
+      ]
+    },
+    {
+      "id": "T8",
+      "node_id": "M2",
+      "mode": "choice",
+      "prompt": "看看你眼前的高炉。\n试着回答：从高炉里出来的铁水，和钢最关键的差别在哪里？",
+      "options": [
+        "颜色不一样，钢水是红色的",
+        "含碳量：铁水约 4%，钢低于 2%",
+        "铁水是液体，钢永远是固体"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "fe_vs_steel",
+      "expected_signal_correct": "verified:fe_vs_steel",
+      "source_refs": [
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "id": "T9",
+      "node_id": "M2",
+      "mode": "choice",
+      "prompt": "看看高炉平台上的安全标识。\n试着回答：在高炉区域参观，下面哪种做法是对的？",
+      "options": [
+        "走固定参观路线，听从工作人员安排",
+        "靠近炉台拍一张近距离照片",
+        "征得同行伙伴同意后扳动阀门试试"
+      ],
+      "correct_index": 0,
+      "gap_topic_on_wrong": "safety",
+      "expected_signal_correct": "verified:safety",
+      "source_refs": [
+        "E02"
+      ]
+    },
+    {
+      "id": "T10",
+      "node_id": "M3",
+      "mode": "choice",
+      "prompt": "看看转炉炉口喷出的火焰。\n试着回答：吹氧炼钢，主要去掉了铁水里的什么？",
+      "options": [
+        "铁本身",
+        "碳和硫、磷等杂质",
+        "刚加进去的氧气"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "why_steelmaking",
+      "expected_signal_correct": "verified:why_steelmaking",
+      "source_refs": [
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "id": "T11",
+      "node_id": "M3",
+      "mode": "choice",
+      "prompt": "再看一眼转炉。\n试着回答：如果省掉炼钢这一步，高炉铁水直接铸出来的是什么？",
+      "options": [
+        "柔韧可弯的钢材",
+        "硬而脆的生铁",
+        "不锈钢"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "fe_vs_steel",
+      "expected_signal_correct": "verified:fe_vs_steel",
+      "source_refs": [
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "id": "T12",
+      "node_id": "M4",
+      "mode": "choice",
+      "prompt": "看看连铸机吐出的长长钢坯。\n试着回答：液态钢水在连铸机里变成钢坯，靠的是什么？",
+      "options": [
+        "像晾面团一样慢慢晾干",
+        "冲压机床一下一下压出来",
+        "在结晶器里连续冷却凝固成形"
+      ],
+      "correct_index": 2,
+      "gap_topic_on_wrong": "slab_not_product",
+      "expected_signal_correct": "verified:slab_not_product",
+      "source_refs": [
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "id": "T13",
+      "node_id": "M4",
+      "mode": "choice",
+      "prompt": "对照刚才的古代浇铸。\n试着回答：连铸成坯和古人浇铸成器，共同的一步是什么？",
+      "options": [
+        "都要先让金属变成液态，再定型",
+        "都要经过千锤百炼的锻打",
+        "都要在辊缝间连续压延"
+      ],
+      "correct_index": 0,
+      "gap_topic_on_wrong": "forming_principle",
+      "expected_signal_correct": "verified:forming_principle",
+      "source_refs": [
+        "E01",
+        "E02"
+      ]
+    },
+    {
+      "id": "T14",
+      "node_id": "M5",
+      "mode": "choice",
+      "prompt": "看看轧机咬入钢坯的一瞬。\n试着回答：把厚钢坯轧成几毫米薄的钢板，靠的是什么？",
+      "options": [
+        "把钢重新熔化成水再摊平",
+        "用化学药剂把表面腐蚀掉一层",
+        "辊缝之间的连续压缩"
+      ],
+      "correct_index": 2,
+      "gap_topic_on_wrong": "forming_principle",
+      "expected_signal_correct": "verified:forming_principle",
+      "source_refs": [
+        "E02",
+        "E03"
+      ]
+    },
+    {
+      "id": "T15",
+      "node_id": "M5",
+      "mode": "choice",
+      "prompt": "看看轧线旁的黄色安全线。\n试着回答：为什么任何时候都不能越过它？",
+      "options": [
+        "线内是员工休息区",
+        "钢坯速度快、温度高，越线会有危险",
+        "会影响轧机的轧制精度"
+      ],
+      "correct_index": 1,
+      "gap_topic_on_wrong": "safety",
+      "expected_signal_correct": "verified:safety",
+      "source_refs": [
+        "E02"
       ]
     }
   ],
@@ -1022,13 +1211,20 @@
       "id": "K7",
       "keywords": [
         "安全",
-        "路线",
-        "能不能自己走"
+        "随便走",
+        "乱走",
+        "乱跑",
+        "自己走",
+        "走动",
+        "离队",
+        "参观",
+        "危险"
       ],
       "question_hint": "在钢厂里可以自己随便走吗？",
-      "answer": "不可以。工业旅游政策明确要求真实生产区域严格安全、应急与保密管理，参观区域与生产区域隔离。所以本系统的物理路线固定且经场馆批准，智能系统只调整观察重点与解释深度，不规划现场行走路线。",
+      "answer": "不可以。文化和旅游部等七部门2026年印发的《关于弘扬工业文化 保护工业遗产 发展工业旅游的通知》明确要求：设置游览区与生产区的隔离设施，健全保密制度和安全应急预案；教育部等11部门也把“安全第一”列为研学旅行基本原则。所以参观要跟队走指定路线，不擅自离队、不触碰设备。",
       "source_refs": [
-        "E04"
+        "E04",
+        "E07"
       ]
     },
     {
@@ -1238,10 +1434,11 @@
         "看什么"
       ],
       "question_hint": "参观时能看到什么、按什么路线走？",
-      "answer": "“印象新钢”工业旅游线路从新钢历史陈列馆出发，再依次走到高炉区、炼钢区、轧制区等现场，正好对应“原料—炼铁—炼钢—轧材”的完整链条。参观需在工作人员带领下按指定路线进行，不能自行走动。",
+      "answer": "“印象新钢”工业旅游线路从新钢历史陈列馆出发，再依次走到高炉区、炼钢区、轧制区等现场，正好对应“原料—炼铁—炼钢—轧材”的完整链条。按七部门工业旅游通知的游览区与生产区隔离要求，参观需在工作人员带领下走指定路线，不能自行走动。",
       "source_refs": [
         "E02",
-        "E03"
+        "E03",
+        "E04"
       ]
     }
   ]

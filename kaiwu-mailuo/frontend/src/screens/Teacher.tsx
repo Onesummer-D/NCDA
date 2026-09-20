@@ -60,7 +60,10 @@ export default function Teacher() {
           </div>
 
           {data.advice && (
-            <p className="advice-plain"><b>建议</b>　{data.advice.replace(/^建议：/, '')}</p>
+            <p className="advice-plain">
+              <b>{data.advice_source === 'ai' ? 'AI 建议' : '建议'}</b>　{data.advice.replace(/^建议：/, '')}
+              {data.advice_pending && <span className="advice-pending">（AI 正在结合最新数据生成…）</span>}
+            </p>
           )}
 
           <h3 className="t-section">任务数据</h3>

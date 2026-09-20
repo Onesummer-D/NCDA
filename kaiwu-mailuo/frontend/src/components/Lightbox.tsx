@@ -33,10 +33,6 @@ export default function Lightbox({ img, onClose }: { img: ImgMeta; onClose: () =
         <button className="lb-btn" aria-label="复位" onClick={reset}>⤢</button>
         <a className="lb-btn" href={img.src} download={`kaiwu-${img.src.split('/').pop()}`} aria-label="下载图片">↓</a>
       </div>
-      <div className="lb-cap" onClick={(e) => e.stopPropagation()}>
-        <b>{img.credit}</b>
-        <span>{img.license}</span>
-      </div>
     </div>
   )
 }

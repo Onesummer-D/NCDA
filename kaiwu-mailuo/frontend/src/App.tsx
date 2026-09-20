@@ -113,10 +113,8 @@ function Shell() {
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash)
-  const SPLASH_KEY = 'kaiwu_splash_day_v1'
-  const today = new Date().toDateString()
-  // 每天首次打开播放开屏，当天内刷新不再播
-  const [splashDone, setSplashDone] = useState(() => localStorage.getItem(SPLASH_KEY) === today)
+  // 每次进入应用都播开屏
+  const [splashDone, setSplashDone] = useState(false)
   useEffect(() => {
     const onHash = () => setHash(window.location.hash)
     window.addEventListener('hashchange', onHash)

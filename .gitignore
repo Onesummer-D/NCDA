@@ -10,3 +10,6 @@ kaiwu-mailuo/backend/app.db
 # OS / editor
 .DS_Store
 Thumbs.db
+
+# DeepSeek 密钥（本地私密配置）
+kaiwu-mailuo/backend/local_settings.py

@@ -50,6 +50,46 @@ export interface TeacherSummary {
   tasks: { task_id: string; node_id: string; prompt: string; reached: number; answered: number; first_correct: number; first_wrong: number }[]
   top_gap_topics: { gap_topic: string; n: number }[]
   advice: string
+  advice_source?: 'ai' | 'rule'
+  advice_pending?: boolean
+}
+
+export interface QaMeta {
+  hit: boolean; answer?: string
+  question_hint?: string; source_refs?: string[]; suggestions?: string[]
+}
+
+/**
+ * 问答（DeepSeek 流式）：后端以 SSE 推送 meta → delta… → done。
+ * onMeta：命中的证据来源/未收录标记等元信息（可能出现多次，以后到的为准）；
+ * onDelta：追加的增量回答文本。
+ */
+async function qaStream(query: string, sessionId: number | undefined, contextQuestionId: string | null,
+                        onMeta?: (m: QaMeta) => void, onDelta?: (d: string) => void): Promise<void> {
+  const res = await fetch('/api/qa', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, session_id: sessionId, context_question_id: contextQuestionId }),
+  })
+  if (!res.ok || !res.body) throw new Error(`${res.status}`)
+  const reader = res.body.getReader()
+  const decoder = new TextDecoder()
+  let buf = ''
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) break
+    buf += decoder.decode(value, { stream: true })
+    let idx: number
+    while ((idx = buf.indexOf('\n\n')) >= 0) {
+      const raw = buf.slice(0, idx)
+      buf = buf.slice(idx + 2)
+      if (!raw.startsWith('data: ')) continue
+      try {
+        const evt = JSON.parse(raw.slice(6))
+        if (evt.meta) onMeta?.(evt.meta)
+        else if (evt.delta) onDelta?.(evt.delta)
+      } catch { /* 忽略不完整帧 */ }
+    }
+  }
 }
 
 async function j<T>(res: Response): Promise<T> {
@@ -68,14 +108,12 @@ export const api = {
     fetch('/api/signal', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    }).then((r) => j<{ ok: boolean }>(r)),
+    }).then(() => undefined),
   recommend: (sessionId: number, nodeId?: string) =>
     fetch(`/api/recommend/${sessionId}${nodeId ? `?node_id=${nodeId}` : ''}`).then((r) => j<RecoResponse>(r)),
-  qa: (query: string, sessionId?: number) =>
-    fetch('/api/qa', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, session_id: sessionId }),
-    }).then((r) => j<{ hit: boolean; answer: string; question_hint?: string; source_refs?: string[]; suggestions?: string[] }>(r)),
+  qa: (query: string, sessionId: number | undefined, contextQuestionId?: string | null,
+       onMeta?: (m: QaMeta) => void, onDelta?: (d: string) => void) =>
+    qaStream(query, sessionId, contextQuestionId ?? null, onMeta, onDelta),
   spectrum: (sessionId: number) => fetch(`/api/spectrum/${sessionId}`).then((r) => j<SpectrumResponse>(r)),
   finish: (sessionId: number) =>
     fetch(`/api/session/${sessionId}/finish`, {

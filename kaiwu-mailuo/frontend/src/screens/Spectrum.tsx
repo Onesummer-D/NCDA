@@ -14,13 +14,24 @@ const STATE_LABEL: Record<string, string> = {
 const STATE_COLOR: Record<string, string> = {
   unseen: 'transparent', exposed: 'var(--steel)', verified: 'var(--ok)', gap_detected: 'var(--gap)',
 }
-/** 古列用罗马数字，今列用阿拉伯数字 */
-const numLabel = (id: string) =>
+/** 古列用罗马数字，今列用阿拉伯数字（开物谱脉络网与现场页工艺链共用） */
+export const numLabel = (id: string) =>
   id.startsWith('A')
     ? (['Ⅰ', 'Ⅱ', 'Ⅲ', 'Ⅳ', 'Ⅴ'][Number(id.slice(1)) - 1] ?? id)
     : String(Number(id.slice(1)))
 /** 脉络网里的长名缩写（完整名见选中信息条与现场页） */
 const SHORT_NAME: Record<string, string> = { M6: '精深加工' }
+
+/** 圈内数字自动反色：浅色圈配深字，深色圈配白字（按相对亮度判断） */
+function inkOnDisc(cssColor: string): string {
+  const hex = cssColor.startsWith('var(')
+    ? getComputedStyle(document.documentElement).getPropertyValue(cssColor.slice(4, -1)).trim()
+    : cssColor
+  const n = parseInt(hex.replace('#', ''), 16)
+  if (Number.isNaN(n)) return 'var(--ink)'
+  const lum = 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)
+  return lum > 140 ? 'var(--ink)' : '#ffffff'
+}
 
 /* 脉络网布局：古列在左，今列在右，关系边横跨两侧 */
 const AX_ANC = 104
@@ -135,8 +146,7 @@ export default function Spectrum() {
 
   return (
     <div className="page">
-      <div className="eyebrow accent">开物谱</div>
-      <h2 className="h-page" style={{ marginTop: 12 }}>我的开物谱</h2>
+      <h2 className="h-page">我的开物谱</h2>
 
       <div className="spec-hero">
         <img src={SPECTRUM_HERO.src} alt={SPECTRUM_HERO.credit} />
@@ -200,7 +210,7 @@ export default function Spectrum() {
             const cx = xOf(n.id); const cy = yOf(n.id)
             const discFill = st === 'unseen' ? 'var(--surface)' : STATE_COLOR[st]
             const discStroke = st === 'unseen' ? 'var(--hairline)' : 'none'
-            const idFill = st === 'unseen' ? 'var(--ink-3)' : '#fff'
+            const idFill = inkOnDisc(discFill)
             const isSel = selected === n.id
             return (
               <g key={n.id} className="g-node" onClick={() => setSelected(isSel ? null : n.id)}>
