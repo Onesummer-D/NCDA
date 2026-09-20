@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../store'
 import { api, type ProcessNode, type SpectrumResponse } from '../api'
 import { SPECTRUM_HERO } from '../images'
+import { renderPoster } from '../poster'
 
 const REL_COLOR: Record<string, string> = {
   documented_relation: 'var(--rel-doc)',
@@ -13,10 +14,6 @@ const STATE_LABEL: Record<string, string> = {
 }
 const STATE_COLOR: Record<string, string> = {
   unseen: 'transparent', exposed: 'var(--st-exposed)', verified: 'var(--st-verified)', gap_detected: 'var(--st-gap)',
-}
-/** canvas 无法解析 CSS 变量，海报绘制用同值 hex（与 :root 的 --st-* 保持一致） */
-const STATE_HEX: Record<string, string> = {
-  unseen: '#999999', exposed: '#cfa96b', verified: '#8c6a2f', gap_detected: '#b8432c',
 }
 /** 古列用罗马数字，今列用阿拉伯数字（开物谱脉络网与现场页工艺链共用） */
 export const numLabel = (id: string) =>
@@ -45,12 +42,11 @@ const GAP_A = 92
 const GAP_M = 73.6
 
 export default function Spectrum() {
-  const { content, session } = useApp()
+  const { content, session, user, visitStart } = useApp()
   const [data, setData] = useState<SpectrumResponse | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
   const [posterMsg, setPosterMsg] = useState('')
   const sid = session.id
-  const posterRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     if (sid == null) { setData(null); return }
@@ -69,69 +65,23 @@ export default function Spectrum() {
     return { ancient: byEra('ancient'), modern: byEra('modern') }
   }, [content])
 
-  // —— 分享海报：把本次研学的开物谱画成一张可保存的图 ——
-  const makePoster = () => {
-    const canvas = posterRef.current
-    if (!canvas || !content) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-    const W = 720, H = 1080
-    canvas.width = W; canvas.height = H
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(0, 0, W, H)
-    // 顶部色带
-    ctx.fillStyle = '#b8432c'
-    ctx.fillRect(0, 0, W, 10)
-    // 标题
-    ctx.fillStyle = '#1c1915'
-    ctx.font = 'bold 52px "Microsoft YaHei", sans-serif'
-    ctx.fillText('开物四百年', 48, 110)
-    ctx.fillStyle = '#857e6e'
-    ctx.font = '22px "Microsoft YaHei", sans-serif'
-    ctx.fillText('新余工业研学 · 我的开物谱', 48, 150)
-    const date = new Date().toLocaleDateString('zh-CN')
-    ctx.fillText(date, W - 48 - ctx.measureText(date).width, 110)
-    // 统计
-    const states = data?.states ?? {}
-    const count = (s: string) => Object.values(states).filter((x) => x === s).length
-    ctx.fillStyle = '#4f4a42'
-    ctx.font = '26px "Microsoft YaHei", sans-serif'
-    ctx.fillText(`已验证 ${count('verified')} · 出现断点 ${count('gap_detected')} · 已接触 ${count('exposed')} · 未接触 ${count('unseen')}`, 48, 210)
-    // 分隔线
-    ctx.strokeStyle = 'rgba(28,25,21,.12)'
-    ctx.beginPath(); ctx.moveTo(48, 240); ctx.lineTo(W - 48, 240); ctx.stroke()
-    // 节点清单（两列）
-    ctx.font = '24px "Microsoft YaHei", sans-serif'
-    const items = [...grouped.ancient, ...grouped.modern]
-    items.forEach((nd, i) => {
-      const col = i % 2, row = Math.floor(i / 2)
-      const x = 60 + col * 330, y = 300 + row * 64
-      const st = states[nd.id] ?? 'unseen'
-      ctx.beginPath()
-      ctx.arc(x + 8, y - 8, 9, 0, Math.PI * 2)
-      if (st === 'unseen') { ctx.strokeStyle = 'rgba(28,25,21,.3)'; ctx.lineWidth = 1.5; ctx.stroke() }
-      else { ctx.fillStyle = STATE_HEX[st] ?? '#999999'; ctx.fill() }
-      ctx.fillStyle = '#1c1915'
-      ctx.fillText(nd.title, x + 28, y)
-      ctx.fillStyle = '#857e6e'
-      ctx.font = '17px "Microsoft YaHei", sans-serif'
-      ctx.fillText(STATE_LABEL[st] ?? '未接触', x + 28, y + 24)
-      ctx.font = '24px "Microsoft YaHei", sans-serif'
+  // —— 分享海报：复用全局 renderPoster（工业硬核 × 新中式版画风），生成后直接保存 ——
+  const makePoster = async () => {
+    if (!content) return
+    const states = data?.states
+      ?? Object.fromEntries(content.nodes.map((n) => [n.id, 'unseen']))
+    const blob = await renderPoster({
+      content, states, visitStart,
+      userName: user?.name ?? null,
+      shareUrl: `${location.origin}/#/`,
     })
-    // 底部
-    ctx.strokeStyle = 'rgba(28,25,21,.12)'
-    ctx.beginPath(); ctx.moveTo(48, H - 90); ctx.lineTo(W - 48, H - 90); ctx.stroke()
-    ctx.fillStyle = '#1c1915'
-    ctx.font = 'bold 24px "Microsoft YaHei", sans-serif'
-    ctx.fillText('一块铁 · 近四百年', 48, H - 52)
-    ctx.fillStyle = '#857e6e'
-    ctx.font = '18px "Microsoft YaHei", sans-serif'
-    ctx.fillText('开物四百年 · 新余工业研学', W - 48 - ctx.measureText('开物四百年 · 新余工业研学').width, H - 52)
-    // 下载
+    if (!blob) { setPosterMsg('海报生成失败'); setTimeout(() => setPosterMsg(''), 2500); return }
+    const date = new Date().toLocaleDateString('zh-CN')
     const a = document.createElement('a')
-    a.href = canvas.toDataURL('image/png')
+    a.href = URL.createObjectURL(blob)
     a.download = `开物谱研学海报-${date}.png`
     a.click()
+    URL.revokeObjectURL(a.href)
     setPosterMsg('海报已保存到下载目录')
     setTimeout(() => setPosterMsg(''), 2500)
   }
@@ -277,7 +227,6 @@ export default function Spectrum() {
           </button>
         </>
       )}
-      <canvas ref={posterRef} style={{ display: 'none' }} />
     </div>
   )
 }

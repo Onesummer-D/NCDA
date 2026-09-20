@@ -77,7 +77,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [walkNodeId, setWalkNodeId] = useState<string | null>(null)
   const [visitStart, setVisitStart] = useState<number | null>(() => {
     const v = Number(localStorage.getItem(VISIT_KEY))
-    return Number.isFinite(v) && v > 0 ? v : null
+    if (!Number.isFinite(v) || v <= 0) return null
+    // 恢复旧会话时若时间戳已陈旧（超过 2 小时），视为新一次到访，避免海报研学时长虚高
+    if (Date.now() - v > 2 * 60 * 60 * 1000) {
+      const now = Date.now()
+      try { localStorage.setItem(VISIT_KEY, String(now)) } catch { /* 隐私模式忽略 */ }
+      return now
+    }
+    return v
   })
 
   useEffect(() => {

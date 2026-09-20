@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>海报预览</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<style>body{margin:0;background:#555;display:flex;justify-content:center;padding:16px}canvas{max-width:420px;height:auto;box-shadow:0 4px 24px rgba(0,0,0,.5)}</style>
+</head>
+<body>
+<canvas id="p" width="720" height="1120"></canvas>
+<script>
+const BG='#1b1d20',INK='#f0ebe0',MUTED='#8a8f96',GOLD='#f0a832',COPPER='#cfa96b',VERMIL='#d34e33',CARD='#242629',CARD_LINE='#33363a'
+const SERIF='"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif'
+const SANS='"Microsoft YaHei","PingFang SC",sans-serif'
+const STATE_FILL={unseen:BG,exposed:COPPER,verified:GOLD,gap_detected:VERMIL}
+const STATE_TEXT={unseen:'#6a6f76',exposed:'#221c10',verified:'#221c10',gap_detected:'#ffffff'}
+const STATE_STROKE={unseen:'#3a3d42'}
+const numLabel=id=>id.startsWith('A')?(['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][Number(id.slice(1))-1]??id):String(Number(id.slice(1)))
+const EDGE_COLOR={documented_relation:'#6a7d8c',functional_comparison:VERMIL,conceptual_parallel:'#9a7fc0'}
+function rankOf(t,v,total){if(t===0)return '初到炉台';if(v>=Math.max(6,total-3))return '炼钢大宗师';if(t>=total-1)return '开物通才';if(t>=7)return '钢城探索者';if(t>=4)return '锻打行者';return '开物学徒'}
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function track(ctx,px){ctx.letterSpacing=px}
+const anc=[{id:'A1',title:'山中取矿'},{id:'A2',title:'烧炭备薪'},{id:'A3',title:'筑炉冶炼'},{id:'A4',title:'浇铸成器'},{id:'A5',title:'锻打精制'}]
+const mod=[{id:'M1',title:'铁矿石采选'},{id:'M2',title:'高炉炼铁'},{id:'M3',title:'转炉炼钢'},{id:'M4',title:'连铸成坯'},{id:'M5',title:'轧制成材'},{id:'M6',title:'精深加工'}]
+const states={A1:'verified',A2:'exposed',A3:'verified',A4:'exposed',A5:'unseen',M1:'exposed',M2:'gap_detected',M3:'unseen',M4:'unseen',M5:'exposed',M6:'unseen'}
+const edges=[{from_id:'A1',to_id:'M1',relation_type:'documented_relation'},{from_id:'A2',to_id:'M1',relation_type:'documented_relation'},{from_id:'A3',to_id:'M2',relation_type:'functional_comparison'},{from_id:'A4',to_id:'M3',relation_type:'documented_relation'},{from_id:'A5',to_id:'M4',relation_type:'conceptual_parallel'},{from_id:'A3',to_id:'M5',relation_type:'functional_comparison'},{from_id:'A5',to_id:'M5',relation_type:'conceptual_parallel'}]
+const total=11
+const nVerified=Object.values(states).filter(s=>s==='verified').length
+const nTouched=Object.values(states).filter(s=>s!=='unseen').length
+
+const canvas=document.getElementById('p'),ctx=canvas.getContext('2d')
+ctx.fillStyle=BG;ctx.fillRect(0,0,720,1120)
+ctx.fillStyle='#b8432c';ctx.fillRect(0,0,720,6)
+ctx.fillStyle=INK;ctx.font='bold 52px '+SERIF;track(ctx,'8px');ctx.fillText('开物四百年',48,100);track(ctx,'0px')
+ctx.fillStyle=MUTED;ctx.font='20px '+SANS;ctx.fillText('新余工业研学 · 我的开物谱',48,138)
+ctx.textAlign='right';ctx.fillText('2026/9/21',672,100);ctx.textAlign='left'
+ctx.save();ctx.translate(720-48-46,118);ctx.rotate(-0.06)
+ctx.fillStyle='#b8432c';rr(ctx,-46,-34,92,68,8);ctx.fill()
+ctx.fillStyle='#fff';ctx.font='bold 26px '+SERIF;ctx.textAlign='center'
+ctx.fillText('开 物',0,-6);ctx.fillText('四百年',0,26);ctx.restore();ctx.textAlign='left'
+ctx.fillStyle=INK;ctx.font='26px '+SANS;ctx.fillText('@旅行者0871 的研学之路',48,202)
+const rank=rankOf(nTouched,nVerified,total)
+ctx.font='bold 27px '+SERIF;const rankText='【 '+rank+' 】';const rankW=ctx.measureText(rankText).width+44
+ctx.fillStyle='rgba(240,168,50,0.10)';rr(ctx,48,226,rankW,52,26);ctx.fill()
+ctx.strokeStyle=GOLD;ctx.lineWidth=1.2;rr(ctx,48,226,rankW,52,26);ctx.stroke()
+ctx.fillStyle=GOLD;ctx.fillText(rankText,70,262)
+const cx0=128,cy0=408,r0=62
+ctx.lineWidth=12;ctx.strokeStyle='#2c2f33';ctx.beginPath();ctx.arc(cx0,cy0,r0,0,Math.PI*2);ctx.stroke()
+const frac=nTouched/total
+ctx.strokeStyle=GOLD;ctx.lineCap='round';ctx.beginPath();ctx.arc(cx0,cy0,r0,-Math.PI/2,-Math.PI/2+Math.PI*2*frac);ctx.stroke();ctx.lineCap='butt'
+ctx.fillStyle=INK;ctx.font='bold 34px "Segoe UI",SANS';ctx.textAlign='center';ctx.fillText(Math.round(frac*100)+'%',cx0,cy0+6)
+ctx.fillStyle=MUTED;ctx.font='15px '+SANS;ctx.fillText('探索度',cx0,cy0+32);ctx.textAlign='left'
+const stats=[{label:'已验证',num:String(nVerified),color:GOLD},{label:'已接触',num:String(nTouched-nVerified),color:COPPER},{label:'待解锁',num:String(total-nTouched),color:'#7d828a'}]
+stats.forEach((s,i)=>{const x=232+i*152,y=348,w=140,h=108
+ctx.fillStyle=CARD;rr(ctx,x,y,w,h,14);ctx.fill();ctx.strokeStyle=CARD_LINE;ctx.lineWidth=1;rr(ctx,x,y,w,h,14);ctx.stroke()
+ctx.fillStyle=s.color;ctx.font='bold 42px "Segoe UI",SANS';ctx.textAlign='center';ctx.fillText(s.num,x+w/2,y+56)
+ctx.fillStyle=MUTED;ctx.font='17px '+SANS;ctx.fillText(s.label,x+w/2,y+86)})
+ctx.textAlign='left'
+ctx.fillStyle=MUTED;ctx.font='18px '+SANS;ctx.textAlign='center';ctx.fillText('本次研学用时 45 分钟',360,496);ctx.textAlign='left'
+const AXA=185,AXM=535,TOP=566,GA=76,GM=62
+const yOf=id=>TOP+(id.startsWith('A')?anc.findIndex(n=>n.id===id)*GA:mod.findIndex(n=>n.id===id)*GM)
+const xOf=id=>id.startsWith('A')?AXA:AXM
+ctx.font='bold 20px '+SERIF;ctx.fillStyle=MUTED;ctx.textAlign='center'
+ctx.fillText('古 · 凤凰山',AXA,TOP-44);ctx.fillText('今 · 新钢',AXM,TOP-44)
+ctx.strokeStyle=CARD_LINE;ctx.lineWidth=2
+ctx.beginPath();ctx.moveTo(AXA,TOP-28);ctx.lineTo(AXA,yOf('A5')+26);ctx.stroke()
+ctx.beginPath();ctx.moveTo(AXM,TOP-28);ctx.lineTo(AXM,yOf('M6')+26);ctx.stroke()
+const bridgeY=TOP+5*GM-10
+ctx.strokeStyle='#4a4e54';ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(AXA+24,bridgeY);ctx.lineTo(AXM-24,bridgeY);ctx.stroke();ctx.setLineDash([])
+ctx.fillStyle=GOLD;ctx.font='15px '+SERIF;ctx.fillText('· 跨越四百年 ·',(AXA+AXM)/2,bridgeY-10)
+for(const e of edges){
+const lit=[states[e.from_id],states[e.to_id]].some(s=>s&&s!=='unseen')
+const strong=[states[e.from_id],states[e.to_id]].some(s=>s==='verified'||s==='gap_detected')
+const x1=xOf(e.from_id),y1=yOf(e.from_id),x2=xOf(e.to_id),y2=yOf(e.to_id),mx=(x1+x2)/2
+ctx.beginPath();ctx.moveTo(x1,y1);ctx.bezierCurveTo(mx,y1,mx,y2,x2,y2)
+ctx.strokeStyle=EDGE_COLOR[e.relation_type];ctx.globalAlpha=lit?0.9:0.15;ctx.lineWidth=strong?2.6:1.4
+ctx.setLineDash(lit?[]:[3,5]);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1}
+for(const n of [...anc,...mod]){
+const cx=xOf(n.id),cy=yOf(n.id),st=states[n.id]??'unseen'
+ctx.beginPath();ctx.arc(cx,cy,17,0,Math.PI*2);ctx.fillStyle=STATE_FILL[st];ctx.fill()
+if(st==='unseen'){ctx.strokeStyle=STATE_STROKE[st];ctx.lineWidth=1.5;ctx.stroke()}
+ctx.fillStyle=STATE_TEXT[st];ctx.font='bold 13px "Segoe UI",SANS';ctx.textAlign='center';ctx.fillText(numLabel(n.id),cx,cy+5)
+ctx.font='bold 17px '+SANS;ctx.fillStyle=st==='unseen'?'#6a6f76':INK
+ctx.textAlign=n.era_|| (n.id.startsWith('A')?'right':'left')
+ctx.fillText(n.title,n.id.startsWith('A')?cx-28:cx+28,cy+6)}
+ctx.textAlign='left'
+const FOOT=1120-130
+ctx.strokeStyle=CARD_LINE;ctx.beginPath();ctx.moveTo(48,FOOT);ctx.lineTo(672,FOOT);ctx.stroke()
+ctx.fillStyle=INK;ctx.font='bold 34px '+SERIF;track(ctx,'4px');ctx.fillText('一块铁 · 近四百年',48,FOOT+56);track(ctx,'0px')
+ctx.fillStyle=MUTED;ctx.font='16px '+SANS;ctx.fillText('开物四百年 · 新余工业研学 · 扫码生成你的开物谱',48,FOOT+88)
+QRCode.toDataURL('http://192.168.1.5:8100/#/',{width:220,margin:1,color:{dark:'#1b1d20',light:'#f5f2ea'}}).then(qr=>{
+const img=new Image();img.onload=()=>{ctx.fillStyle='#f5f2ea';rr(ctx,720-48-106,FOOT+16,106,106,10);ctx.fill();ctx.drawImage(img,720-48-100,FOOT+22,94,94)};img.src=qr})
+</script>
+</body>
+</html>
