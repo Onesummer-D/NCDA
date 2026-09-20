@@ -17,13 +17,12 @@ export default function Home({ mode, onMode, onEnter }: {
   const [starting, setStarting] = useState(false)
   const stripRef = useRef<HTMLDivElement>(null)
 
-  // —— 无缝轮播：首尾各克隆一张，播完过渡后瞬时归位 ——
+  // —— 无缝轮播：首尾各克隆一张，播完过渡后瞬时归位；支持拖拽/触摸滑动 ——
   const n = HERO_SLIDES.length
   const [pos, setPos] = useState(1)                    // 在扩展轨道中的位置
   const [anim, setAnim] = useState(true)
   const extended = [HERO_SLIDES[n - 1], ...HERO_SLIDES, HERO_SLIDES[0]]
 
-  const go = (dir: 1 | -1) => setPos((p) => p + dir)
   const onTrackEnd = () => {
     if (pos === 0) { setAnim(false); setPos(n) }
     else if (pos === n + 1) { setAnim(false); setPos(1) }
@@ -32,14 +31,52 @@ export default function Home({ mode, onMode, onEnter }: {
     if (!anim) requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)))
   }, [anim])
 
-  // 自动轮播（首帧停留 8s）
+  // 自动轮播：首帧停留 8s；拖拽期间暂停，松手后恢复
+  const [paused, setPaused] = useState(true)
   useEffect(() => {
-    let iv: ReturnType<typeof setInterval> | undefined
-    const t = setTimeout(() => {
-      iv = setInterval(() => setPos((p) => p + 1), 5200)
-    }, 8000)
-    return () => { clearTimeout(t); if (iv) clearInterval(iv) }
+    const t = setTimeout(() => setPaused(false), 8000)
+    return () => clearTimeout(t)
   }, [])
+  useEffect(() => {
+    if (paused) return
+    const iv = setInterval(() => setPos((p) => p + 1), 5200)
+    return () => clearInterval(iv)
+  }, [paused])
+
+  // 拖拽/滑动（Pointer Events 同时覆盖触摸与鼠标）
+  const viewRef = useRef<HTMLDivElement>(null)
+  const dragRef = useRef<{ x: number; dx: number } | null>(null)
+  const lastDxRef = useRef(0)
+  const [dragDx, setDragDx] = useState(0)
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    dragRef.current = { x: e.clientX, dx: 0 }
+    lastDxRef.current = 0
+    setAnim(false)
+    setPaused(true)
+    ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
+  }
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!dragRef.current) return
+    dragRef.current.dx = e.clientX - dragRef.current.x
+    lastDxRef.current = dragRef.current.dx
+    setDragDx(dragRef.current.dx)
+  }
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!dragRef.current) return
+    const dx = e.clientX - dragRef.current.x
+    dragRef.current = null
+    setDragDx(0)
+    setAnim(true)
+    const target = pos + (dx < 0 ? 1 : -1)
+    const threshold = Math.min(56, (viewRef.current?.offsetWidth ?? 1) * 0.16)
+    if (Math.abs(dx) > threshold && target >= 0 && target <= n + 1) setPos(target)
+    setTimeout(() => setPaused(false), 400)
+  }
+  // 拖拽过的手势不触发内部的「了解更多」点击
+  const swallowClick = (e: React.MouseEvent) => {
+    if (Math.abs(lastDxRef.current) > 8) { e.preventDefault(); e.stopPropagation(); lastDxRef.current = 0 }
+  }
 
   const start = async (tab: 'craft' | 'walk') => {
     if (!mode) return
@@ -59,10 +96,21 @@ export default function Home({ mode, onMode, onEnter }: {
   return (
     <div className="page" style={{ paddingLeft: 0, paddingRight: 0 }}>
       <div className="hero-carousel" style={{ margin: '0 22px' }}>
-        <div className="hc-viewport">
+        <div
+          className="hc-viewport"
+          ref={viewRef}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          onClickCapture={swallowClick}
+        >
           <div
             className="hc-track"
-            style={{ transform: `translateX(-${pos * 100}%)`, transition: anim ? undefined : 'none' }}
+            style={{
+              transform: `translateX(calc(-${pos * 100}% + ${dragDx}px))`,
+              transition: anim ? undefined : 'none',
+            }}
             onTransitionEnd={onTrackEnd}
           >
             {extended.map((s, i) => (
@@ -77,8 +125,6 @@ export default function Home({ mode, onMode, onEnter }: {
             ))}
           </div>
         </div>
-        <button className="hc-arrow left" aria-label="上一张" onClick={() => go(-1)}>‹</button>
-        <button className="hc-arrow right" aria-label="下一张" onClick={() => go(1)}>›</button>
         <div className="hc-dots">
           {HERO_SLIDES.map((_, i) => <i key={i} className={i === activeDot ? 'on' : ''} />)}
         </div>
@@ -158,7 +204,7 @@ export default function Home({ mode, onMode, onEnter }: {
       {/* —— 页脚：直接排在纯白底上 —— */}
       <footer className="site-footer">
         <div className="sf-brand">
-          <span className="sf-logo">开物四百年</span>
+          <span className="sf-logo">开物<span className="sf-gold">四百</span>年</span>
           <span className="sf-tagline">面向新余工业研学的古今工艺认知导航</span>
         </div>
         <p className="sf-about">

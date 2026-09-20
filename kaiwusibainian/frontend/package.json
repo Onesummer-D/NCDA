@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:cos": "npm run prebuild && tsc -b && vite build --base=/",
     "lint": "oxlint",
     "preview": "vite preview",
     "prebuild": "node -e \"require('fs').copyFileSync('../backend/data/content.json','public/content.json')\""

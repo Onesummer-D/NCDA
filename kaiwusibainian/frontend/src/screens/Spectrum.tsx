@@ -41,11 +41,13 @@ const TOP = 40
 const GAP_A = 92
 const GAP_M = 73.6
 
-export default function Spectrum() {
+export default function Spectrum({ onGoto }: { onGoto: (tab: 'home') => void }) {
   const { content, session, user, visitStart } = useApp()
   const [data, setData] = useState<SpectrumResponse | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
   const [posterMsg, setPosterMsg] = useState('')
+  const [finishing, setFinishing] = useState(false)
+  const [finishMsg, setFinishMsg] = useState('')
   const sid = session.id
 
   useEffect(() => {
@@ -53,10 +55,13 @@ export default function Spectrum() {
     api.spectrum(sid).then(setData).catch(() => {})
   }, [sid])
 
+  // 结束研学：后端标记 finished，给出明确反馈后回到首页（开物谱与教师端数据保留）
   const finish = async () => {
-    if (sid == null) return
+    if (sid == null || finishing) return
+    setFinishing(true)
     await api.finish(sid)
-    setData(await api.spectrum(sid))
+    setFinishMsg('研学已结束 · 这趟收获都记在你的开物谱里')
+    setTimeout(() => onGoto('home'), 1300)
   }
 
   const grouped = useMemo(() => {
@@ -222,9 +227,20 @@ export default function Spectrum() {
             生成研学海报 · 分享这一趟
           </button>
           {posterMsg && <div className="poster-msg">{posterMsg}</div>}
-          <button className="btn-ghost" style={{ marginTop: 10 }} onClick={finish}>
-            结束研学
-          </button>
+          {/* 游客模式（轻松看看）没有研学任务，不提供「结束研学」 */}
+          {session.mode !== 'casual' && (
+            <>
+              <button
+                className="btn-ghost"
+                style={{ marginTop: 10 }}
+                onClick={finish}
+                disabled={finishing}
+              >
+                {finishing ? '正在结束…' : '结束研学'}
+              </button>
+              {finishMsg && <div className="poster-msg">{finishMsg}</div>}
+            </>
+          )}
         </>
       )}
     </div>

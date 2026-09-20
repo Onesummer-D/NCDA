@@ -3,7 +3,7 @@ import { useApp } from '../store'
 
 /** 右上角圆形头像 + 下拉菜单（登录 / 分享海报 / 收藏 / 昵称 / 教师控制台） */
 export default function AvatarMenu({ onShare }: { onShare: () => void }) {
-  const { user, setUser, favorites, content, setWalkNodeId } = useApp()
+  const { user, setUser, favorites, content, setWalkNodeId, resetSession } = useApp()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -55,7 +55,7 @@ export default function AvatarMenu({ onShare }: { onShare: () => void }) {
               {user.role === 'teacher' && (
                 <a className="am-item" href="#/teacher" onClick={() => setOpen(false)}>教师控制台</a>
               )}
-              <button className="am-item am-quit" onClick={() => { setUser(null); setOpen(false) }}>退出登录</button>
+              <button className="am-item am-quit" onClick={() => { resetSession(); setUser(null); setOpen(false) }}>退出登录</button>
             </>
           ) : (
             <>

@@ -95,7 +95,7 @@ function Shell() {
       {tab === 'home' && <Home mode={mode} onMode={setMode} onEnter={(t) => setTab(t as Tab)} />}
       {tab === 'craft' && <Craft onGoto={(t) => setTab(t)} />}
       {tab === 'walk' && <Walk onGoto={(t) => setTab(t)} />}
-      {tab === 'spectrum' && <Spectrum />}
+      {tab === 'spectrum' && <Spectrum onGoto={(t) => setTab(t)} />}
       {tab === 'qa' && <Qa />}
       <nav className="tabbar">
         {TABS.map((t) => (

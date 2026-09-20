@@ -95,9 +95,15 @@ export default function Qa() {
                   {result.answer || <span className="qa-thinking">{busy ? '思考中…' : ''}</span>}
                 </div>
                 <div className="qa-answer-foot">
-                  {result.source_refs && result.answer && (
+                  {result.source_refs && result.source_refs.length > 0 && result.answer && (
                     <div className="r-src" style={{ marginTop: 0, borderTop: 'none', paddingTop: 0 }}>
                       <b>来源</b>　{result.source_refs.map(evidenceTitle).join('；')}
+                    </div>
+                  )}
+                  {/* 检索未命中（无证据挂载）时如实标注：与来源行同款式，仅文字说明 */}
+                  {result.answer && !(result.source_refs && result.source_refs.length > 0) && (
+                    <div className="r-src" style={{ marginTop: 0, borderTop: 'none', paddingTop: 0 }}>
+                      <b>提示</b>　本条回答未匹配到站内来源，由资料库综合生成
                     </div>
                   )}
                   {result.answer && <SpeakButton text={result.answer} />}

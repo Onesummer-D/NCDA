@@ -50,6 +50,7 @@ interface AppContextValue {
   content: ContentBundle | null
   session: SessionState
   startSession: (mode: string, variant: string) => Promise<void>
+  resetSession: () => void
   signal: (payload: Record<string, unknown>) => Promise<void>
   evidenceTitle: (ref: string) => string
   user: UserInfo | null
@@ -112,6 +113,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setVisitStart(Date.now())
   }
 
+  // 退出登录：会话与研学进度一并清空，换账号不残留上一人的开物谱
+  const resetSession = () => {
+    try {
+      localStorage.removeItem(SESSION_KEY)
+      localStorage.removeItem(VISIT_KEY)
+    } catch { /* ignore */ }
+    setSession({ id: null, mode: 'school', variant: 'adaptive' })
+    setVisitStart(null)
+  }
+
   const signal = (payload: Record<string, unknown>): Promise<void> => {
     if (session.id == null) return Promise.resolve()
     return api.signal({ session_id: session.id, ...payload }).catch(() => {})
@@ -143,7 +154,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AppContext.Provider value={{
-      content, session, startSession, signal, evidenceTitle,
+      content, session, startSession, resetSession, signal, evidenceTitle,
       user, setUser, craftQi, setCraftQi, qaContext, setQaContext,
       favorites, toggleFav, walkNodeId, setWalkNodeId, visitStart,
     }}>

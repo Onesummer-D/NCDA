@@ -212,15 +212,10 @@ export async function renderPoster(input: PosterInput): Promise<Blob | null> {
   ctx.beginPath(); ctx.moveTo(AXA, TOP - 28); ctx.lineTo(AXA, yOf(anc[anc.length - 1]?.id ?? 'A5') + 26); ctx.stroke()
   ctx.beginPath(); ctx.moveTo(AXM, TOP - 28); ctx.lineTo(AXM, yOf(mod[mod.length - 1]?.id ?? 'M6') + 26); ctx.stroke()
 
-  // 古今之间：跨越四百年的虚线桥
-  const bridgeY = TOP + 5 * GM - 10
-  ctx.strokeStyle = '#4a4e54'
-  ctx.setLineDash([4, 6])
-  ctx.beginPath(); ctx.moveTo(AXA + 24, bridgeY); ctx.lineTo(AXM - 24, bridgeY); ctx.stroke()
-  ctx.setLineDash([])
+  // 「跨越四百年」放谱区下方空白处（古今间的虚线桥已移除）
   ctx.fillStyle = GOLD
   ctx.font = `15px ${SERIF}`
-  ctx.fillText('· 跨越四百年 ·', (AXA + AXM) / 2, bridgeY - 10)
+  ctx.fillText('· 跨越四百年 ·', (AXA + AXM) / 2, 944)
 
   // 边（接触过才点亮）
   for (const e of content.edges) {
@@ -261,18 +256,35 @@ export async function renderPoster(input: PosterInput): Promise<Blob | null> {
   }
   ctx.textAlign = 'left'
 
-  // ===== 底部：品牌语 + 二维码 =====
+  // ===== 底部：Logo + 二维码 整体居中 =====
   const FOOT = H - 130
   ctx.strokeStyle = CARD_LINE
+  ctx.lineWidth = 1
   ctx.beginPath(); ctx.moveTo(48, FOOT); ctx.lineTo(W - 48, FOOT); ctx.stroke()
-  ctx.fillStyle = INK
-  ctx.font = `bold 34px ${SERIF}`
-  setTracking(ctx, '4px')
-  ctx.fillText('一块铁 · 近四百年', 48, FOOT + 56)
-  setTracking(ctx, '0px')
-  ctx.fillStyle = MUTED
+  ctx.font = `bold 30px ${SERIF}`
+  const logoSegs = [['开物', INK], ['四百', GOLD], ['年', INK]] as const
+  const logoW = logoSegs.reduce((w, [t]) => w + ctx.measureText(t).width, 0)
+  const qrSize = 106
+  const qrGap = 48
+  const groupX = (W - (logoW + qrGap + qrSize)) / 2
+  const qrX = groupX + logoW + qrGap
+  const qrY = FOOT + 12
+  // Logo：上下朱砂线与字两端对齐，块中心与二维码中心齐平
+  ctx.strokeStyle = '#b8432c'
+  ctx.lineWidth = 2
+  ctx.beginPath(); ctx.moveTo(groupX, FOOT + 40); ctx.lineTo(groupX + logoW, FOOT + 40); ctx.stroke()
+  ctx.beginPath(); ctx.moveTo(groupX, FOOT + 90); ctx.lineTo(groupX + logoW, FOOT + 90); ctx.stroke()
+  ctx.lineWidth = 1
+  let logoX = groupX
+  for (const [seg, color] of logoSegs) {
+    ctx.fillStyle = color
+    ctx.fillText(seg, logoX, FOOT + 75)
+    logoX += ctx.measureText(seg).width
+  }
   ctx.font = `16px ${SANS}`
-  ctx.fillText('开物四百年 · 新余工业研学 · 扫码生成你的开物谱', 48, FOOT + 88)
+  const sub = '一块铁 · 近四百年'
+  ctx.fillStyle = MUTED
+  ctx.fillText(sub, groupX + (logoW - ctx.measureText(sub).width) / 2, FOOT + 118)
   try {
     const qr = await QRCode.toDataURL(shareUrl, {
       width: 220, margin: 1, color: { dark: '#1b1d20', light: '#f5f2ea' },
@@ -280,9 +292,9 @@ export async function renderPoster(input: PosterInput): Promise<Blob | null> {
     const img = new Image()
     await new Promise((res) => { img.onload = res; img.onerror = res; img.src = qr })
     ctx.fillStyle = '#f5f2ea'
-    roundedRect(ctx, W - 48 - 106, FOOT + 16, 106, 106, 10)
+    roundedRect(ctx, qrX, qrY, qrSize, qrSize, 10)
     ctx.fill()
-    ctx.drawImage(img, W - 48 - 100, FOOT + 22, 94, 94)
+    ctx.drawImage(img, qrX + 6, qrY + 6, qrSize - 12, qrSize - 12)
   } catch { /* 二维码失败不阻断海报 */ }
 
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'))

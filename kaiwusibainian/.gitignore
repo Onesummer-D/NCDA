@@ -1,1 +1,5 @@
 _staging/
+
+# 腾讯云部署密钥（绝不提交）
+deploy/.env
+

@@ -142,7 +142,8 @@ img { display: block; }
   background: var(--canvas-2);
   border: 1px solid var(--hairline-soft);
 }
-.hc-viewport { overflow: hidden; }
+.hc-viewport { overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.hc-viewport:active { cursor: grabbing; }
 .hc-track { display: flex; transition: transform .45s ease; }
 .hc-slide { flex: none; width: 100%; position: relative; aspect-ratio: 5 / 4; }
 .hc-slide img { width: 100%; height: 100%; object-fit: cover; }
@@ -162,17 +163,6 @@ img { display: block; }
   position: absolute; right: 12px; top: 10px; z-index: 2;
   font-size: 10px; color: rgba(255,255,255,.78); letter-spacing: 0.04em;
 }
-.hc-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,.94); color: var(--ink);
-  box-shadow: 0 1px 8px rgba(0,0,0,.22);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px; transition: transform .15s ease;
-}
-.hc-arrow:active { transform: translateY(-50%) scale(.92); }
-.hc-arrow.left { left: 10px; }
-.hc-arrow.right { right: 10px; }
 .hc-dots {
   position: absolute; bottom: 8px; left: 0; right: 0; z-index: 3;
   display: flex; gap: 6px; justify-content: center;
@@ -795,7 +785,13 @@ table.ttable td.num { font-size: 15px; font-weight: 700; font-variant-numeric: t
   background: var(--canvas-2);
 }
 .sf-brand { display: flex; align-items: baseline; gap: 10px; }
-.sf-logo { font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: 0.14em; }
+.sf-logo {
+  display: inline-block;
+  font-family: var(--serif); font-size: 18px; font-weight: 700; letter-spacing: 0.14em;
+  border-top: 2px solid #b8432c; border-bottom: 2px solid #b8432c;
+  padding: 2px 3px;
+}
+.sf-gold { color: #8c6a2f; }
 .sf-tagline { font-size: 11.5px; color: var(--ink-3); letter-spacing: 0.04em; }
 .sf-about { font-size: 12.5px; color: var(--ink-2); line-height: 1.8; margin-top: 12px; }
 .sf-links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 16px; }

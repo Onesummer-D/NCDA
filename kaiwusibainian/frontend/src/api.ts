@@ -184,7 +184,7 @@ export const api = {
     if (STATIC_DEMO.enabled) {
       onMeta?.({
         hit: false,
-        answer: '当前是静态演示版（GitHub Pages），没有连接问答服务。完整版请在研学现场的本地系统体验「问个开物」。',
+        answer: '当前是静态演示版，没有连接问答服务。完整版请在研学现场的本地系统体验「问个开物」。',
       })
       return Promise.resolve()
     }
