@@ -135,7 +135,7 @@ export default function Spectrum() {
 
   return (
     <div className="page">
-      <div className="eyebrow accent">参观结束</div>
+      <div className="eyebrow accent">开物谱</div>
       <h2 className="h-page" style={{ marginTop: 12 }}>我的开物谱</h2>
 
       <div className="spec-hero">
@@ -147,7 +147,9 @@ export default function Spectrum() {
       </div>
       <p className="spec-intro">
         左边是明代凤凰山的古法，右边是今天新钢的产线。
-        你每走到一处、验证一问，属于你的脉络就会被点亮——实线代表你已经接触过的联系，虚线还在等你。
+        你每走到一处、验证一问，属于你的脉络就会被点亮。
+        <br />
+        实线代表你已经接触过的开物脉络，虚线还在等你去探索。
       </p>
 
       <div className="spec-graph">
@@ -240,7 +242,7 @@ export default function Spectrum() {
         <span><i style={{ background: 'transparent', border: '1px solid var(--hairline)' }} />未接触</span>
         <span><i style={{ background: 'var(--steel)' }} />已接触</span>
         <span><i style={{ background: 'var(--ok)' }} />已验证</span>
-        <span><i style={{ background: 'var(--gap)' }} />出现断点</span>
+        <span><i style={{ background: 'var(--gap)' }} />理解出现断点</span>
       </div>
 
       {data && data.key_changes.length > 0 && (

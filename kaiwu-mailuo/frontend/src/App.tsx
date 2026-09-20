@@ -54,9 +54,14 @@ function Shell() {
     document.body.dataset.mode = session.id != null ? session.mode : (mode || 'school')
   }, [mode, session.id, session.mode])
 
-  // —— 分享研学海报：系统分享面板优先，不支持则保存图片 ——
+  // —— 分享研学海报：学生/老师可分享；游客提示先登录 ——
   const sharePoster = async () => {
     if (!content) return
+    if (!user) {
+      setShareMsg('登录后即可生成研学海报')
+      setTimeout(() => { setShareMsg(''); location.hash = '#/login' }, 1400)
+      return
+    }
     let states: Record<string, string> = {}
     if (session.id != null) {
       try { states = (await api.spectrum(session.id)).states } catch { /* 会话失效则用空状态 */ }

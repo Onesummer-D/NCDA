@@ -5,12 +5,17 @@ import { NODE_IMAGES, FALLBACK_IMG, type ImgMeta } from '../images'
 import Lightbox from '../components/Lightbox'
 import SpeakButton from '../components/SpeakButton'
 
-/** 从推荐理由推断依据类型，驱动卡片徽章（Gap Engine 的可解释性外显） */
-function reasonFlag(reasons: string[]): { label: string; hot: boolean } {
-  if (reasons.some((r) => r.startsWith('命中理解断点'))) return { label: '补断点', hot: true }
-  if (reasons.some((r) => r.includes('负担调节'))) return { label: '减负担', hot: false }
-  if (reasons.some((r) => r.includes('当前工艺节点'))) return { label: '顺当前', hot: false }
-  return { label: '讲解序列', hot: false }
+/** 答错时的正确答案解析（与后端 GAP_EXPLAIN 一致，离线也可用） */
+const GAP_EXPLAIN: Record<string, string> = {
+  fe_vs_steel: "高炉出来的是铁水，含碳约 4%，硬而脆；钢的含碳量低于 2%。所以铁水还要进转炉降碳去杂，才能成为钢。",
+  why_steelmaking: "炼钢的实质是受控氧化：向铁水中吹氧，把碳和杂质降下来。不炼钢，铁水就只是脆硬的生铁。",
+  slab_not_product: "连铸出来的是钢坯，只是中间态；还要经过轧制压延，才能变成板材、线材等最终产品。",
+  forming_principle: "锻打和轧制都靠金属在压力下塑性变形——一个是一下一下的锤击，一个是辊缝间的连续压缩，原理相同。",
+  ancient_iron_quality: "古人靠反复锻打和控火把杂质挤出、把碳调匀（所谓“千锤百炼”），这与现代提纯的目标一致。",
+  huohou: "古人靠看火色（暗红→橙黄→发白）、听风声、观察渣铁流动性来判断炉温，经验就是他们的“测温仪”。",
+  knowledge_transfer: "《天工开物》用图文把工艺流程记录下来传给后人，宋应星写书的地方就在新余旁的分宜县。",
+  industry_chain: "新余已形成“铁矿采选—炼铁—炼钢—轧材—精深加工”的完整钢铁产业链。",
+  safety: "钢厂生产区高温、有机械与介质风险，参观必须走固定路线、由工作人员带领——这是场馆的硬性规定。",
 }
 
 export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => void }) {
@@ -22,6 +27,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const [spec, setSpec] = useState<SpectrumResponse | null>(null)
   const [stage, setStage] = useState<'observe' | 'quiz'>('observe')
   const [lightbox, setLightbox] = useState(false)
+  const [recorded, setRecorded] = useState(false)
 
   const nodes = content?.nodes ?? []
   const node = nodes.find((n) => n.id === current)
@@ -43,6 +49,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
     signal({ node_id: current, signal_type: 'visit' })
     setPicked(null)
     setStage('observe')
+    setRecorded(false)
     refreshReco(current)
     refreshSpec()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,9 +83,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
   const modernChain = chain.filter((n) => n.era === 'modern')
   const idx = modernChain.findIndex((n) => n.id === current)
   const nextModern = idx >= 0 && idx + 1 < modernChain.length ? modernChain[idx + 1] : null
-  const lastWrong = picked !== null && task && picked !== task.correct_index
   const img: ImgMeta = NODE_IMAGES[node.id] ?? FALLBACK_IMG
-  const mainEvidence = node.evidence_ids[0]
   const fav = favorites.includes(node.id)
 
   return (
@@ -116,9 +121,9 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
       <a className="src-block" href={img.page} target="_blank" rel="noreferrer">
         <img className="src-thumb" src={img.src} alt="" />
         <span className="src-main">
-          <span className="src-pub">{mainEvidence ? evidenceTitle(mainEvidence) : '开物脉络内容库'}</span>
+          <span className="src-pub">{img.credit}</span>
         </span>
-        <span className="src-tag">{img.page.includes('wikimedia') ? 'Wikimedia Commons' : img.page.includes('cctv') ? '央视网' : '新余市博物馆'}</span>
+        <span className="src-tag">图片来源<br />{img.page.includes('wikimedia') ? 'Wikimedia' : img.page.includes('cctv') ? '央视网' : '博物馆'}</span>
       </a>
       <div className="node-head" style={{ marginTop: 18 }}>
         <h2 className="node-title">{node.title}</h2>
@@ -129,7 +134,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
         stage === 'observe' ? (
           <div className="observe">
             <div className="o-eyebrow">观察</div>
-            <div className="o-text">{task.prompt.replace(/^观察提示：/, '').replace(/^观察任务：/, '')}</div>
+            <div className="o-text">{task.prompt}</div>
             <SpeakButton text={task.prompt} dark />
             <div className="o-actions">
               {task.mode === 'choice' ? (
@@ -137,55 +142,63 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
               ) : (
                 <button className="o-btn primary" onClick={() => {
                   signal({ node_id: node.id, task_id: task.id, signal_type: 'task_answer', correct: null, detail: task.expected_signal_correct })
+                  setRecorded(true)
                   refreshReco(node.id)
                   refreshSpec()
                 }}>记录</button>
               )}
             </div>
+            {recorded && (
+              <div className="o-recorded">
+                已记录到你的开物谱 ✓
+                {task.expected_signal_correct && GAP_EXPLAIN[task.expected_signal_correct] && (
+                  <div className="o-recorded-note">{GAP_EXPLAIN[task.expected_signal_correct]}</div>
+                )}
+              </div>
+            )}
           </div>
         ) : (
-          <div className="quiz">
-            {task.options.map((opt, i) => (
-              <button
-                key={i}
-                className={`quiz-option ${picked === i ? (task.correct_index === i ? 'picked-correct' : 'picked-wrong') : picked !== null ? 'dim' : ''}`}
-                onClick={() => pickOption(i)}
-              >
-                <span className="opt-key">{String.fromCharCode(65 + i)}</span>
-                <span>{opt}</span>
-              </button>
-            ))}
-          </div>
+          <>
+            <div className="quiz-recap">
+              回到刚才的问题：<b>{task.prompt.split('\n').pop()?.replace(/^试着回答：/, '')}</b>
+            </div>
+            <div className="quiz">
+              {task.options.map((opt, i) => (
+                <button
+                  key={i}
+                  className={`quiz-option ${picked === i ? (task.correct_index === i ? 'picked-correct' : 'picked-wrong') : picked !== null ? 'dim' : ''}`}
+                  onClick={() => pickOption(i)}
+                >
+                  <span className="opt-key">{String.fromCharCode(65 + i)}</span>
+                  <span>{opt}</span>
+                </button>
+              ))}
+            </div>
+            {picked !== null && task && picked !== task.correct_index && (
+              <div className="answer-feedback">
+                <div className="af-correct">正确答案：{String.fromCharCode(65 + (task.correct_index ?? 0))}　{task.options[task.correct_index ?? 0]}</div>
+                <div className="af-explain">{GAP_EXPLAIN[task.gap_topic_on_wrong ?? ''] ?? ''}</div>
+              </div>
+            )}
+          </>
         )
       )}
 
-      {lastWrong && (
-        <div className="gap-flag">理解断点 · 炼铁 → 炼钢</div>
-      )}
       {picked !== null && task && picked === task.correct_index && (
-        <div className="gap-flag ok-flag">已验证</div>
+        <div className="gap-flag ok-flag">答对了</div>
       )}
 
       {reco && reco.recommendations.length > 0 && (
         <div className="reco">
           <div className="eyebrow" style={{ marginBottom: 12 }}>补一环</div>
-          {reco.recommendations.map((r) => {
-            const flag = reasonFlag(r.reasons)
-            return (
-              <div key={r.id} className="reco-card">
-                <div className="r-head">
-                  <span className="r-eyebrow">{r.depth === 'deep' ? '深一层' : r.depth === 'intro' ? '先知道' : '核心'}</span>
-                  {reco.variant === 'adaptive' && <span className={`r-flag ${flag.hot ? '' : 'quiet'}`}>{flag.label}</span>}
-                </div>
-                <div className="r-title">{r.title}</div>
-                <div className="r-body">{r.body}</div>
-                {reco.variant === 'adaptive' && r.reasons.length > 0 && (
-                  <div className="r-why">依据 · {r.reasons.join(' / ')}</div>
-                )}
-                <div className="r-src"><b>来源</b>　{r.source_refs.map(evidenceTitle).join('；')}</div>
-              </div>
-            )
-          })}
+          {reco.recommendations.map((r) => (
+            <div key={r.id} className="reco-card">
+              <div className="r-eyebrow">{r.depth === 'deep' ? '深一层' : r.depth === 'intro' ? '先知道' : '核心'}</div>
+              <div className="r-title">{r.title}</div>
+              <div className="r-body">{r.body}</div>
+              <div className="r-src"><b>来源</b>　{r.source_refs.map(evidenceTitle).join('；')}</div>
+            </div>
+          ))}
         </div>
       )}
 

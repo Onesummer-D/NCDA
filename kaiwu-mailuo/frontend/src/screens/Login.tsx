@@ -52,9 +52,8 @@ export default function Login() {
           disabled={!name.trim()}
           onClick={() => enter({ name: name.trim(), role })}
         >进入开物脉络</button>
-        <button className="auth-ghost" onClick={() => enter(null)}>先以游客身份逛逛 →</button>
+        <button className="btn-ghost" onClick={() => enter(null)}>先以游客身份逛逛</button>
 
-        <p className="auth-note">演示版身份仅保存在本机浏览器，不会上传；老师身份可使用教师控制台。</p>
         <a className="auth-back" href="#/">← 返回首页</a>
       </div>
     </div>

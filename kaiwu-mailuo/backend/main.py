@@ -188,37 +188,37 @@ def recommend_for_session(conn: sqlite3.Connection, session_id: int, node_id: st
     for x in expls:
         topics = jloads(x["gap_topics_json"])
         node_ids = jloads(x["node_ids_json"])
+        # 冷启动兜底：没有任何节点上下文时（如刚进入未定位），保持原有全量评分
+        if node_id and node_id not in node_ids:
+            continue
         score = 0.0
         reasons: list[str] = []
         if variant == "fixed":
             # 强基线：专家固定顺序（按内容编排深度推进），不看信号
             fixed_order = ["X9", "X3", "X1", "X4", "X6", "X7", "X2", "X5", "X8", "X11", "X10"]
             score = -fixed_order.index(x["id"]) * 0.001  # 保持固定顺序
-            reasons.append("固定研学讲解序列")
         else:
             hit_topics = sorted(set(topics) & set(unresolved))
             if hit_topics:
                 score += 3.0
                 reasons.append(f"命中理解断点：{('、'.join(hit_topics))}")
-            if node_id and node_id in node_ids:
-                score += 1.0
-                reasons.append("与当前工艺节点连续")
             if any(t in resolved for t in topics):
                 score -= 0.5
             if sess["mode"] == "school":
                 score += 0.5
             if x["depth"] == "deep" and load_penalty:
                 score -= load_penalty
-                reasons.append("认知负担调节：已连续互动多次，降低解释深度")
         if x["id"] in shown:
             score -= 5.0
-            reasons.append("已看过（避免重复）")
         scored.append({"id": x["id"], "score": round(score, 2), "reasons": reasons, **{
             "title": x["title"], "body": x["body"], "depth": x["depth"],
             "node_ids": node_ids, "source_refs": jloads(x["source_refs_json"]),
         }})
     scored.sort(key=lambda d: (-d["score"], d["id"]))
-    top = [d for d in scored if d["score"] > -4][:3]
+    top = [d for d in scored if d["score"] > -4][:2]
+    # 兜底：过滤后为空（如该节点没有专属解释）时给出一条全局最优，避免空白
+    if not top:
+        top = [min(scored, key=lambda d: -d["score"])] if scored else []
 
     # 下一步动作
     next_node: Optional[str] = None
@@ -376,6 +376,20 @@ def _advice(gaps) -> str:
     if gaps:
         return f"建议：针对“{gaps[0]['gap_topic']}”相关的工艺关系做一次返校补充讲解。"
     return "暂无明显的共性理解断点记录。"
+
+
+# 答错时的正确答案解析（与 content.json 的 gap_topic 对应）
+GAP_EXPLAIN: dict[str, str] = {
+    "fe_vs_steel": "高炉出来的是铁水，含碳约 4%，硬而脆；钢的含碳量低于 2%。所以铁水还要进转炉降碳去杂，才能成为钢。",
+    "why_steelmaking": "炼钢的实质是受控氧化：向铁水中吹氧，把碳和杂质降下来。不炼钢，铁水就只是脆硬的生铁。",
+    "slab_not_product": "连铸出来的是钢坯，只是中间态；还要经过轧制压延，才能变成板材、线材等最终产品。",
+    "forming_principle": "锻打和轧制都靠金属在压力下塑性变形——一个是一下一下的锤击，一个是辊缝间的连续压缩，原理相同。",
+    "ancient_iron_quality": "古人靠反复锻打和控火把杂质挤出、把碳调匀（所谓“千锤百炼”），这与现代提纯的目标一致。",
+    "huohou": "古人靠看火色（暗红→橙黄→发白）、听风声、观察渣铁流动性来判断炉温，经验就是他们的“测温仪”。",
+    "knowledge_transfer": "《天工开物》用图文把工艺流程记录下来传给后人，宋应星写书的地方就在新余旁的分宜县。",
+    "industry_chain": "新余已形成“铁矿采选—炼铁—炼钢—轧材—精深加工”的完整钢铁产业链。",
+    "safety": "钢厂生产区高温、有机械与介质风险，参观必须走固定路线、由工作人员带领——这是场馆的硬性规定。",
+}
 
 
 # ---------------------------------------------------------------- 静态前端（生产模式）

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../store'
 import { CRAFT_PANEL_IMAGES, IMG_META, FALLBACK_IMG } from '../images'
+import Lightbox from '../components/Lightbox'
 import SpeakButton from '../components/SpeakButton'
 
 type View = 'auto' | 'ancient' | 'modern' | 'why'
@@ -10,6 +11,7 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
   const [qi, setQi] = useState(0)
   const [pos, setPos] = useState(0)
   const [view, setView] = useState<View>('auto')
+  const [lightboxImg, setLightboxImg] = useState<{ src: string; credit: string; license: string; page: string } | null>(null)
 
   const questions = content?.questions ?? []
   const q = questions[qi]
@@ -71,7 +73,12 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
 
       {shown !== 'why' ? (
         <div key={`${q.id}-${shown}`} className={`era-panel ${shown}`}>
-          <img className="era-img" src={panelImg.src} alt={q.title} />
+          <img
+            className="era-img clickable"
+            src={panelImg.src}
+            alt={q.title}
+            onClick={() => setLightboxImg(panelImg)}
+          />
           <span className="e-tag">{shown === 'ancient' ? '古' : '今'} · {panelImg.credit}</span>
           <div className="era-answer">
             {eraAnswer}
@@ -91,12 +98,22 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
         <div key={`${q.id}-why`} className="why-block">
           <div className="why-duo">
             <figure>
-              <img src={IMG_META[CRAFT_PANEL_IMAGES[q.id]?.ancient ?? 'a1']?.src ?? ''} alt="古" />
+              <img
+                className="clickable"
+                src={IMG_META[CRAFT_PANEL_IMAGES[q.id]?.ancient ?? 'a1']?.src ?? ''}
+                alt="古"
+                onClick={() => setLightboxImg(IMG_META[CRAFT_PANEL_IMAGES[q.id]?.ancient ?? 'a1'] ?? null)}
+              />
               <figcaption>古 · {q.code}</figcaption>
             </figure>
             <span className="why-arrow">→</span>
             <figure>
-              <img src={IMG_META[CRAFT_PANEL_IMAGES[q.id]?.modern ?? 'm1']?.src ?? ''} alt="今" />
+              <img
+                className="clickable"
+                src={IMG_META[CRAFT_PANEL_IMAGES[q.id]?.modern ?? 'm1']?.src ?? ''}
+                alt="今"
+                onClick={() => setLightboxImg(IMG_META[CRAFT_PANEL_IMAGES[q.id]?.modern ?? 'm1'] ?? null)}
+              />
               <figcaption>今 · 新钢</figcaption>
             </figure>
           </div>
@@ -127,6 +144,10 @@ export default function Craft({ onGoto }: { onGoto: (tab: 'qa') => void }) {
           )
         })}
       </div>
+
+      {lightboxImg && (
+        <Lightbox img={{ ...lightboxImg, src: lightboxImg.src }} onClose={() => setLightboxImg(null)} />
+      )}
     </div>
   )
 }

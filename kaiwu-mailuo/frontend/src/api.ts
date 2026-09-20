@@ -14,8 +14,7 @@ export interface ObservationTask {
   options: string[]; correct_index: number | null
   gap_topic_on_wrong: string | null; expected_signal_correct: string | null
   source_refs: string[]
-}
-export interface Explanation {
+}export interface Explanation {
   id: string; title: string; body: string; question_id: string
   node_ids: string[]; gap_topics: string[]; depth: string; source_refs: string[]
 }

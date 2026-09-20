@@ -1117,8 +1117,33 @@ table.ttable td.num { font-size: 12.5px; }
 .q-node.active .qn-body b { color: var(--accent); }
 .qn-body i { font-style: normal; font-size: 11.5px; color: var(--ink-3); line-height: 1.5; }
 
-/* ---------- 开物谱脉络网放大 ---------- */
+/* ---------- 开物谱脉络网放大 v2 ---------- */
 .spec-graph { padding: 16px 4px 4px; }
-.spec-graph .g-era-label { font-size: 12.5px; }
-.spec-graph .g-id { font-size: 12px; }
-.spec-graph .g-name { font-size: 13.5px; }
+.spec-graph .g-era-label { font-size: 14px; }
+.spec-graph .g-id { font-size: 14px; font-weight: 700; }
+.spec-graph .g-name { font-size: 15px; }
+
+/* 答题反馈 */
+.quiz-recap {
+  margin-top: 18px;
+  font-size: 12.5px; color: var(--ink-3); line-height: 1.7;
+}
+.quiz-recap b { color: var(--ink-2); font-weight: 600; }
+.answer-feedback {
+  margin-top: 14px;
+  border-left: 3px solid var(--ok);
+  background: #f4f7f1;
+  border-radius: 0 12px 12px 0;
+  padding: 13px 16px;
+}
+.af-correct { font-size: 14px; font-weight: 700; color: var(--ok); }
+.af-explain { font-size: 13px; color: var(--ink-2); line-height: 1.8; margin-top: 6px; }
+.o-recorded { font-size: 13px; font-weight: 600; color: #a7e3c0; margin-top: 14px; }
+.o-recorded-note {
+  font-size: 12.5px; font-weight: 400; color: rgba(236,231,219,.85);
+  line-height: 1.75; margin-top: 6px;
+}
+
+/* 时代面板配图可点击 */
+.era-img.clickable { cursor: zoom-in; }
+.why-duo img.clickable { cursor: zoom-in; }
