@@ -2,6 +2,7 @@
 
 ## 项目
 - NCDA「天工开物杯」参赛作品，新余工业研学系统。GitHub: https://github.com/Onesummer-D/NCDA（改动常在本地未推送，提交前先问）。
+- 推送凭据：系统 credential helper（workbuddy 便携 GCM）里没存 GitHub 凭据会推失败（"could not read Username"）。**用 gh CLI 推**：先 `gh auth setup-git`（gh 已登录 Onesummer-D，走 keyring），再 push。`gh auth setup-git` 写 ~/.gitconfig 需要沙箱豁免。
 - 2026-09-20 品牌定名：**开物四百年**（原"开物脉络"）。问答助手名保留「问个开物」。主题句「一块铁 · 近四百年」。
 - 运行方式：用户双击根目录 `启动网站.bat`（uvicorn 0.0.0.0:8100 服务 frontend/dist + SQLite，bat 会显示局域网 IP 供手机访问）。**不要改动这个启动链路。**
 - **2026-09-21 目录已更名：kaiwu-mailuo → `kaiwusibainian/`**（git mv，两个 commit 已推送 origin/main：afa5cfa 功能 + faf12fb 改名/README）。改名前需先停 8100 端口的 uvicorn（占目录锁）。.gitignore 含 app.db / local_settings.py（DeepSeek 密钥，绝不入库）/ _backup_*。

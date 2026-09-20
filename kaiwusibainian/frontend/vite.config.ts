@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/NCDA/',   // GitHub Pages 项目页路径（https://onesummer-d.github.io/NCDA/）
   plugins: [react()],
   server: {
     proxy: {
