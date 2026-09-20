@@ -113,23 +113,22 @@ function Shell() {
 
 export default function App() {
   const [hash, setHash] = useState(window.location.hash)
-  const [splashDone, setSplashDone] = useState(
-    () => localStorage.getItem('kaiwu_seen_v1') === '1' || !!localStorage.getItem('kaiwu_user_v1'),
-  )
+  const [splashDone, setSplashDone] = useState(false)
   useEffect(() => {
     const onHash = () => setHash(window.location.hash)
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  // 首次访问：粒子开屏 → 登录页；之后直接进应用
-  const firstVisit = localStorage.getItem('kaiwu_seen_v1') !== '1' && !splashDone
-  if (firstVisit) {
+  // 每次进入应用都播粒子开屏；播完按登录状态落地（未登录 → 登录页）
+  if (!splashDone) {
     return (
       <Splash
         onDone={() => {
-          history.replaceState(null, '', '#/login')
-          setHash('#/login')
+          const logged = !!localStorage.getItem('kaiwu_user_v1')
+          const target = logged ? (window.location.hash || '#/') : '#/login'
+          if (window.location.hash !== target) history.replaceState(null, '', target)
+          setHash(target)
           setSplashDone(true)
         }}
       />
