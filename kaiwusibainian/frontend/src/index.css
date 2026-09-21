@@ -994,6 +994,8 @@ table.ttable td.num { font-size: 15px; font-weight: 700; font-variant-numeric: t
   display: flex; align-items: center; justify-content: center;
   font-family: var(--serif); font-weight: 700; font-size: 18px; color: var(--steel);
 }
+.cur-row .c-badge svg { display: block; }
+.cur-row .c-badge-fallback { line-height: 1; }
 .cur-row .c-text b { color: var(--ink); font-weight: 600; }
 
 /* 幽灵按钮边线加深（可点击感） */

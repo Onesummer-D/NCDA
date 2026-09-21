@@ -5,6 +5,7 @@ import { NODE_IMAGES, FALLBACK_IMG, type ImgMeta } from '../images'
 import { numLabel } from './Spectrum'
 import Lightbox from '../components/Lightbox'
 import SpeakButton from '../components/SpeakButton'
+import SubjectIcon from '../components/SubjectIcon'
 
 /** 答错时的正确答案解析（与后端 GAP_EXPLAIN 一致，离线也可用） */
 const GAP_EXPLAIN: Record<string, string> = {
@@ -207,7 +208,7 @@ export default function Walk({ onGoto }: { onGoto: (tab: 'qa' | 'spectrum') => v
           {content.curriculum.filter((c) => c.node_id === node.id).map((c) => (
             <div key={c.id} className="cur-row">
               <span className="c-badge" data-subject={c.subject.slice(0, 2)}>
-                {c.subject.slice(0, 1)}
+                <SubjectIcon subject={c.subject} />
               </span>
               <span className="c-text"><b>{c.subject}</b>　{c.concept} —— {c.hook}</span>
             </div>
